@@ -5,10 +5,7 @@ import com.wac.labcollect.data.CounterRepository
 import timber.log.Timber
 import javax.inject.Inject
 
-class GetAndSetCounter
-@Inject constructor(
-    private val preferences: CounterRepository
-){
+class GetAndSetCounter @Inject constructor(private val preferences: CounterRepository){
 
     fun get() = preferences.getValue()
 

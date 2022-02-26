@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.counter
+package com.wac.labcollect.ui.activity.counter
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.wac.labcollect.domain.GetAndSetCounter
@@ -9,10 +9,7 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
-class CounterViewModel
-@Inject constructor(
-    counterDomain: GetAndSetCounter
-) : BaseViewModel() {
+class CounterViewModel @Inject constructor(counterDomain: GetAndSetCounter) : BaseViewModel() {
 
     private val counterModifier = MutableSharedFlow<Modification>(1)
 

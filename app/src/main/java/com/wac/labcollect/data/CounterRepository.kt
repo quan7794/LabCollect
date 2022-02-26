@@ -8,10 +8,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Provider
 
-class CounterRepository
-@Inject constructor(
-    private val preferences: Provider<FlowSharedPreferences>
-) {
+class CounterRepository @Inject constructor(private val preferences: Provider<FlowSharedPreferences>) {
 
     private val counterPreferences by lazy {
         preferences.get().getInt(COUNTER_KEY, 0)

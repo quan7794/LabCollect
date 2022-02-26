@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.counter
+package com.wac.labcollect.ui.activity.counter
 
 import androidx.preference.PreferenceManager
 import androidx.test.espresso.Espresso.onView

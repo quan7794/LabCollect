@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/counterActivity">
+
+    <activity
+        android:id="@+id/counterActivity"
+        android:name="com.wac.labcollect.ui.activity.counter.CounterActivity"
+        android:label="activity_counter"
+        tools:layout="@layout/activity_counter" />
+</navigation>

@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.counter
+package com.wac.labcollect.ui.activity.counter
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,7 +8,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.ActivityCounterBinding
-import com.wac.labcollect.ui.BaseActivity
+import com.wac.labcollect.ui.activity.BaseActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 

@@ -4,7 +4,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wac.labcollect.ui.counter.CounterActivity">
+    tools:context="com.wac.labcollect.ui.activity.counter.CounterActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
