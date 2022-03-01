@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "507803274390",
+    "project_id": "labcollect-9cb70",
+    "storage_bucket": "labcollect-9cb70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:507803274390:android:48073f42c9639e6e7786b7",
+        "android_client_info": {
+          "package_name": "com.wac.labcollect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "507803274390-0ce9nkucbln29otkthnfv0m85bvuj69q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wac.labcollect",
+            "certificate_hash": "b2ba0a47da3849a860480b19863ff90f5810f0be"
+          }
+        },
+        {
+          "client_id": "507803274390-do6ak7ko2d4hikn9ug5ko1476m82ktpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRr-EaMHHshJiYi3IiZ3rkqCV1-4nKBpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "507803274390-do6ak7ko2d4hikn9ug5ko1476m82ktpd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

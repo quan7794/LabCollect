@@ -1,28 +1,49 @@
 package com.wac.labcollect.ui.activity.counter
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.Navigation
+import androidx.navigation.navArgument
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.snackbar.Snackbar
-import dagger.hilt.android.AndroidEntryPoint
-import dev.chrisbanes.insetter.applyInsetter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.ActivityCounterBinding
 import com.wac.labcollect.ui.activity.BaseActivity
+import com.wac.labcollect.ui.fragment.LoginFragment
+import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+
 
 @AndroidEntryPoint
 class CounterActivity : BaseActivity() {
 
-    private val viewModel : CounterViewModel by viewModels()
+    private val viewModel: CounterViewModel by viewModels()
     private lateinit var binding: ActivityCounterBinding
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCounterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
+        checkUser(binding.root)
+
 
         binding.fabLayout.applyInsetter {
             type(navigationBars = true) {
@@ -40,11 +61,28 @@ class CounterActivity : BaseActivity() {
 
         binding.fabIncrement.setOnClickListener { viewModel.incrementClick() }
         binding.fabDecrement.setOnClickListener { viewModel.decrementClick() }
+
+        binding.logoutBtn.setOnClickListener {
+            auth.signOut()
+            checkUser(it)
+        }
     }
 
+    private fun checkUser(view: View) {
+        val handle = Handler(Looper.getMainLooper())
+        handle.postDelayed({
+            val firebaseUser = auth.currentUser
+            if(firebaseUser == null){
+                intent = Intent(this, LoginFragment::class.java)
+                startActivity(intent)
+                finish()
+            }
+        },3000)
+    }
 
     private fun showErrorSnackBar() {
-        Snackbar.make(binding.coordinatorLayout, R.string.error_message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.coordinatorLayout, R.string.error_message, Snackbar.LENGTH_SHORT)
+            .show()
     }
 
 }
