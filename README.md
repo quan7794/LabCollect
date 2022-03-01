@@ -12,6 +12,7 @@
 
 ## Kotlin extension:
 - https://github.com/FunkyMuse/KAHelpers.git
+
 ## Tests
 - Unit tests
 - Application tests

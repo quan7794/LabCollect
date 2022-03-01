@@ -27,6 +27,8 @@ android {
         enabled = true
     }
 
+    buildFeatures.dataBinding = true
+
     kapt {
         generateStubs = true
     }
@@ -55,6 +57,8 @@ android {
 }
 
 dependencies {
+    def utilsVersion = "2.2.10"
+
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1"
@@ -77,10 +81,11 @@ dependencies {
 
     // Material Design
     implementation 'com.google.android.material:material:1.5.0'
-
+    implementation("com.airbnb.android:lottie:3.1.0")
     // UI
     implementation "dev.chrisbanes.insetter:insetter:0.6.0"
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.13.0'
 
     // Dependency Injection
@@ -110,6 +115,54 @@ dependencies {
     androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    //utils
+    //biometrics
+    implementation "com.github.FunkyMuse.KAHelpers:biometrics:$utilsVersion"
+
+    //coroutines
+    implementation "com.github.FunkyMuse.KAHelpers:coroutines:$utilsVersion"
+
+    //customviews
+    implementation "com.github.FunkyMuse.KAHelpers:customviews:$utilsVersion"
+
+    //data structures and algorithms
+    implementation "com.github.FunkyMuse.KAHelpers:dataStructuresAndAlgorithms:$utilsVersion"
+
+    //database handlers
+    implementation "com.github.FunkyMuse.KAHelpers:database:$utilsVersion"
+
+    //glide
+    implementation "com.github.FunkyMuse.KAHelpers:glide:$utilsVersion"
+
+    //gson
+    implementation "com.github.FunkyMuse.KAHelpers:gson:$utilsVersion"
+
+    //Joda Date Time
+    implementation "com.github.FunkyMuse.KAHelpers:jodaDateTime:$utilsVersion"
+
+    //the most basic extensions that rely on the basic Android APIs such as context, content providers etc...
+    implementation "com.github.FunkyMuse.KAHelpers:kotlinextensions:$utilsVersion"
+
+    //moshi
+    implementation "com.github.FunkyMuse.KAHelpers:moshi:$utilsVersion"
+
+    //recyclerview
+    implementation "com.github.FunkyMuse.KAHelpers:recyclerview:$utilsVersion"
+
+    //reflection
+    implementation "com.github.FunkyMuse.KAHelpers:reflection:$utilsVersion"
+
+    //retrofit
+    implementation "com.github.FunkyMuse.KAHelpers:retrofit:$utilsVersion"
+
+    //RxJava3
+    implementation "com.github.FunkyMuse.KAHelpers:rx:$utilsVersion"
+
+    //security
+    implementation "com.github.FunkyMuse.KAHelpers:security:$utilsVersion"
+
+    //viewbinding
+    implementation "com.github.FunkyMuse.KAHelpers:viewbinding:$utilsVersion"
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
