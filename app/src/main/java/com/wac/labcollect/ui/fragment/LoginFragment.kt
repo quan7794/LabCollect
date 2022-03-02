@@ -98,7 +98,7 @@ class LoginFragment : Fragment() {
                 firebaseAuthWithGoogleAccount(account)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
-                Timber.w("Google sign in failed", e)
+                Timber.e("Google sign in failed", e)
             }
         }
     }
@@ -146,7 +146,7 @@ class LoginFragment : Fragment() {
             }
 
     }
-    fun updateUI(account: FirebaseUser?) {
+    private fun updateUI(account: FirebaseUser?) {
         if (account != null) {
             Toast.makeText(requireContext(), "You Signed In successfully", Toast.LENGTH_LONG).show()
             startActivity(Intent(requireContext(), CounterActivity::class.java))
