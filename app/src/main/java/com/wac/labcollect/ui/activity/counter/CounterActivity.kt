@@ -33,17 +33,12 @@ class CounterActivity : BaseActivity() {
 
     private val viewModel: CounterViewModel by viewModels()
     private lateinit var binding: ActivityCounterBinding
-    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCounterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = FirebaseAuth.getInstance()
-        checkUser(binding.root)
-
 
         binding.fabLayout.applyInsetter {
             type(navigationBars = true) {
@@ -61,23 +56,6 @@ class CounterActivity : BaseActivity() {
 
         binding.fabIncrement.setOnClickListener { viewModel.incrementClick() }
         binding.fabDecrement.setOnClickListener { viewModel.decrementClick() }
-
-        binding.logoutBtn.setOnClickListener {
-            auth.signOut()
-            checkUser(it)
-        }
-    }
-
-    private fun checkUser(view: View) {
-        val handle = Handler(Looper.getMainLooper())
-        handle.postDelayed({
-            val firebaseUser = auth.currentUser
-            if(firebaseUser == null){
-                intent = Intent(this, LoginFragment::class.java)
-                startActivity(intent)
-                finish()
-            }
-        },3000)
     }
 
     private fun showErrorSnackBar() {

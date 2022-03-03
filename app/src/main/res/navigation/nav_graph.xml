@@ -3,10 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/firstScreenFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/firstScreenFragment"
         android:name="com.wac.labcollect.ui.fragment.FirstScreenFragment"
-        android:label="FirstScreenFragment" />
+        android:label="first_screen_fragment"
+        tools:layout="@layout/fragment_first_screen">
+        <action
+            android:id="@+id/toLoginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.wac.labcollect.ui.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/toFirstScreenFragment"
+            app:destination="@id/firstScreenFragment" />
+
+    </fragment>
 </navigation>
