@@ -1,37 +1,30 @@
 package com.wac.labcollect.ui.fragment
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.oAuthCredential
-import com.google.firebase.ktx.Firebase
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentLoginBinding
-import com.wac.labcollect.ui.activity.counter.CounterActivity
 import timber.log.Timber
-import kotlin.math.sign
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(R.layout.fragment_login) {
+    private var _binding : FragmentLoginBinding? = null
+    private val binding : FragmentLoginBinding
+        get() = _binding!!
 
-    private lateinit var binding: FragmentLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -45,7 +38,7 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         //configure the Google Sign In
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
             .requestEmail()
             .build()
@@ -58,16 +51,16 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
-        var user = auth.currentUser
+        val user = auth.currentUser
         updateUI(user)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
 
@@ -149,12 +142,15 @@ class LoginFragment : Fragment() {
     private fun updateUI(account: FirebaseUser?) {
         if (account != null) {
             Toast.makeText(requireContext(), "You Signed In successfully", Toast.LENGTH_LONG).show()
-            startActivity(Intent(requireContext(), CounterActivity::class.java))
+            val action = LoginFragmentDirections.toFirstScreenFragment()
+            Navigation.findNavController(binding.root).navigate(action)
         } else {
-            auth.signOut()
             Toast.makeText(requireContext(), "You Didnt signed in", Toast.LENGTH_LONG).show()
         }
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
