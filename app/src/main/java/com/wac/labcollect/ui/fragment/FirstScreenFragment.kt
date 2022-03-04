@@ -15,7 +15,7 @@ import com.wac.labcollect.databinding.FragmentFirstScreenBinding
 import com.wac.labcollect.ui.fragment.viewPager.ViewPagerAdapter
 
 class FirstScreenFragment : Fragment(R.layout.fragment_first_screen) {
-    private val firstScreenTabItems = arrayListOf(R.string.home, R.string.search, R.string.add, R.string.profile)
+    private val firstScreenTabItems = arrayListOf(R.string.home, R.string.add, R.string.profile)
     private var firstScreenBinding: FragmentFirstScreenBinding? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -31,16 +31,5 @@ class FirstScreenFragment : Fragment(R.layout.fragment_first_screen) {
                 tab.text = getString(firstScreenTabItems[position])
             }.attach()
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FirstScreenFragment().apply {
-                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

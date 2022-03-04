@@ -8,4 +8,19 @@
     <color name="dark_red">#B00020</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="COMMON_BG">#fff2f2f2</color>
+    <color name="HEADER_ICON_COLOR">#000000</color>
+    <color name="HEADER_MAIN_TITLE">#252525</color>
+    <color name="HEADER_SECOND_TITLE">#80252525</color>
+    <color name="ITEM_BG">#FFFAFAFA</color>
+    <color name="CARD_BG_STROKE">#d4d4d4</color>
+
+    <color name="BG">#FAFAFA</color>
+    <color name="BG_STOKE">#D4D4D4</color>
+    <color name="TEXT_COLOR">#252525</color>
+    <color name="HINT_COLOR">#7a7a7a</color>
+    <color name="SEARCH_RESULT_TEXT_COLOR">#858585</color>
+    <color name="HISTORY_TEXT_COLOR">#0074d4</color>
+    <color name="SEARCH_BAR_BG">#0D000000</color>
 </resources>

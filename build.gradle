@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath 'com.google.gms:google-services:4.3.10'
@@ -21,7 +21,7 @@ buildscript {
 }
 
 plugins {
-    id "com.osacky.doctor" version "0.8.0"
+//    id "com.osacky.doctor" version "0.8.0"
     id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
 }
 

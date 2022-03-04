@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Widget.Bloco.ToolbarNavigationButton" parent="Widget.AppCompat.Toolbar.Button.Navigation">
         <item name="tint">?colorOnSurface</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="Widget.AppCompat.SearchView"/>
+
+    <style name="search_result_category">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">43dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginEnd">24dp</item>
+        <item name="android:layout_marginStart">24dp</item>
+        <item name="android:alpha">1.0</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">start|bottom</item>
+        <item name="android:textColor">@color/SEARCH_RESULT_TEXT_COLOR</item>
+        <item name="android:textSize" tools:ignore="SpUsage">14sp</item>
     </style>
 
 </resources>
