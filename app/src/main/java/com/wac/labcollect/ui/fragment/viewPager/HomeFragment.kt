@@ -1,52 +1,42 @@
 package com.wac.labcollect.ui.fragment.viewPager
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
+import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentHomeBinding
+import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
 import com.wac.labcollect.ui.fragment.FirstScreenFragmentDirections
 
-class HomeFragment : Fragment() {
-    private  var binding: FragmentHomeBinding? = null
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+class HomeFragment : Fragment(R.layout.fragment_home) {
+    private var _binding: FragmentHomeBinding? = null
+    private val binding: FragmentHomeBinding
+        get() = _binding!!
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        auth = FirebaseAuth.getInstance()
-        binding = FragmentHomeBinding.inflate(layoutInflater)
-        binding!!.logoutBtn.setOnClickListener {
-            auth.signOut()
-            checkUser(it)
-        }
-        return binding!!.root
-    }
-
-    private fun checkUser(view: View) {
-        val handle = Handler(Looper.getMainLooper())
-        handle.postDelayed({
-            val firebaseUser = auth.currentUser
-            if (firebaseUser == null) {
-                val action = FirstScreenFragmentDirections.toLoginFragment()
-                Navigation.findNavController(view).navigate(action)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.apply {
+            logoutBtn.setOnClickListener {
+                FirebaseAuth.getInstance().signOut()
             }
-        }, 3000)
+            shortcutSearch.setOnClickListener {
+                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToSearchFragment()
+                view?.let { view -> Navigation.findNavController(view).navigate(action) }
+            }
+        }
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        checkUser(binding!!.root)
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.activity
+package com.wac.labcollect.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

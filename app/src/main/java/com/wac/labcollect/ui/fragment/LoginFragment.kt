@@ -25,7 +25,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val binding : FragmentLoginBinding
         get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
     //constants
@@ -36,30 +35,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         //configure the Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
             .requestEmail()
             .build()
-
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-        //init firebase auth
-        auth = FirebaseAuth.getInstance()
-
-    }
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val user = auth.currentUser
-        updateUI(user)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
@@ -98,12 +82,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun firebaseAuthWithGoogleAccount(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
-        auth.signInWithCredential(credential)
+        FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Timber.w("signInWithCredential:success")
-                    val user = auth.currentUser
+                    val user = FirebaseAuth.getInstance().currentUser
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -111,30 +95,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     updateUI(null)
                 }
             }
-//            .addOnSuccessListener { task ->
-//                // Sign in success, update UI with the signed-in user's information
-//                //get loggedIn user
-//                val user = auth.currentUser
-//                //get user info
-//                val uid = user!!.uid
-//                val email =user.email
-//                Timber.w("GG Account : Uid: $uid")
-//                Timber.w("GG Account : Email: $email")
-//                if (task.additionalUserInfo!!.isNewUser){
-//                    Timber.w("Account Created!")
-//                    Toast.makeText(requireContext(), "Account Created ... \n" +
-//                            "$email", Toast.LENGTH_LONG).show()
-//                }else
-//                {
-//                    Timber.w("Existing user...")
-//                    Toast.makeText(requireContext(), "LoggedIn ... \n" +
-//                            "$email", Toast.LENGTH_LONG).show()
-//                }
-//                updateUI(user)
-//            }
             .addOnFailureListener{e ->
-                Timber.w("Loggin Failed!")
-                Toast.makeText(requireContext(), "Loggin Failed! \n" +
+                Timber.w("Login Failed!")
+                Toast.makeText(requireContext(), "Login Failed! \n" +
                         "${e.message}", Toast.LENGTH_LONG).show()
             }
 
@@ -145,7 +108,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val action = LoginFragmentDirections.toFirstScreenFragment()
             Navigation.findNavController(binding.root).navigate(action)
         } else {
-            Toast.makeText(requireContext(), "You Didnt signed in", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), "You Didn't signed in", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -153,4 +116,5 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onDestroyView()
         _binding = null
     }
+
 }

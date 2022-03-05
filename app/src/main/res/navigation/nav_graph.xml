@@ -12,7 +12,12 @@
         tools:layout="@layout/fragment_first_screen">
         <action
             android:id="@+id/toLoginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@+id/firstScreenFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_firstScreenFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -21,7 +26,13 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/toFirstScreenFragment"
-            app:destination="@id/firstScreenFragment" />
+            app:destination="@id/firstScreenFragment"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="true"/>
 
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.wac.labcollect.ui.fragment.viewPager.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>
