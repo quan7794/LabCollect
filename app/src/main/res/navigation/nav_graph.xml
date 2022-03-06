@@ -18,6 +18,12 @@
         <action
             android:id="@+id/action_firstScreenFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_createTemplateFragment"
+            app:destination="@id/createTemplateFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -35,4 +41,12 @@
         android:id="@+id/searchFragment"
         android:name="com.wac.labcollect.ui.fragment.viewPager.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.wac.labcollect.ui.fragment.viewPager.addTest.AddFragment"
+        android:label="AddFragment" />
+    <fragment
+        android:id="@+id/createTemplateFragment"
+        android:name="com.wac.labcollect.ui.fragment.viewPager.addTest.createTemplate.CreateTemplateFragment"
+        android:label="CreateTemplateFragment" />
 </navigation>

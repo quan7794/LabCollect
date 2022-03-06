@@ -20,4 +20,15 @@
     <string name="profile">Profile</string>
     <string name="logout">Đăng xuất</string>
     <string name="login_using_google">Đăng nhập bằng Google</string>
+    <string name="create_test_template">Tạo mẫu dữ liệu</string>
+    <string name="create_test">Tạo thí nghiệm</string>
+    <string name="create_test_group">Tạo nhóm thí nghiệm</string>
+    <string name="recent_search">Tìm kiếm gần đây</string>
+    <string name="create_test_message">Tạo mới mẫu hay chọn mẫu có sẵn?</string>
+    <string name="select_existed_template">Chọn mẫu có sẵn</string>
+    <string name="create_new">Tạo mới</string>
+    <string name="template_name">Tên mẫu thí nghiệm</string>
+    <string name="col_name">Tên cột</string>
+    <string name="col_type">Kiểu dữ liệu</string>
+    <string name="drag_to_edit">Kéo để xoá hoặc đổi vị trí</string>
 </resources>
