@@ -14,12 +14,6 @@ import timber.log.Timber
 
 class TemplateDataAdapter(private var mDataset: MutableList<Pair<String, DataType>>) : DragDropSwipeAdapter<Pair<String, DataType>, TemplateDataAdapter.ViewHolder>(mDataset) {
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun submitData(changedData: MutableList<Pair<String,DataType>>) {
-        this.mDataset = changedData
-        notifyDataSetChanged()
-    }
-
     override fun getViewHolder(itemView: View) = ViewHolder(itemView, NameTextWatcher(), TypeTextWatcher())
 
     override fun getViewToTouchToStartDraggingItem(item: Pair<String, DataType>, viewHolder: ViewHolder, position: Int): View? { return null }
@@ -27,18 +21,14 @@ class TemplateDataAdapter(private var mDataset: MutableList<Pair<String, DataTyp
     override fun onBindViewHolder(item: Pair<String, DataType>, viewHolder: ViewHolder, position: Int) {
         // update MyCustomEditTextListener every time we bind a new item
         // so that it knows what item in mDataset to update
-        Timber.e("bindingAdapterPosition: ${viewHolder.bindingAdapterPosition}, position: $position")
-        viewHolder.colNameWatcher.updatePosition(viewHolder.bindingAdapterPosition)
-        viewHolder.colName.setText(item.first)
+        Timber.e("bindingAdapterPosition: ${viewHolder.absoluteAdapterPosition}, position: $position")
+        viewHolder.colNameWatcher.updatePosition(viewHolder.absoluteAdapterPosition)
+        viewHolder.colName.setText(mDataset[viewHolder.bindingAdapterPosition].first)
 
-        viewHolder.colTypeWatcher.updatePosition(viewHolder.bindingAdapterPosition)
+        viewHolder.colTypeWatcher.updatePosition(viewHolder.absoluteAdapterPosition)
         viewHolder.colType.apply {
-            setText(item.second.type.textValue)
-            val typeItems =  arrayListOf(DataType.TYPE.INT_TYPE.textValue,
-                DataType.TYPE.DOUBLE_TYPE.textValue,
-                DataType.TYPE.TEXT_TYPE.textValue,
-                DataType.TYPE.BOOLEAN_TYPE.textValue)
-
+            setText(mDataset[viewHolder.bindingAdapterPosition].second.type.textValue)
+            val typeItems =  DataType.getDataTypes()
             val mAdapter = ArrayAdapter(this.context, R.layout.list_item, typeItems)
             (viewHolder.colType as AutoCompleteTextView).setAdapter(mAdapter)
         }
@@ -76,7 +66,7 @@ class TemplateDataAdapter(private var mDataset: MutableList<Pair<String, DataTyp
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
         override fun afterTextChanged(editable: Editable) {}
         override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {
-            mDataset[position] = mDataset[position].copy(second = DataType(DataType.TYPE.valueOf(charSequence.toString())))
+            mDataset[position] = mDataset[position].copy(second = DataType(DataType.getTypeFromTextVal(charSequence.toString())))
         }
     }
 

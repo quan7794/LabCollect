@@ -53,7 +53,23 @@ class CreateTemplateFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val onItemDragListener = object : OnItemDragListener<String> {
+        binding.templateData.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            adapter = templateDataAdapter
+            orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+//            dragListener = onItemDragListener
+//            swipeListener = onItemSwipeListener
+        }
+
+        viewModel = ViewModelProvider(this)[CreateTemplateViewModel::class.java]
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    //        val onItemDragListener = object : OnItemDragListener<String> {
 //            override fun onItemDragged(previousPosition: Int, newPosition: Int, item: String) {
 ////            this@TemplateDataAdapter.notifyItemMoved(previousPosition, newPosition)
 //            }
@@ -65,32 +81,15 @@ class CreateTemplateFragment : BaseFragment() {
 //            }
 //        }
 
-        val onItemSwipeListener = object : OnItemSwipeListener<Pair<String,DataType>> {
-            override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Pair<String,DataType>): Boolean {
-                // Handle action of item swiped
-                // Return false to indicate that the swiped item should be removed from the adapter's data set (default behaviour)
-                // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
-                Toast.makeText(context,"Itemremoved at $position",Toast.LENGTH_LONG).show()
-                Timber.e("Before remove: ${templateDataAdapter.dataSet}")
-//                templateDataAdapter.removeItem(position)
-                Timber.e("After remove: ${templateDataAdapter.dataSet}")
-                return false
-            }
-        }
-
-        binding.templateData.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = templateDataAdapter
-            orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-//            dragListener = onItemDragListener
-            swipeListener = onItemSwipeListener
-        }
-
-        viewModel = ViewModelProvider(this)[CreateTemplateViewModel::class.java]
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//        val onItemSwipeListener = object : OnItemSwipeListener<Pair<String,DataType>> {
+//            override fun onItemSwiped(position: Int, direction: OnItemSwipeListener.SwipeDirection, item: Pair<String,DataType>): Boolean {
+//                // Handle action of item swiped
+//                // Return false to indicate that the swiped item should be removed from the adapter's data set (default behaviour)
+//                // Return true to stop the swiped item from being automatically removed from the adapter's data set (in this case, it will be your responsibility to manually update the data set as necessary)
+//                Toast.makeText(context,"Itemremoved at $position",Toast.LENGTH_LONG).show()
+//                Timber.e("Before remove: ${templateDataAdapter.dataSet}")
+//                Timber.e("After remove: ${templateDataAdapter.dataSet}")
+//                return false
+//            }
+//        }
 }
