@@ -7,68 +7,44 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
-import android.widget.ImageView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
-import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.wac.labcollect.R
+import com.wac.labcollect.domain.models.DataType
+import timber.log.Timber
 
-class TemplateDataAdapter(private var mDataset: MutableList<String>) : DragDropSwipeAdapter<String, TemplateDataAdapter.ViewHolder>(mDataset) {
+class TemplateDataAdapter(private var mDataset: MutableList<Pair<String, DataType>>) : DragDropSwipeAdapter<Pair<String, DataType>, TemplateDataAdapter.ViewHolder>(mDataset) {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitData(changedData: MutableList<String>) {
+    fun submitData(changedData: MutableList<Pair<String,DataType>>) {
         this.mDataset = changedData
         notifyDataSetChanged()
     }
 
-    override fun getViewHolder(itemView: View) = ViewHolder(itemView, CustomEditTextWatcher(), CustomEditTextWatcher())
+    override fun getViewHolder(itemView: View) = ViewHolder(itemView, NameTextWatcher(), TypeTextWatcher())
 
-    override fun getViewToTouchToStartDraggingItem(item: String, viewHolder: ViewHolder, position: Int): View? {
-        return null
-    }
+    override fun getViewToTouchToStartDraggingItem(item: Pair<String, DataType>, viewHolder: ViewHolder, position: Int): View? { return null }
 
-    override fun onBindViewHolder(item: String, viewHolder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(item: Pair<String, DataType>, viewHolder: ViewHolder, position: Int) {
         // update MyCustomEditTextListener every time we bind a new item
         // so that it knows what item in mDataset to update
-        viewHolder.colNameWatcher.updatePosition(viewHolder.absoluteAdapterPosition)
-        viewHolder.colName.setText(item)
+        Timber.e("bindingAdapterPosition: ${viewHolder.bindingAdapterPosition}, position: $position")
+        viewHolder.colNameWatcher.updatePosition(viewHolder.bindingAdapterPosition)
+        viewHolder.colName.setText(item.first)
 
-        viewHolder.colTypeWatcher.updatePosition(viewHolder.absoluteAdapterPosition)
+        viewHolder.colTypeWatcher.updatePosition(viewHolder.bindingAdapterPosition)
         viewHolder.colType.apply {
-            setText(item)
-            val typeItems = arrayListOf("Số nguyên","Số thập phân","Văn bản","Đúng/sai")
+            setText(item.second.type.textValue)
+            val typeItems =  arrayListOf(DataType.TYPE.INT_TYPE.textValue,
+                DataType.TYPE.DOUBLE_TYPE.textValue,
+                DataType.TYPE.TEXT_TYPE.textValue,
+                DataType.TYPE.BOOLEAN_TYPE.textValue)
+
             val mAdapter = ArrayAdapter(this.context, R.layout.list_item, typeItems)
             (viewHolder.colType as AutoCompleteTextView).setAdapter(mAdapter)
         }
     }
 
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val v: View = LayoutInflater.from(parent.context).inflate(R.layout.template_data_item, parent, false)
-//        // pass MyCustomEditTextListener to viewHolder in onCreateViewHolder
-//        // so that we don't have to do this expensive allocation in onBindViewHolder
-//        return ViewHolder(v, CustomEditTextListener(), CustomEditTextListener())
-//    }
-
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        // update MyCustomEditTextListener every time we bind a new item
-//        // so that it knows what item in mDataset to update
-//        holder.colNameListener.updatePosition(holder.adapterPosition)
-//        holder.colName.setText(mDataset[holder.adapterPosition])
-//
-//        holder.colTypeListener.updatePosition(holder.adapterPosition)
-//        holder.colType.apply {
-//            setText(mDataset[holder.adapterPosition])
-//            val typeItems = arrayListOf("Số nguyên","Số thập phân","Văn bản","Đúng/sai")
-//            val mAdapter = ArrayAdapter(this.context, R.layout.list_item, typeItems)
-//            (holder.colType as AutoCompleteTextView).setAdapter(mAdapter)
-//        }
-//
-//    }
-
-    override fun getItemCount(): Int {
-        return mDataset.size
-    }
-
-    class ViewHolder(itemView: View, var colNameWatcher: CustomEditTextWatcher, var colTypeWatcher: CustomEditTextWatcher) : DragDropSwipeAdapter.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, var colNameWatcher: NameTextWatcher, var colTypeWatcher: TypeTextWatcher) : DragDropSwipeAdapter.ViewHolder(itemView) {
         // each data item is just a string in this case
         var colName: EditText = itemView.findViewById(R.id.colName)
         var colType: EditText = itemView.findViewById(R.id.colType)
@@ -84,31 +60,26 @@ class TemplateDataAdapter(private var mDataset: MutableList<String>) : DragDropS
         }
     }
 
-    // we make TextWatcher to be aware of the position it currently works with
-    // this way, once a new item is attached in onBindViewHolder, it will
-    // update current position MyCustomEditTextListener, reference to which is kept by ViewHolder
-    inner class CustomEditTextWatcher : TextWatcher {
+    inner class NameTextWatcher : TextWatcher {
         private var position = 0
         fun updatePosition(position: Int) { this.position = position }
-
         override fun beforeTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
-
-        override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {
-            mDataset[position] = charSequence.toString()
-        }
-
         override fun afterTextChanged(editable: Editable) {}
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {
+            mDataset[position] = mDataset[position].copy(first = charSequence.toString())
+        }
     }
 
-    override fun onViewAttachedToWindow(holder: ViewHolder) {
-        holder.enableTextWatcher()
+    inner class TypeTextWatcher : TextWatcher {
+        private var position = 0
+        fun updatePosition(position: Int) { this.position = position }
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {}
+        override fun afterTextChanged(editable: Editable) {}
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i2: Int, i3: Int) {
+            mDataset[position] = mDataset[position].copy(second = DataType(DataType.TYPE.valueOf(charSequence.toString())))
+        }
     }
 
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        holder.disableTextWatcher()
-    }
-
-
-
-
+    override fun onViewAttachedToWindow(holder: ViewHolder) { holder.enableTextWatcher() }
+    override fun onViewDetachedFromWindow(holder: ViewHolder) { holder.disableTextWatcher() }
 }
