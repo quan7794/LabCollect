@@ -7,43 +7,33 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
-@Entity(tableName = "template_table")
-data class Template(
-    @SerializedName("editor")
-    val editor: List<String> = listOf(),
-    @SerializedName("endTime")
-    val endTime: Int = 0,
-    @SerializedName("fields")
-    val fields: List<Field> = listOf(),
-    @PrimaryKey
-    @SerializedName("id")
-    val id: String = "",
-    @SerializedName("isActive")
-    val isActive: Boolean = false,
-    @SerializedName("isPublic")
-    val isPublic: Boolean = false,
-    @SerializedName("name")
-    val name: String = "",
-    @SerializedName("owner")
-    val owner: String = "",
-    @SerializedName("startTime")
-    val startTime: Int = 0,
-    @SerializedName("type")
-    val type: String = "",
-    @SerializedName("viewer")
-    val viewer: List<String> = listOf()
-) : Parcelable
+@Parcelize @Entity(tableName = "test_table")
+data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
+    @SerializedName("editor") val editor: List<String> = listOf(),
+    @SerializedName("fields") val templates: Template = Template(),
+    @SerializedName("isActive") val isActive: Boolean = true,
+    @SerializedName("isPublic") val isPublic: Boolean = true,
+    @SerializedName("uniqueName") val uniqueName: String = "",
+    @SerializedName("title") val title: String = "",
+    @SerializedName("owner") val owner: String = "",
+    @SerializedName("startTime") val startTime: Int = 0,
+    @SerializedName("endTime") val endTime: Int = 0,
+    @SerializedName("type") val type: String = "",
+    @SerializedName("viewer") val viewer: List<String> = listOf()) : Parcelable
+
+@Parcelize @Entity(tableName = "template_table")
+data class Template(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
+    @SerializedName("uniqueName") val uniqueName: String = "",
+    @SerializedName("title") val title: String = "",
+    @SerializedName("isPublic") val isPublic: Boolean = true,
+    @SerializedName("isActive") val isActive: Boolean = true,
+    @SerializedName("owner") val owner: String = "",
+    @SerializedName("fields") val fields: List<Field> = listOf(),
+    @SerializedName("viewers") val viewers: List<String> = listOf()) : Parcelable
 
 @Parcelize
-data class Field(
-    @SerializedName("id")
-    val id: String = "",
-    @SerializedName("name")
-    val name: String = "",
-    @SerializedName("type")
-    val type: String = ""
-) : Parcelable
+data class Field(@SerializedName("key") val key: String = "",
+                 @SerializedName("type") val type: TYPE = TYPE.UNKNOWN) : Parcelable
 //
 //{
 //    "name": "Brynna",

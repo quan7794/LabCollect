@@ -1,6 +1,6 @@
 package com.wac.labcollect.data.network
 
-import com.wac.labcollect.util.Constants.BASE_URL
+import com.wac.labcollect.utils.Constants.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

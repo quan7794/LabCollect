@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab Collect</string>
+    <string name="app_name">R&amp;D-PVCFC</string>
     <string name="error_message" translatable="false">Can\'t decrease more</string>
     <string name="counter" translatable="false">Counter:</string>
     <string name="counter_default_value" translatable="false">0</string>
@@ -36,4 +36,6 @@
     <string name="undo">Khôi phục</string>
     <string name="setting">Cài đặt</string>
     <string name="add_template">Thêm mẫu</string>
+    <string name="saved">Đã lưu!</string>
+    <string name="please_fill_all_value">Vui lòng nhập tất cả giá trị trước khi lưu</string>
 </resources>
