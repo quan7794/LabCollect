@@ -1,4 +1,4 @@
-package com.wac.labcollect.util
+package com.wac.labcollect.utils
 
 object Constants {
     const val API_ENDPOINT = "recipes/random"
@@ -8,6 +8,6 @@ object Constants {
     const val TAGS = "tags"
     const val NUMBER = "number"
 
-    const val BASE_URL = ""
+    const val BASE_URL = "https://www.google.com/"
     const val API_KEY_VALUE = ""
 }

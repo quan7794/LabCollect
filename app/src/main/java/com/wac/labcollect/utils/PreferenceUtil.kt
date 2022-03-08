@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.*
 import com.wac.labcollect.*
-import com.wac.labcollect.utils.Utils.Companion.fromJson
+import com.wac.labcollect.utils.Utils.fromJson
 
 
 object PreferenceUtil {

@@ -1,23 +1,17 @@
 package com.wac.labcollect.ui.fragment.firstScreen
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import com.google.firebase.auth.FirebaseAuth
-import com.wac.labcollect.R
-import com.wac.labcollect.databinding.FragmentHomeBinding
-import com.wac.labcollect.databinding.FragmentProfileBinding
-import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
-import com.wac.labcollect.ui.fragment.FirstScreenFragmentDirections
-import android.widget.Switch
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.firebase.auth.FirebaseAuth
+import com.wac.labcollect.R
+import com.wac.labcollect.databinding.FragmentProfileBinding
+import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
+import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.NightModeHelper
 import com.wac.labcollect.viewModel.DarkModeType
 import com.wac.labcollect.viewModel.SettingViewModel
@@ -59,7 +53,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     }
 
     private fun initActionView() {
-        binding?.apply {
+        binding.apply {
             darkModeSwitch.setOnClickListener { v ->
                 val checked = (v as SwitchMaterial).isChecked
                 if (checked) {

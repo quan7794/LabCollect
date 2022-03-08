@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab Collect</string>
+    <string name="app_name">R&amp;D-PVCFC</string>
     <string name="error_message" translatable="false">Can\'t decrease more</string>
     <string name="counter" translatable="false">Counter:</string>
     <string name="counter_default_value" translatable="false">0</string>

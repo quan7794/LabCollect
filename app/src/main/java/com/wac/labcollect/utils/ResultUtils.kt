@@ -1,4 +1,4 @@
-package com.wac.labcollect.util
+package com.wac.labcollect.utils
 
 import kotlinx.coroutines.flow.*
 

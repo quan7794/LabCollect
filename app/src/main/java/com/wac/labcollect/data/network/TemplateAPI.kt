@@ -1,7 +1,7 @@
 package com.wac.labcollect.data.network
 
 import com.wac.labcollect.domain.models.Template
-import com.wac.labcollect.util.Constants
+import com.wac.labcollect.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 

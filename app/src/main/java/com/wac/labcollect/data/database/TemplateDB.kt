@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.wac.labcollect.domain.models.Template
 
 @Database(entities = [Template::class], version = 1, exportSchema = true)
+@TypeConverters(RoomConverter::class)
 abstract class TemplateDB: RoomDatabase() {
     abstract fun templateDao() : TemplateDao
 

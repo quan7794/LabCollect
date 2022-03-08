@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import com.wac.labcollect.data.database.TemplateDao
 import com.wac.labcollect.data.network.TemplateAPI
 import com.wac.labcollect.domain.models.Template
-import com.wac.labcollect.util.Constants
+import com.wac.labcollect.utils.Constants
 import kotlinx.coroutines.flow.Flow
 
 class TemplateRepository(private val templateDao: TemplateDao, private val networkTemplateAPI: TemplateAPI) {
