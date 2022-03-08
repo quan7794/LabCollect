@@ -29,6 +29,7 @@
 - Edge To Edge Configuration
 - Jetpack navigation
 - Glide
+- Coil https://github.com/coil-kt/coil - Kotlin-first and uses modern libraries including Coroutines, OkHttp, Okio, and AndroidX Lifecycles.
 - Leakcanary: to detect memory leak
 - Resource defaults
     - themes.xml - app themes
