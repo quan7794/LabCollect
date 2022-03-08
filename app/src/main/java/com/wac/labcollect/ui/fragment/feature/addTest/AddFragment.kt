@@ -1,7 +1,6 @@
-package com.wac.labcollect.ui.fragment.viewPager.addTest
+package com.wac.labcollect.ui.fragment.feature.addTest
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentAddBinding
-import com.wac.labcollect.ui.BaseFragment
-import com.wac.labcollect.ui.fragment.FirstScreenFragmentDirections
+import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
 import timber.log.Timber
 
-class AddFragment : BaseFragment() {
+class AddFragment : BaseFragment(R.layout.fragment_add) {
 
     private var _binding: FragmentAddBinding? = null
     private val binding: FragmentAddBinding

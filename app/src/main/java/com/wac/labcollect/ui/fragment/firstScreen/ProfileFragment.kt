@@ -1,4 +1,5 @@
-package com.wac.labcollect.ui.fragment.viewPager
+package com.wac.labcollect.ui.fragment.firstScreen
+
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,7 +24,7 @@ import com.wac.labcollect.viewModel.SettingViewModel
 import kotlinx.coroutines.launch
 
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding!!

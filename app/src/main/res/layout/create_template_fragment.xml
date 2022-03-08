@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_12sdp"
-        tools:context=".ui.fragment.viewPager.addTest.createTemplate.CreateTemplateFragment"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/template_name"
-            android:id="@+id/templateName"/>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_12sdp"
+            tools:context=".ui.fragment.feature.createTemplate.CreateTemplateFragment"
+            android:orientation="vertical">
 
-        <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
-            android:id="@+id/templateData"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:divider="@drawable/list_divider"
-            app:item_layout="@layout/template_data_item"
-            tools:listitem="@layout/template_data_item"/>
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/template_name"
+                android:id="@+id/templateName"/>
 
+            <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:divider="@drawable/list_divider"
+                app:item_layout="@layout/template_data_item"
+                tools:listitem="@layout/template_data_item"/>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            app:backgroundTint="@color/bloco_dark_blue"
+            android:src="@drawable/ic_add"
+            android:contentDescription="@string/add"
+            android:layout_margin="16dp" />
+    </FrameLayout>
 </layout>

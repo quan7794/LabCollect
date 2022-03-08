@@ -1,7 +1,6 @@
-package com.wac.labcollect.ui.fragment.viewPager
+package com.wac.labcollect.ui.fragment.firstScreen
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,10 @@ import androidx.navigation.Navigation
 import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentHomeBinding
+import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
-import com.wac.labcollect.ui.fragment.FirstScreenFragmentDirections
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding!!

@@ -3,11 +3,26 @@ package com.wac.labcollect
 import android.app.Application
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
+import com.wac.labcollect.data.database.TemplateDB
+import com.wac.labcollect.data.network.TemplateApiService
+import com.wac.labcollect.data.repository.TemplateRepository
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-open class App : Application() {
+open class MainApplication : Application() {
+
+    private val templateDb by lazy {
+        TemplateDB.getDatabase(this)
+    }
+
+    private val apiService by lazy {
+        TemplateApiService().apiService
+    }
+
+    val repository by lazy {
+        TemplateRepository(templateDb.templateDao(), apiService)
+    }
 
     override fun onCreate() {
         super.onCreate()

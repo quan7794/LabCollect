@@ -1,10 +1,9 @@
-package com.wac.labcollect.ui.fragment
+package com.wac.labcollect.ui.fragment.firstScreen
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
@@ -12,10 +11,10 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentFirstScreenBinding
-import com.wac.labcollect.ui.fragment.viewPager.ViewPagerAdapter
+import com.wac.labcollect.ui.base.BaseFragment
 import timber.log.Timber
 
-class FirstScreenFragment : Fragment(R.layout.fragment_first_screen) {
+class FirstScreenFragment : BaseFragment(R.layout.fragment_first_screen) {
     private val firstScreenTabItems = arrayListOf(R.string.home, R.string.add, R.string.profile)
     private var _firstScreenBinding: FragmentFirstScreenBinding? = null
     private val firstScreenBinding: FragmentFirstScreenBinding

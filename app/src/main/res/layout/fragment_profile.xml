@@ -142,6 +142,4 @@
                 app:cornerRadius="50dp" />
         </LinearLayout>
 
-    </LinearLayout>
-
-</layout>
+</FrameLayout>
