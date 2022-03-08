@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cea2c33a62839a270c424435a63ba873",
+    "identityHash": "af929211e335570b0ad4890f4abb55a9",
     "entities": [
       {
         "tableName": "template_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`editor` TEXT NOT NULL, `endTime` INTEGER NOT NULL, `fields` TEXT NOT NULL, `id` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `name` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`editor` TEXT NOT NULL, `endTime` INTEGER NOT NULL, `fields` TEXT NOT NULL, `id` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `name` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "editor",
@@ -76,7 +76,9 @@
           }
         ],
         "primaryKey": {
-          "columnNames": [],
+          "columnNames": [
+            "id"
+          ],
           "autoGenerate": false
         },
         "indices": [],
@@ -86,7 +88,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cea2c33a62839a270c424435a63ba873')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'af929211e335570b0ad4890f4abb55a9')"
     ]
   }
 }
