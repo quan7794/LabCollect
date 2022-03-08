@@ -23,4 +23,26 @@
     <color name="SEARCH_RESULT_TEXT_COLOR">#858585</color>
     <color name="HISTORY_TEXT_COLOR">#0074d4</color>
     <color name="SEARCH_BAR_BG">#0D000000</color>
+    <color name="app_background_divider">#F2F2F2</color>
+
+    <color name="colorPrimary">#007F54</color>
+    <color name="colorOnPrimary">#fff</color>
+
+    <color name="submitColor">#008C5E</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="activeStatus">#008C5E</color>
+
+    <color name="disableColor">#505050</color>
+    <color name="backgroundColor">#F3F3F3</color>
+
+    <color name="icon_setting">#008C5E</color>
+
+    <color name="colorPrimaryDark">#2D313D</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="mainText">#ffffff</color>
+    <color name="textAlt">#8D8F97</color>
+
+    <color name="mainBackground">#2D313D</color>
+
 </resources>

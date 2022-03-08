@@ -24,9 +24,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         binding.apply {
-            logoutBtn.setOnClickListener {
-                FirebaseAuth.getInstance().signOut()
-            }
             shortcutSearch.setOnClickListener {
                 val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToSearchFragment()
                 view?.let { view -> Navigation.findNavController(view).navigate(action) }
