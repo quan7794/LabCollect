@@ -29,7 +29,7 @@ class FirstScreenFragment : BaseFragment(R.layout.fragment_first_screen) {
         }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _firstScreenBinding = FragmentFirstScreenBinding.inflate(layoutInflater)
+        _firstScreenBinding = FragmentFirstScreenBinding.inflate(inflater)
         return firstScreenBinding.root
     }
 
