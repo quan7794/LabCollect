@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.1"
+            android:layout_weight="1"
             android:orientation="vertical">
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
@@ -47,14 +47,13 @@
                         android:id="@+id/accountImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/ic_launcher" />
+                        android:background="@mipmap/email_image" />
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/accountName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat"
-                        tools:text="Tên tài khoản"
-                        android:layout_marginTop="@dimen/_10sdp"/>
+                        tools:text="Tên tài khoản" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/accountEmail"
@@ -111,7 +110,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:text="Dark Mode"
+                            android:text="@string/dark_mode"
                             android:checked="false"
                             android:textAllCaps="false"
                             app:useMaterialThemeColors="false"

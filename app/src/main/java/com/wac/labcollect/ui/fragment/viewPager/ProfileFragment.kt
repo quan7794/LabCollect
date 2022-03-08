@@ -64,7 +64,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 if (checked) {
                     setDarkModeSetting(DarkModeType.TURN_ON)
                 } else {
-                    setDarkModeSetting(DarkModeType.SYSTEM)
+                    setDarkModeSetting(DarkModeType.TURN_OFF)
                 }
             }
         }
