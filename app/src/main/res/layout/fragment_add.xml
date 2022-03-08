@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.viewPager.addTest.AddFragment">
+        tools:context=".ui.fragment.feature.addTest.AddFragment">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"

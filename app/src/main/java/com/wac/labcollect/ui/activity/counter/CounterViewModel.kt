@@ -3,7 +3,7 @@ package com.wac.labcollect.ui.activity.counter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import com.wac.labcollect.domain.GetAndSetCounter
 import com.wac.labcollect.domain.models.Counter
-import com.wac.labcollect.ui.BaseViewModel
+import com.wac.labcollect.ui.base.BaseViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject

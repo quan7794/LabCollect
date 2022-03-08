@@ -1,7 +1,7 @@
 package com.wac.labcollect.domain
 
 import com.wac.labcollect.domain.models.Counter
-import com.wac.labcollect.data.CounterRepository
+import com.wac.labcollect.data.repository.CounterRepository
 import timber.log.Timber
 import javax.inject.Inject
 

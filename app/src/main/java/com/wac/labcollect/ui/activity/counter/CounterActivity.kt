@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.ActivityCounterBinding
-import com.wac.labcollect.ui.BaseActivity
+import com.wac.labcollect.ui.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
 import kotlinx.coroutines.flow.launchIn

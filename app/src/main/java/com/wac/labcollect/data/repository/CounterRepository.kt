@@ -1,4 +1,4 @@
-package com.wac.labcollect.data
+package com.wac.labcollect.data.repository
 
 import com.tfcporciuncula.flow.FlowSharedPreferences
 import com.wac.labcollect.domain.models.Counter

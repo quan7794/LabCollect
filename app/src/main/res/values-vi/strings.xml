@@ -27,4 +27,8 @@
     <string name="col_name">Tên cột</string>
     <string name="col_type">Kiểu dữ liệu</string>
     <string name="drag_to_edit">Kéo để xoá hoặc đổi vị trí</string>
+    <string name="can_not_undo">Không thể khôi phục</string>
+    <string name="undo">Khôi phục</string>
+    <string name="setting">Cài đặt</string>
+    <string name="add_template">Thêm mẫu</string>
 </resources>

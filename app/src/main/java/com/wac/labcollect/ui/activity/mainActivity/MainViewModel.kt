@@ -3,7 +3,7 @@ package com.wac.labcollect.ui.activity.mainActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.wac.labcollect.ui.BaseViewModel
+import com.wac.labcollect.ui.base.BaseViewModel
 
 class MainViewModel: BaseViewModel() {
     private var _currentUser  = MutableLiveData<FirebaseUser>(null)

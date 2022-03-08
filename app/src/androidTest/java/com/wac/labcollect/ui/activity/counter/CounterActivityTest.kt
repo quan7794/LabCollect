@@ -16,7 +16,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import com.wac.labcollect.AppModule
 import com.wac.labcollect.R
-import com.wac.labcollect.data.CounterRepository
+import com.wac.labcollect.data.repository.CounterRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.Test

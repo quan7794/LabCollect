@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui
+package com.wac.labcollect.ui.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

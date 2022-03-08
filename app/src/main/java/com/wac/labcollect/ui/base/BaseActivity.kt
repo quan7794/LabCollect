@@ -1,15 +1,14 @@
-package com.wac.labcollect.ui
+package com.wac.labcollect.ui.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.wac.labcollect.App
+import com.wac.labcollect.MainApplication
 
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    private val app get() = applicationContext as App
+    private val app get() = applicationContext as MainApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

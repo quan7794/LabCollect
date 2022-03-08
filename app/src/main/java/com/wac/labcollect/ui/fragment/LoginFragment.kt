@@ -2,13 +2,11 @@ package com.wac.labcollect.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -19,9 +17,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentLoginBinding
+import com.wac.labcollect.ui.base.BaseFragment
 import timber.log.Timber
 
-class LoginFragment : Fragment(R.layout.fragment_login) {
+class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private var _binding : FragmentLoginBinding? = null
     private val binding : FragmentLoginBinding
         get() = _binding!!
