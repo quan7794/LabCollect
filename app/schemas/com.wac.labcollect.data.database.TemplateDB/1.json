@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "af929211e335570b0ad4890f4abb55a9",
+    "identityHash": "41e45838897e22433764cf95c11f158b",
     "entities": [
       {
-        "tableName": "template_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`editor` TEXT NOT NULL, `endTime` INTEGER NOT NULL, `fields` TEXT NOT NULL, `id` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `name` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "tableName": "test_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `editor` TEXT NOT NULL, `templates` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `uniqueName` TEXT NOT NULL, `title` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "editor",
             "columnName": "editor",
@@ -15,20 +21,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "endTime",
-            "columnName": "endTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "fields",
-            "columnName": "fields",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "templates",
+            "columnName": "templates",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -45,8 +39,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "name",
-            "columnName": "name",
+            "fieldPath": "uniqueName",
+            "columnName": "uniqueName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -59,6 +59,12 @@
           {
             "fieldPath": "startTime",
             "columnName": "startTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endTime",
+            "columnName": "endTime",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -79,7 +85,69 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "template_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `uniqueName` TEXT NOT NULL, `title` TEXT NOT NULL, `isPublic` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `owner` TEXT NOT NULL, `fields` TEXT NOT NULL, `viewers` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uniqueName",
+            "columnName": "uniqueName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPublic",
+            "columnName": "isPublic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isActive",
+            "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "owner",
+            "columnName": "owner",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fields",
+            "columnName": "fields",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "viewers",
+            "columnName": "viewers",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -88,7 +156,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'af929211e335570b0ad4890f4abb55a9')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '41e45838897e22433764cf95c11f158b')"
     ]
   }
 }

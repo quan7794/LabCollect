@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import com.wac.labcollect.data.database.TemplateDao
 import com.wac.labcollect.data.network.TemplateAPI
 import com.wac.labcollect.domain.models.Template
+import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.utils.Constants
 import kotlinx.coroutines.flow.Flow
 
@@ -12,7 +13,7 @@ class TemplateRepository(private val templateDao: TemplateDao, private val netwo
     suspend fun getTemplates() = networkTemplateAPI.getTemplates(Constants.API_KEY_VALUE)
 
     @WorkerThread
-    suspend fun insertTemplate(template: Template) {
+    suspend fun insertField(template: Template) {
         templateDao.insertTemplate(template)
     }
 
@@ -28,5 +29,5 @@ class TemplateRepository(private val templateDao: TemplateDao, private val netwo
 
     val allTemplates: Flow<List<Template>> = templateDao.getAllTemplates()
     val allPublicTemplates: Flow<List<Template>> = templateDao.getPublicTemplates()
-    fun getTemplateByFilter(key: String, value: String): Flow<List<Template>> = templateDao.getTemplateByFilter(key, value)
+//    fun getTemplateByFilter(key: String, value: String): Flow<List<Template>> = templateDao.getTemplateByFilter(key, value)
 }

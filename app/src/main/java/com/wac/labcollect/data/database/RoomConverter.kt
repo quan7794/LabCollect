@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.wac.labcollect.domain.models.Field
-import java.lang.reflect.Type
+import com.wac.labcollect.domain.models.Template
 import java.util.*
 
 object RoomConverter {
@@ -37,6 +37,24 @@ object RoomConverter {
     fun fieldsToString(myObjects: MutableList<Field>): String {
         val gson = Gson()
         return gson.toJson(myObjects)
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun stringToTemplate(data: String?): Template {
+        val gson = Gson()
+        if (data == null) {
+            return Template()
+        }
+        val type = object : TypeToken<Template>() {}.type
+        return gson.fromJson(data, type)
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun templateToString(myObject: Template): String {
+        val gson = Gson()
+        return gson.toJson(myObject)
     }
 
     @TypeConverter

@@ -440,6 +440,10 @@ abstract class DragDropSwipeAdapter<T, U : DragDropSwipeAdapter.ViewHolder>(
         notifyItemInserted(position)
     }
 
+    fun updateItem(position: Int, item: T) {
+        mutableDataSet[position] = item
+    }
+
     fun insertItem(position: Int, item: T) {
         mutableDataSet.add(position, item)
 

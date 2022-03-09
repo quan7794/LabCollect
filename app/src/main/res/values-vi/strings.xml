@@ -31,4 +31,6 @@
     <string name="undo">Khôi phục</string>
     <string name="setting">Cài đặt</string>
     <string name="add_template">Thêm mẫu</string>
+    <string name="saved">Đã lưu!</string>
+    <string name="please_fill_all_value">Vui lòng nhập tất cả giá trị trước khi lưu</string>
 </resources>
