@@ -45,7 +45,7 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
                 if (templateDataAdapter.isValidateData()) {
                     val fieldList:ArrayList<Field> = arrayListOf()
                     templateDataAdapter.dataSet.forEach { field -> fieldList.add(Field(field.first, field.second.type)) }
-                    val newTemp = Template(title = binding.templateName.toString(), fields = fieldList)
+                    val newTemp = Template(title = binding.templateName.text.toString(), fields = fieldList)
                     viewModel.insert(newTemp)
                     Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
                 } else Snackbar.make(binding.root, getString(R.string.please_fill_all_value), Snackbar.LENGTH_SHORT).show()

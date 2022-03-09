@@ -18,10 +18,6 @@ class AddFragment : BaseFragment(R.layout.fragment_add) {
     private val binding: FragmentAddBinding
     get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddBinding.inflate(inflater)
         binding.createTest.setOnClickListener {

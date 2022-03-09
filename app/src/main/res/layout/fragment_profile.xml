@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.wac.labcollect.viewModel.SettingViewModel" />
+            type="com.wac.labcollect.ui.fragment.firstScreen.ProfileViewModel" />
 
     </data>
 
@@ -28,13 +28,12 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
-                app:cardCornerRadius="16dp"
+                app:cardElevation="@dimen/_16sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:strokeWidth="3dp">
+                app:strokeWidth="@dimen/_3sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,35 +71,78 @@
             android:layout_height="0dp"
             android:layout_weight="3"
             android:orientation="vertical">
-
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="@dimen/_8sdp"
                 android:orientation="vertical"
-                app:cardCornerRadius="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:strokeWidth="3dp">
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardElevation="@dimen/_16sdp"
+                app:strokeWidth="@dimen/_3sdp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:padding="@dimen/_16sdp"
+                    android:gravity="center">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/test"
+                        android:textSize="@dimen/_15ssp"
+                        style="@style/TextAppearance.AppCompat"
+                        android:layout_gravity="start"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/manageTemplate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_24sdp"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="@string/template_manage"
+                            android:textSize="@dimen/_13ssp"
+                            android:textAllCaps="false" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/list_divider"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardElevation="@dimen/_16sdp"
+                app:strokeWidth="@dimen/_3sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16sdp"
                     android:gravity="center">
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Tuỳ chỉnh giao diện"
-                        android:textSize="@dimen/_15sdp"
+                        android:textSize="@dimen/_15ssp"
                         style="@style/TextAppearance.AppCompat"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="start" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/_25sdp"
-                        android:paddingRight="@dimen/_25sdp"
                         android:orientation="vertical"
                         android:scrollbars="vertical">
 
@@ -115,32 +157,68 @@
                             android:textAllCaps="false"
                             app:useMaterialThemeColors="false"
                             tools:ignore="UseSwitchCompatOrMaterialXml" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/list_divider"/>
                         <com.google.android.material.switchmaterial.SwitchMaterial
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/TextAppearance.AppCompat.Widget.Switch"
                             android:textAllCaps="false"
                             android:text="Tính năng 2" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/list_divider"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--        Tài khoản -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="vertical"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardElevation="@dimen/_16sdp"
+                app:strokeWidth="@dimen/_3sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_16sdp"
+                    android:gravity="center">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/account"
+                        android:textSize="@dimen/_15ssp"
+                        style="@style/TextAppearance.AppCompat"
+                        android:layout_gravity="start"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:scrollbars="vertical">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/logoutBtn"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/logout"
+                            app:cornerRadius="50dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@drawable/list_divider"/>
+
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-
-<!--        Đăng xuất-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="@dimen/_5sdp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/logoutBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/logout"
-                app:cornerRadius="50dp" />
-        </LinearLayout>
-
     </LinearLayout>
 </layout>

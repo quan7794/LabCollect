@@ -15,7 +15,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/BG_STOKE"
+            android:elevation="@dimen/_16sdp"
+            app:cardElevation="10dp"
             app:cardCornerRadius="@dimen/_16sdp">
 
             <LinearLayout
@@ -29,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HEADER_MAIN_TITLE"
+                    android:backgroundTint="@color/activeStatus"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test" />
 
@@ -38,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HEADER_MAIN_TITLE"
+                    android:backgroundTint="@color/activeStatus"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test_template" />
 
@@ -47,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HEADER_MAIN_TITLE"
+                    android:backgroundTint="@color/activeStatus"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test_group" />
 

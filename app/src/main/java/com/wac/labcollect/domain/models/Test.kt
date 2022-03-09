@@ -9,31 +9,31 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize @Entity(tableName = "test_table")
 data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
-    @SerializedName("editor") val editor: List<String> = listOf(),
-    @SerializedName("fields") val templates: Template = Template(),
-    @SerializedName("isActive") val isActive: Boolean = true,
-    @SerializedName("isPublic") val isPublic: Boolean = true,
+    @SerializedName("editor") var editor: List<String> = listOf(),
+    @SerializedName("fields") var templates: Template = Template(),
+    @SerializedName("isActive") var isActive: Boolean = true,
+    @SerializedName("isPublic") var isPublic: Boolean = true,
     @SerializedName("uniqueName") val uniqueName: String = "",
-    @SerializedName("title") val title: String = "",
-    @SerializedName("owner") val owner: String = "",
-    @SerializedName("startTime") val startTime: Int = 0,
-    @SerializedName("endTime") val endTime: Int = 0,
-    @SerializedName("type") val type: String = "",
-    @SerializedName("viewer") val viewer: List<String> = listOf()) : Parcelable
+    @SerializedName("title") var title: String = "",
+    @SerializedName("owner") var owner: String = "",
+    @SerializedName("startTime") var startTime: Int = 0,
+    @SerializedName("endTime") var endTime: Int = 0,
+    @SerializedName("type") var type: String = "",
+    @SerializedName("viewer") var viewer: List<String> = listOf()) : Parcelable
 
 @Parcelize @Entity(tableName = "template_table")
 data class Template(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
     @SerializedName("uniqueName") val uniqueName: String = "",
-    @SerializedName("title") val title: String = "",
-    @SerializedName("isPublic") val isPublic: Boolean = true,
-    @SerializedName("isActive") val isActive: Boolean = true,
+    @SerializedName("title") var title: String = "",
+    @SerializedName("isPublic") var isPublic: Boolean = true,
+    @SerializedName("isActive") var isActive: Boolean = true,
     @SerializedName("owner") val owner: String = "",
-    @SerializedName("fields") val fields: List<Field> = listOf(),
-    @SerializedName("viewers") val viewers: List<String> = listOf()) : Parcelable
+    @SerializedName("fields") var fields: List<Field> = listOf(),
+    @SerializedName("viewers") var viewers: List<String> = listOf()) : Parcelable
 
 @Parcelize
-data class Field(@SerializedName("key") val key: String = "",
-                 @SerializedName("type") val type: TYPE = TYPE.UNKNOWN) : Parcelable
+data class Field(@SerializedName("key") var key: String = "",
+                 @SerializedName("type") var type: TYPE = TYPE.UNKNOWN) : Parcelable
 //
 //{
 //    "name": "Brynna",

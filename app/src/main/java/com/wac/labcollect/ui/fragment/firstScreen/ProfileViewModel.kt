@@ -1,13 +1,12 @@
-package com.wac.labcollect.viewModel
+package com.wac.labcollect.ui.fragment.firstScreen
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wac.labcollect.BuildConfig
-import com.wac.labcollect.R
 import com.wac.labcollect.utils.PreferenceUtil
 
-class SettingViewModel : ViewModel() {
+class ProfileViewModel : ViewModel() {
 
     var currentTypeSetting = MutableLiveData<Int>()
 

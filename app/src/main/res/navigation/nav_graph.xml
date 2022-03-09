@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_firstScreenFragment_to_createTemplateFragment"
             app:destination="@id/createTemplateFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_templateManagerFragment"
+            app:destination="@id/templateManagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -49,4 +52,9 @@
         android:id="@+id/createTemplateFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.createTemplate.CreateTemplateFragment"
         android:label="CreateTemplateFragment" />
+    <fragment
+        android:id="@+id/templateManagerFragment"
+        android:name="com.wac.labcollect.ui.fragment.feature.templateManage.TemplateManagerFragment"
+        android:label="template_manager_fragment"
+        tools:layout="@layout/template_manager_fragment" />
 </navigation>

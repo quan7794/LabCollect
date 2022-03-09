@@ -4,17 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentProfileBinding
-import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.NightModeHelper
-import com.wac.labcollect.viewModel.DarkModeType
-import com.wac.labcollect.viewModel.SettingViewModel
 import kotlinx.coroutines.launch
 
 
@@ -23,11 +23,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     private val binding: FragmentProfileBinding
         get() = _binding!!
     private var auth = FirebaseAuth.getInstance()
-    private lateinit var viewModel: SettingViewModel
-
-    private val mainViewModel: MainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentProfileBinding.inflate(layoutInflater)
@@ -43,8 +39,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[SettingViewModel::class.java]
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.vm = viewModel
@@ -54,6 +50,11 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
     private fun initActionView() {
         binding.apply {
+            manageTemplate.setOnClickListener {
+                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToTemplateManagerFragment()
+                this@ProfileFragment.findNavController().navigate(action)
+            }
+
             darkModeSwitch.setOnClickListener { v ->
                 val checked = (v as SwitchMaterial).isChecked
                 if (checked) {
