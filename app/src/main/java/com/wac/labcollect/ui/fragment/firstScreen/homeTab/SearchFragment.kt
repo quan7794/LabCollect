@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.fragment.firstScreen
+package com.wac.labcollect.ui.fragment.firstScreen.homeTab
 
 import android.os.Bundle
 import android.view.LayoutInflater

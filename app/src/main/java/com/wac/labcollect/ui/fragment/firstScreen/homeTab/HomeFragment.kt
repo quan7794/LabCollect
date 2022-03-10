@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.fragment.firstScreen
+package com.wac.labcollect.ui.fragment.firstScreen.homeTab
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentHomeBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.activity.mainActivity.MainViewModel
+import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private var _binding: FragmentHomeBinding? = null

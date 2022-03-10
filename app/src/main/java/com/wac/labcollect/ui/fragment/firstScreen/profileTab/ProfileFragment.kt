@@ -1,19 +1,20 @@
-package com.wac.labcollect.ui.fragment.firstScreen
+package com.wac.labcollect.ui.fragment.firstScreen.profileTab
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentProfileBinding
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.firstScreen.DarkModeType
+import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
+import com.wac.labcollect.ui.fragment.firstScreen.ProfileViewModel
 import com.wac.labcollect.utils.NightModeHelper
 import kotlinx.coroutines.launch
 

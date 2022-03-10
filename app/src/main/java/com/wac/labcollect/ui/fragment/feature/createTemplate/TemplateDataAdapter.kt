@@ -53,7 +53,7 @@ class TemplateDataAdapter(mDataset: MutableList<Pair<String, DataType>>) :
         }
     }
 
-    fun isValidateData(): Boolean {
+    fun isValidateDataSet(): Boolean {
         return dataSet.firstOrNull { it.first.isEmpty() } == null
     }
 

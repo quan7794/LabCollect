@@ -1,9 +1,8 @@
-package com.wac.labcollect.ui.fragment.feature.templateManage
+package com.wac.labcollect.ui.fragment.feature.manageTemplate
 
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.wac.labcollect.R
 import com.wac.labcollect.databinding.TemplateItemBinding
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeAdapter

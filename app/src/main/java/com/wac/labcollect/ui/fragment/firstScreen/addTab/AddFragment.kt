@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.fragment.feature.addTest
+package com.wac.labcollect.ui.fragment.firstScreen.addTab
 
 import android.os.Bundle
 import android.view.LayoutInflater

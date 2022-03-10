@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
 import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
 import com.wac.labcollect.MainApplication
@@ -13,6 +15,9 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
 import com.wac.labcollect.domain.models.*
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.utils.Utils.createUniqueName
+import com.wac.labcollect.utils.Utils.removeTone
+import timber.log.Timber
 import kotlin.Exception
 
 class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
@@ -42,11 +47,17 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
                 Snackbar.make(binding.root, "Setting this template", Snackbar.LENGTH_SHORT).show()
             }
             R.id.action_save -> {
-                if (templateDataAdapter.isValidateData()) {
+                if (templateDataAdapter.isValidateDataSet() && binding.templateName.text.toString().isNotEmpty()) {
                     val fieldList:ArrayList<Field> = arrayListOf()
                     templateDataAdapter.dataSet.forEach { field -> fieldList.add(Field(field.first, field.second.type)) }
-                    val newTemp = Template(title = binding.templateName.text.toString(), fields = fieldList)
+                    val newTemp = Template(
+                        title = binding.templateName.text.toString(),
+                        uniqueName = binding.templateName.text.toString().createUniqueName(),
+                        owner = FirebaseAuth.getInstance().currentUser?.email?:"",
+                        fields = fieldList
+                    )
                     viewModel.insert(newTemp)
+                    Timber.e("Saved: $newTemp")
                     Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
                 } else Snackbar.make(binding.root, getString(R.string.please_fill_all_value), Snackbar.LENGTH_SHORT).show()
 

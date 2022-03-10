@@ -42,11 +42,11 @@
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.wac.labcollect.ui.fragment.firstScreen.SearchFragment"
+        android:name="com.wac.labcollect.ui.fragment.firstScreen.homeTab.SearchFragment"
         android:label="SearchFragment" />
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.wac.labcollect.ui.fragment.feature.addTest.AddFragment"
+        android:name="com.wac.labcollect.ui.fragment.firstScreen.addTab.AddFragment"
         android:label="AddFragment" />
     <fragment
         android:id="@+id/createTemplateFragment"
@@ -54,7 +54,7 @@
         android:label="CreateTemplateFragment" />
     <fragment
         android:id="@+id/templateManagerFragment"
-        android:name="com.wac.labcollect.ui.fragment.feature.templateManage.TemplateManagerFragment"
+        android:name="com.wac.labcollect.ui.fragment.feature.manageTemplate.ManageTemplateFragment"
         android:label="template_manager_fragment"
         tools:layout="@layout/template_manager_fragment" />
 </navigation>
