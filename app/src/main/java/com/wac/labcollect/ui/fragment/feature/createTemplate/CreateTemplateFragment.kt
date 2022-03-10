@@ -4,32 +4,29 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
-import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
-import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
 import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
 import com.wac.labcollect.domain.models.*
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
-import com.wac.labcollect.utils.Utils.removeTone
+import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
+import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
 import timber.log.Timber
-import kotlin.Exception
 
 class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
     private var _binding: CreateTemplateFragmentBinding? = null
     private val binding: CreateTemplateFragmentBinding
         get() = _binding!!
-    private val templateDataAdapter: TemplateDataAdapter by lazy {
-        TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE))))
-    }
+    private val templateDataAdapter: TemplateDataAdapter by lazy { TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE)))) }
     private var lastDeletedItem: Pair<String, DataType>? = null
-
     private lateinit var viewModel: CreateTemplateViewModel
+    val args: CreateTemplateFragmentArgs by navArgs()
+    private val testUniqueName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +45,12 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
             }
             R.id.action_save -> {
                 if (templateDataAdapter.isValidateDataSet() && binding.templateName.text.toString().isNotEmpty()) {
-                    val fieldList:ArrayList<Field> = arrayListOf()
+                    val fieldList: ArrayList<Field> = arrayListOf()
                     templateDataAdapter.dataSet.forEach { field -> fieldList.add(Field(field.first, field.second.type)) }
                     val newTemp = Template(
                         title = binding.templateName.text.toString(),
                         uniqueName = binding.templateName.text.toString().createUniqueName(),
-                        owner = FirebaseAuth.getInstance().currentUser?.email?:"",
+                        owner = FirebaseAuth.getInstance().currentUser?.email ?: "",
                         fields = fieldList
                     )
                     viewModel.insert(newTemp)
@@ -78,13 +75,15 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = templateDataAdapter
-            orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-            swipeListener = onItemSwipeListener
+        binding.apply {
+            templateName.setText(args.testUniqueName)
+            recyclerView.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                adapter = templateDataAdapter
+                orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+                swipeListener = onItemSwipeListener
 //            setItemViewCacheSize(100)
+            }
         }
         val factory = CreateTemplateViewModelFactory((activity?.application as MainApplication).repository)
         viewModel = ViewModelProvider(this, factory)[CreateTemplateViewModel::class.java]
@@ -100,9 +99,13 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
             Snackbar.make(binding.root, "Đã xoá ${templateDataAdapter.dataSet[position].first}", Snackbar.LENGTH_LONG)
                 .setAction(getString(R.string.undo)) {
                     try {
-                        val insertPosition = if (templateDataAdapter.dataSet.size < position) { templateDataAdapter.dataSet.size -1 } else position
+                        val insertPosition = if (templateDataAdapter.dataSet.size < position) {
+                            templateDataAdapter.dataSet.size - 1
+                        } else position
                         templateDataAdapter.insertItem(insertPosition, lastDeletedItem!!)
-                    } catch(e: Exception) { Toast.makeText(context,getString(R.string.can_not_undo)+ "\n Detail: $e", Toast.LENGTH_SHORT).show() }
+                    } catch (e: Exception) {
+                        Toast.makeText(context, getString(R.string.can_not_undo) + "\n Detail: $e", Toast.LENGTH_SHORT).show()
+                    }
                 }.show()
             lastDeletedItem = templateDataAdapter.dataSet[position]
             templateDataAdapter.removeItem(position)

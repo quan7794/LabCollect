@@ -11,48 +11,65 @@
         android:gravity="center"
         app:cardCornerRadius="16dp"
         app:cardElevation="10dp">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="@string/col_name">
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_weight="0.7"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/colName"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:hint="@string/col_name">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/col_type">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/colName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/colType"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    tools:ignore="LabelFor" />
+                    android:hint="@string/col_type">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <AutoCompleteTextView
+                        android:id="@+id/colType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:imeOptions="actionNext"
+                        android:singleLine="true"
+                        tools:ignore="LabelFor" />
 
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="match_parent"
+                android:alpha="0.7"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:backgroundTint="@color/activeStatus"
+                android:src="@color/HEADER_SECOND_TITLE"
+                android:background="@drawable/icon_drag"/>
         </LinearLayout>
+
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
-import com.wac.labcollect.databinding.TemplateManagerFragmentBinding
+import com.wac.labcollect.databinding.TemplateManageFragmentBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import timber.log.Timber
 
-class ManageTemplateFragment : BaseFragment(R.layout.template_manager_fragment) {
-    private var _binding: TemplateManagerFragmentBinding?= null
-    private val binding: TemplateManagerFragmentBinding
+class ManageTemplateFragment : BaseFragment(R.layout.template_manage_fragment) {
+    private var _binding: TemplateManageFragmentBinding?= null
+    private val binding: TemplateManageFragmentBinding
         get() = _binding!!
     private val templateAdapter: TemplateListAdapter by lazy { TemplateListAdapter() }
     private val viewModel: ManageTemplateViewModel by viewModels {
@@ -22,8 +22,8 @@ class ManageTemplateFragment : BaseFragment(R.layout.template_manager_fragment) 
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.template_manager_fragment, container, false)
-        _binding = TemplateManagerFragmentBinding.bind(view)
+        val view = inflater.inflate(R.layout.template_manage_fragment, container, false)
+        _binding = TemplateManageFragmentBinding.bind(view)
         return view
     }
 

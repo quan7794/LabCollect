@@ -3,9 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
-apply plugin: "androidx.navigation.safeargs"
+//apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-parcelize'
-
 repositories {
     maven { url 'https://jitpack.io' }
 }
@@ -31,12 +31,15 @@ android {
             }
         }
     }
+//
+//    viewBinding {
+//        enabled = true
+//    }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
     }
-
-    buildFeatures.dataBinding = true
 
     kapt {
         generateStubs = true

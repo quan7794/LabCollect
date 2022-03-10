@@ -16,8 +16,8 @@ data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: I
     @SerializedName("uniqueName") val uniqueName: String = "",
     @SerializedName("title") var title: String = "",
     @SerializedName("owner") var owner: String = "",
-    @SerializedName("startTime") var startTime: Int = 0,
-    @SerializedName("endTime") var endTime: Int = 0,
+    @SerializedName("startTime") var startTime: String = "",
+    @SerializedName("endTime") var endTime: String = "",
     @SerializedName("type") var type: String = "",
     @SerializedName("viewer") var viewer: List<String> = listOf()) : Parcelable
 

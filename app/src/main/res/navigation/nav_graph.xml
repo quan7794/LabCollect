@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/firstScreenFragment"
         android:name="com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragment"
-        android:label="first_screen_fragment"
+        android:label="@string/home"
         tools:layout="@layout/fragment_first_screen">
         <action
             android:id="@+id/toLoginFragment"
@@ -19,19 +19,16 @@
             android:id="@+id/action_firstScreenFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_firstScreenFragment_to_addFragment"
-            app:destination="@id/addFragment" />
-        <action
-            android:id="@+id/action_firstScreenFragment_to_createTemplateFragment"
-            app:destination="@id/createTemplateFragment" />
-        <action
             android:id="@+id/action_firstScreenFragment_to_templateManagerFragment"
             app:destination="@id/templateManagerFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_createTestFragment"
+            app:destination="@id/createTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.wac.labcollect.ui.fragment.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/toFirstScreenFragment"
@@ -43,18 +40,30 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.wac.labcollect.ui.fragment.firstScreen.homeTab.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search"/>
     <fragment
-        android:id="@+id/addFragment"
-        android:name="com.wac.labcollect.ui.fragment.firstScreen.addTab.AddFragment"
-        android:label="AddFragment" />
+        android:id="@+id/createTestFragment"
+        android:name="com.wac.labcollect.ui.fragment.feature.createTest.CreateTestFragment"
+        android:label="@string/create_test"
+        tools:layout="@layout/create_test_fragment">
+        <action
+            android:id="@+id/action_createTestFragment_to_createTemplateFragment"
+            app:destination="@id/createTemplateFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createTemplateFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.createTemplate.CreateTemplateFragment"
-        android:label="CreateTemplateFragment" />
+        android:label="@string/create_test_template"
+        tools:layout="@layout/create_template_fragment">
+        <argument
+            android:name="testUniqueName"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/templateManagerFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.manageTemplate.ManageTemplateFragment"
-        android:label="template_manager_fragment"
-        tools:layout="@layout/template_manager_fragment" />
+        android:label="@string/manage_template"
+        tools:layout="@layout/template_manage_fragment" />
+
 </navigation>

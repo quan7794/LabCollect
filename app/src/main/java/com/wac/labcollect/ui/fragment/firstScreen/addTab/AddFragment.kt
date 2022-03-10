@@ -21,20 +21,10 @@ class AddFragment : BaseFragment(R.layout.fragment_add) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAddBinding.inflate(inflater)
         binding.createTest.setOnClickListener {
-            context?.let { context ->
-                MaterialAlertDialogBuilder(context)
-                    .setTitle(R.string.create_test)
-                    .setMessage(R.string.create_test_message)
-                    .setPositiveButton(R.string.create_new) { dialog, which ->
-                        Timber.e("Create new template")
-                        val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToCreateTemplateFragment()
-                        this.findNavController().navigate(action)
-                    }
-                    .setNegativeButton(R.string.select_existed_template) { dialog, which ->
-                        Timber.e("Use existed template")
-                    }
-                    .setCancelable(false)
-                    .show()
+            context?.let {
+                Timber.e("Create new template")
+                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToCreateTestFragment()
+                this.findNavController().navigate(action)
             }
         }
         return binding.root
