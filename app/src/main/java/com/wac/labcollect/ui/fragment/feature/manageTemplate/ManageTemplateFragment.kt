@@ -11,9 +11,7 @@ import timber.log.Timber
 
 class ManageTemplateFragment : BaseFragment<TemplateManageFragmentBinding>() {
     private val templateAdapter: TemplateListAdapter by lazy { TemplateListAdapter() }
-    private val viewModel: ManageTemplateViewModel by viewModels {
-        ManageTemplateViewModelFactory((activity?.application as MainApplication).repository)
-    }
+    private val viewModel: ManageTemplateViewModel by viewModels { ManageTemplateViewModelFactory(testRepository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

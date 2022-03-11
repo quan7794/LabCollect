@@ -29,9 +29,7 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
     private val templateDataAdapter: TemplateDataAdapter by lazy {
         TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE))))
     }
-    private val viewModel: CreateTemplateViewModel by viewModels {
-        CreateTemplateViewModelFactory((requireActivity().application as MainApplication).repository)
-    }
+    private val viewModel: CreateTemplateViewModel by viewModels { CreateTemplateViewModelFactory(testRepository) }
     private val args: CreateTemplateFragmentArgs by navArgs()
     private var testUniqueName: String? = null
     private var lastDeletedItem: Pair<String, DataType>? = null

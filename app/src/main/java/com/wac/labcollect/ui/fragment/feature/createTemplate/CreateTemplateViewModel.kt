@@ -9,7 +9,7 @@ import timber.log.Timber
 
 class CreateTemplateViewModel(private val repository: TestRepository) : BaseViewModel() {
     private var _parentTest = MutableLiveData<Test>()
-    val parentTest: LiveData<Test>
+    private val parentTest: LiveData<Test>
     get() = _parentTest
 
     suspend fun insert(template: Template) = repository.insertTemplate(template)

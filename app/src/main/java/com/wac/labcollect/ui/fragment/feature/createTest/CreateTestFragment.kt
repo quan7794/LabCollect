@@ -24,7 +24,7 @@ import java.util.*
 class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
     private val myCalendar: Calendar = Calendar.getInstance()
     private var currentDatePicker: Int? = null
-    private val viewModel: CreateTestViewModel by viewModels { CreateTestViewModelFactory((requireActivity().application as MainApplication).repository) }
+    private val viewModel: CreateTestViewModel by viewModels { CreateTestViewModelFactory(testRepository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

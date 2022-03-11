@@ -3,11 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.feature.manageTest.ManageTestFragment">
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_margin="@dimen/_12sdp"
+        tools:context=".ui.fragment.feature.createTemplate.CreateTemplateFragment"
+        android:orientation="vertical">
 
+        <com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:divider="@drawable/list_divider"
+            app:item_layout="@layout/template_data_item"
+            tools:listitem="@layout/template_data_item"/>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        app:backgroundTint="@color/bloco_dark_blue"
+        android:src="@drawable/ic_add"
+        android:contentDescription="@string/add"
+        android:layout_margin="16dp" />
 </FrameLayout>
