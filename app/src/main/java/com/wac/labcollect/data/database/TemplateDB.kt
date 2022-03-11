@@ -11,10 +11,10 @@ import com.wac.labcollect.domain.models.Test
 @Database(entities = [Test::class, Template::class], version = 1, exportSchema = true)
 @TypeConverters(RoomConverter::class)
 abstract class TemplateDB: RoomDatabase() {
-    abstract fun templateDao() : TemplateDao
+    abstract fun templateDao() : TestDao
 
     companion object {
-        private const val databaseName = "fav_dish_database"
+        private const val databaseName = "lab_collect_database"
 
         @Volatile
         private var INSTANCE: TemplateDB? = null

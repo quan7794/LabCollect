@@ -1,20 +1,37 @@
 package com.wac.labcollect.ui.fragment.feature.createTemplate
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.wac.labcollect.data.repository.TemplateRepository
+import androidx.lifecycle.*
+import com.wac.labcollect.data.repository.TestRepository
 import com.wac.labcollect.domain.models.Template
+import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseViewModel
-import kotlinx.coroutines.launch
+import timber.log.Timber
 
-class CreateTemplateViewModel(private val repository: TemplateRepository) : BaseViewModel() {
-    fun insert(template: Template) = ioScope.launch {
-        repository.insertField(template)
+class CreateTemplateViewModel(private val repository: TestRepository) : BaseViewModel() {
+    private var _parentTest = MutableLiveData<Test>()
+    val parentTest: LiveData<Test>
+    get() = _parentTest
+
+    suspend fun insert(template: Template) = repository.insertTemplate(template)
+
+    fun getTest(testUniqueName: String) = repository.getTest(testUniqueName).asLiveData()
+
+    fun setParentTest(test: Test) {
+        _parentTest.value = test
+    }
+
+    suspend fun addTemplateToNewTest(temp: Template): Boolean {
+        parentTest.value?.let {
+            repository.updateTest(it.copy(templates = temp))
+            Timber.e("Done to create. Go to test page.")
+            return true
+        }
+        return false
     }
 }
 
 @Suppress("Unchecked_cast")
-class CreateTemplateViewModelFactory(private val repository: TemplateRepository): ViewModelProvider.Factory {
+class CreateTemplateViewModelFactory(private val repository: TestRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CreateTemplateViewModel::class.java)) {
             return CreateTemplateViewModel(repository) as T

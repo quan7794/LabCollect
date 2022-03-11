@@ -9,6 +9,6 @@ class TemplateApiService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val apiService: TemplateAPI = getRetrofit().create(TemplateAPI::class.java)
+    val apiService: TestAPI = getRetrofit().create(TestAPI::class.java)
 
 }

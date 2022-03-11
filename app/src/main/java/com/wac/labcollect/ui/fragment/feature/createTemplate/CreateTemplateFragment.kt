@@ -3,7 +3,10 @@ package com.wac.labcollect.ui.fragment.feature.createTemplate
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -13,30 +16,27 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
 import com.wac.labcollect.domain.models.*
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.feature.createTest.CreateTestFragmentDirections
 import com.wac.labcollect.utils.Utils.createUniqueName
+import com.wac.labcollect.utils.Utils.observeOnce
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
 import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
     private var _binding: CreateTemplateFragmentBinding? = null
     private val binding: CreateTemplateFragmentBinding
         get() = _binding!!
-    private val templateDataAdapter: TemplateDataAdapter by lazy { TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE)))) }
+    private val templateDataAdapter: TemplateDataAdapter by lazy {
+        TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE))))
+    }
+    private val viewModel: CreateTemplateViewModel by viewModels {
+        CreateTemplateViewModelFactory((requireActivity().application as MainApplication).repository)
+    }
+    private val args: CreateTemplateFragmentArgs by navArgs()
+    private var testUniqueName: String? = null
     private var lastDeletedItem: Pair<String, DataType>? = null
-    private lateinit var viewModel: CreateTemplateViewModel
-    val args: CreateTemplateFragmentArgs by navArgs()
-    private val testUniqueName: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.add_template, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -53,9 +53,24 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
                         owner = FirebaseAuth.getInstance().currentUser?.email ?: "",
                         fields = fieldList
                     )
-                    viewModel.insert(newTemp)
-                    Timber.e("Saved: $newTemp")
-                    Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
+                    lifecycleScope.launch {
+                        viewModel.insert(newTemp)
+                        Timber.e("Saved: $newTemp")
+                        Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
+                        testUniqueName?.let { //Goto Test Manage Screen after create template if we are creating test.
+                            val isSuccess = viewModel.addTemplateToNewTest(newTemp)
+                            if (isSuccess) {
+                                val action = CreateTemplateFragmentDirections.actionCreateTemplateFragmentToManageTestFragment(it)
+                                this@CreateTemplateFragment.findNavController().navigate(action)
+                            } else {
+                                Snackbar.make(binding.root, getString(R.string.can_not_establish_test), Snackbar.LENGTH_SHORT).show()
+                            }
+                        }?: run { //Go to First Screen after standalone template created.
+                            val action = CreateTemplateFragmentDirections.actionCreateTemplateFragmentToFirstScreenFragment()
+                           this@CreateTemplateFragment.findNavController().navigate(action)
+                        }
+                    }
+
                 } else Snackbar.make(binding.root, getString(R.string.please_fill_all_value), Snackbar.LENGTH_SHORT).show()
 
             }
@@ -75,8 +90,15 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        testUniqueName = args.testUniqueName
+
+        testUniqueName?.let {
+            viewModel.getTest(it).observeOnce { test ->
+                viewModel.setParentTest(test)
+                binding.templateName.setText( test.title)
+            }
+        }
         binding.apply {
-            templateName.setText(args.testUniqueName)
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = templateDataAdapter
@@ -85,8 +107,6 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
 //            setItemViewCacheSize(100)
             }
         }
-        val factory = CreateTemplateViewModelFactory((activity?.application as MainApplication).repository)
-        viewModel = ViewModelProvider(this, factory)[CreateTemplateViewModel::class.java]
     }
 
     override fun onDestroyView() {
@@ -111,5 +131,15 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
             templateDataAdapter.removeItem(position)
             return true
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.add_template, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }

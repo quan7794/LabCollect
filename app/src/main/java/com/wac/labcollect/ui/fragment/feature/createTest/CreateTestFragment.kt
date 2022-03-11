@@ -7,15 +7,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,9 +30,11 @@ class CreateTestFragment : BaseFragment(R.layout.create_test_fragment) {
     private var _binding: CreateTestFragmentBinding? = null
     private val binding: CreateTestFragmentBinding
         get() = _binding!!
-    private val viewModel: CreateTestViewModel by viewModels()
+    private val viewModel: CreateTestViewModel by viewModels() {
+        CreateTestViewModelFactory((requireActivity().application as MainApplication).repository)
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = CreateTestFragmentBinding.inflate(inflater)
         return binding.root
     }
@@ -51,9 +57,12 @@ class CreateTestFragment : BaseFragment(R.layout.create_test_fragment) {
                     .setTitle(R.string.choose_template)
                     .setMessage(R.string.create_test_message)
                     .setPositiveButton(R.string.create_new) { _, _ ->
-                        Timber.e("Create new template")
-                        val action = CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.uniqueName)
-                        this.findNavController().navigate(action)
+                        lifecycleScope.launch {
+                            viewModel.createTest(test)
+                            Timber.e("Create new template")
+                            val action = CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.uniqueName)
+                            this@CreateTestFragment.findNavController().navigate(action)
+                        }
                     }
                     .setNegativeButton(R.string.select_existed_template) { _, _ ->
                         Timber.e("Use existed template")
