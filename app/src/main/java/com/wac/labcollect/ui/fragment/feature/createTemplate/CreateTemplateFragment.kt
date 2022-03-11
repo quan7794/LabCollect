@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,9 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
-import com.wac.labcollect.domain.models.*
+import com.wac.labcollect.domain.models.DataType
+import com.wac.labcollect.domain.models.Field
+import com.wac.labcollect.domain.models.TYPE
+import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.ui.base.BaseFragment
-import com.wac.labcollect.ui.fragment.feature.createTest.CreateTestFragmentDirections
 import com.wac.labcollect.utils.Utils.createUniqueName
 import com.wac.labcollect.utils.Utils.observeOnce
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
@@ -24,10 +25,7 @@ import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListen
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
-    private var _binding: CreateTemplateFragmentBinding? = null
-    private val binding: CreateTemplateFragmentBinding
-        get() = _binding!!
+class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
     private val templateDataAdapter: TemplateDataAdapter by lazy {
         TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE))))
     }
@@ -78,18 +76,13 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = CreateTemplateFragmentBinding.inflate(inflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.fabAdd.setOnClickListener {
             templateDataAdapter.insertItem(templateDataAdapter.dataSet.size, Pair("", DataType(TYPE.TEXT)))
             binding.recyclerView.smoothScrollToPosition(templateDataAdapter.dataSet.size)
 //            Snackbar.make(binding.root, "Added new item at ${templateDataAdapter.dataSet.size}", Snackbar.LENGTH_SHORT).show()
         }
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         testUniqueName = args.testUniqueName
 
         testUniqueName?.let {
@@ -111,7 +104,6 @@ class CreateTemplateFragment : BaseFragment(R.layout.create_template_fragment) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 
     private val onItemSwipeListener = object : OnItemSwipeListener<Pair<String, DataType>> {

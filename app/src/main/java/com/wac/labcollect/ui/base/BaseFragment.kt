@@ -1,13 +1,6 @@
 package com.wac.labcollect.ui.base
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.jintin.bindingextension.BindingFragment
 
-abstract class BaseFragment(layoutId: Int) : Fragment(layoutId){
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-}
+open class BaseFragment<T: ViewBinding> : BindingFragment<T>()

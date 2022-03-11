@@ -1,32 +1,31 @@
 package com.wac.labcollect.ui.fragment.feature.manageTest
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import com.wac.labcollect.R
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.wac.labcollect.databinding.ManageTestFragmentBinding
+import com.wac.labcollect.ui.base.BaseFragment
 
-class ManageTestFragment : Fragment() {
+class ManageTestFragment : BaseFragment<ManageTestFragmentBinding>() {
 
-    companion object {
-        fun newInstance() = ManageTestFragment()
+    private val viewModel: ManageTestViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
     }
 
-    private lateinit var viewModel: ManageTestViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.manage_test_fragment, container, false)
+    private val backPressCallback = object: OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val action = ManageTestFragmentDirections.toFirstScreenFragment()
+            binding.root.findNavController().navigate(action)
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ManageTestViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onDestroyView() {
+        backPressCallback.remove()
+        super.onDestroyView()
     }
-
 }

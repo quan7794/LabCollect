@@ -2,9 +2,7 @@ package com.wac.labcollect.ui.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -20,10 +18,7 @@ import com.wac.labcollect.databinding.FragmentLoginBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import timber.log.Timber
 
-class LoginFragment : BaseFragment(R.layout.fragment_login) {
-    private var _binding : FragmentLoginBinding? = null
-    private val binding : FragmentLoginBinding
-        get() = _binding!!
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -41,11 +36,6 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = FragmentLoginBinding.inflate(inflater)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,6 +92,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             }
 
     }
+
     private fun updateUI(account: FirebaseUser?) {
         if (account != null) {
             Toast.makeText(requireContext(), "You Signed In successfully", Toast.LENGTH_LONG).show()
@@ -111,10 +102,4 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             Toast.makeText(requireContext(), "You Didn't signed in", Toast.LENGTH_LONG).show()
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

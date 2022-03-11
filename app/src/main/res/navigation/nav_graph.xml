@@ -82,6 +82,11 @@
         <argument
             android:name="testUniqueName"
             app:argType="string" />
+        <action
+            android:id="@+id/toFirstScreenFragment"
+            app:destination="@id/firstScreenFragment"
+            app:popUpTo="@id/firstScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

@@ -8,16 +8,11 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentSearchBinding
 import com.wac.labcollect.ui.base.BaseFragment
 
-class SearchFragment : BaseFragment(R.layout.fragment_search) {
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 
-    private var _binding: FragmentSearchBinding? = null
-    private val binding: FragmentSearchBinding
-        get() = _binding!!
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentSearchBinding.inflate(inflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.editSearch.requestFocus()
-        return binding.root
-    }
 
+    }
 }

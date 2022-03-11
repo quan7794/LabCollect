@@ -3,9 +3,7 @@ package com.wac.labcollect.ui.fragment.feature.createTest
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,26 +16,15 @@ import com.wac.labcollect.databinding.CreateTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CreateTestFragment : BaseFragment(R.layout.create_test_fragment) {
+class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
     private val myCalendar: Calendar = Calendar.getInstance()
     private var currentDatePicker: Int? = null
-    private var _binding: CreateTestFragmentBinding? = null
-    private val binding: CreateTestFragmentBinding
-        get() = _binding!!
-    private val viewModel: CreateTestViewModel by viewModels() {
-        CreateTestViewModelFactory((requireActivity().application as MainApplication).repository)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        _binding = CreateTestFragmentBinding.inflate(inflater)
-        return binding.root
-    }
+    private val viewModel: CreateTestViewModel by viewModels { CreateTestViewModelFactory((requireActivity().application as MainApplication).repository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
