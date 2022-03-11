@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -16,6 +18,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentLoginBinding
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
 import timber.log.Timber
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
@@ -44,6 +47,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             Timber.w("Begin Google sign in")
             signIn()
         }
+        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
+
     }
 
     private fun signIn() {
@@ -101,5 +106,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         } else {
             Toast.makeText(requireContext(), "You Didn't signed in", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private val backPressCallback = object: OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val action = LoginFragmentDirections.actionLoginFragmentToSplashScreenFragment()
+            binding.root.findNavController().navigate(action)
+        }
+    }
+
+    override fun onDestroyView() {
+        backPressCallback.remove()
+        super.onDestroyView()
     }
 }

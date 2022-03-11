@@ -41,7 +41,7 @@
     <string name="template_manage">Quản lý mẫu thí nghiệm</string>
     <string name="test">Thí nghiệm</string>
     <string name="account">Tài khoản</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test_name">Tên thí nghiệm</string>
     <string name="public_test">Công khai thí nghiệm</string>
