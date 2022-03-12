@@ -17,8 +17,9 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.img.animate().translationY(-2500F).setDuration(1000).startDelay = 5000
-        binding.lottie.animate().translationY(1500F).setDuration(1000).startDelay = 5000
+        binding.img.animate().startDelay = 3000
+        binding.imgApp.animate().startDelay = 3000
+        binding.lottie.animate().startDelay = 3000
 
         Handler(Looper.getMainLooper()).postDelayed({
             val nav = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)

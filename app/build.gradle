@@ -109,6 +109,7 @@ dependencies {
     // Material Design
     implementation 'com.google.android.material:material:1.5.0'
     implementation("com.airbnb.android:lottie:4.2.2")
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
     // UI
     implementation("io.coil-kt:coil:2.0.0-rc01")
     implementation "dev.chrisbanes.insetter:insetter:0.6.1"
