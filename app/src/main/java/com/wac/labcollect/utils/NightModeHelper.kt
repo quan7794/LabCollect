@@ -1,7 +1,7 @@
 package com.wac.labcollect.utils
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.wac.labcollect.ui.fragment.firstScreen.DarkModeType
+import com.wac.labcollect.ui.fragment.firstScreen.profileTab.DarkModeType
 
 object NightModeHelper {
 

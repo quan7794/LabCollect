@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.wac.labcollect.ui.fragment.firstScreen.ProfileViewModel" />
+            type="com.wac.labcollect.ui.fragment.firstScreen.profileTab.ProfileViewModel" />
 
     </data>
 

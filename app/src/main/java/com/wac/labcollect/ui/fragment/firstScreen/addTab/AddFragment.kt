@@ -2,7 +2,9 @@ package com.wac.labcollect.ui.fragment.firstScreen.addTab
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentAddBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
@@ -20,4 +22,10 @@ class AddFragment : BaseFragment<FragmentAddBinding>() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.add)
+    }
+
 }

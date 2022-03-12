@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.fragment.firstScreen
+package com.wac.labcollect.ui.fragment.firstScreen.profileTab
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData

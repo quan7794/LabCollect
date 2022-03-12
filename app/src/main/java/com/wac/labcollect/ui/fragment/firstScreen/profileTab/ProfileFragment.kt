@@ -2,16 +2,16 @@ package com.wac.labcollect.ui.fragment.firstScreen.profileTab
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
+import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentProfileBinding
 import com.wac.labcollect.ui.base.BaseFragment
-import com.wac.labcollect.ui.fragment.firstScreen.DarkModeType
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
-import com.wac.labcollect.ui.fragment.firstScreen.ProfileViewModel
 import com.wac.labcollect.utils.NightModeHelper
 import kotlinx.coroutines.launch
 
@@ -58,6 +58,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             NightModeHelper.handleSetNightMode(value)
             viewModel.setDarkModeSetting(requireContext(), value)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.profile)
     }
 
 }

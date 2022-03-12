@@ -24,11 +24,6 @@
         <action
             android:id="@+id/action_firstScreenFragment_to_createTestFragment"
             app:destination="@id/createTestFragment" />
-        <action
-            android:id="@+id/action_firstScreenFragment_to_splashScreenFragment"
-            app:destination="@id/splashScreenFragment"
-            app:popUpTo="@id/firstScreenFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -40,16 +35,11 @@
             app:destination="@id/firstScreenFragment"
             app:popUpTo="@+id/loginFragment"
             app:popUpToInclusive="true"/>
-        <action
-            android:id="@+id/action_loginFragment_to_splashScreenFragment"
-            app:destination="@id/splashScreenFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.wac.labcollect.ui.fragment.firstScreen.homeTab.SearchFragment"
+        android:name="com.wac.labcollect.ui.fragment.firstScreen.homeTab.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search"/>
     <fragment
@@ -104,11 +94,11 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreenFragment_to_loginFragment"
-            app:destination="@id/loginFragment"/>
-        <action
             android:id="@+id/action_splashScreenFragment_to_firstScreenFragment"
-            app:destination="@id/firstScreenFragment" />
+            app:destination="@id/firstScreenFragment"
+            app:popUpTo="@id/nav_graph"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

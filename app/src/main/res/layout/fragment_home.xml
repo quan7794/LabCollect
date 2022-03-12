@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/COMMON_BG"
         tools:context=".ui.fragment.firstScreen.homeTab.HomeFragment">
 
         <LinearLayout
             android:id="@+id/shortcutSearch"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
+            android:layout_height="@dimen/_36sdp"
+
+            android:layout_marginTop="@dimen/_6sdp"
             android:background="@drawable/search_bar_bg"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -28,6 +31,34 @@
                 android:contentDescription="@string/search"
                 android:src="@drawable/icon_search" />
         </LinearLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/testLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test"
+            android:textSize="@dimen/_14ssp"
+            android:layout_margin="@dimen/_8sdp"
+            app:layout_constraintBottom_toTopOf="@+id/testListContainer"
+            app:layout_constraintTop_toBottomOf="@+id/shortcutSearch" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/testListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:elevation="@dimen/_10sdp"
+            app:cardCornerRadius="@dimen/_16ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/testLabel" >
+
+            <com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
+                android:id="@+id/testList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:item_layout="@layout/test_item"
+                app:divider="@drawable/list_divider"/>
+        </com.google.android.material.card.MaterialCardView>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,7 +8,7 @@ import com.wac.labcollect.ui.base.BaseViewModel
 
 class ManageTemplateViewModel(repository: TestRepository) : BaseViewModel() {
 
-    val templates = repository.allTemplates.asLiveData()
+    val templates = repository.templates.asLiveData()
 
 }
 

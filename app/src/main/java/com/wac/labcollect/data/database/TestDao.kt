@@ -9,22 +9,25 @@ import kotlinx.coroutines.flow.Flow
 interface TestDao {
 
     @Insert
-    suspend fun insertTemplate(template: Template)
+    suspend fun createTest(test: Test)
+
+    @Query("Select * from test_table order by id")
+    fun getAllTest(): Flow<List<Test>>
+
+    @Update
+    suspend fun updateTest(test: Test)
 
     @Insert
-    suspend fun createTest(test: Test)
+    suspend fun insertTemplate(template: Template)
+
+    @Query("Select * from template_table where isPublic = 1")
+    fun getPublicTemplates(): Flow<List<Template>>
 
     @Query("Select * from template_table order by id")
     fun getAllTemplates(): Flow<List<Template>>
 
     @Update
     suspend fun updateTemplate(template: Template)
-
-    @Update
-    suspend fun updateTest(test: Test)
-
-    @Query("Select * from template_table where isPublic = 1")
-    fun getPublicTemplates(): Flow<List<Template>>
 
     @Delete
     suspend fun deleteTemplate(dish: Template)

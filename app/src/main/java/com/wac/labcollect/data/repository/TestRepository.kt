@@ -40,7 +40,8 @@ class TestRepository(private val testDao: TestDao, private val networkTestAPI: T
 
     fun getTest(testUniqueName: String) = testDao.getTest(testUniqueName)
 
-    val allTemplates: Flow<List<Template>> = testDao.getAllTemplates()
+    val tests: Flow<List<Test>> = testDao.getAllTest()
+    val templates: Flow<List<Template>> = testDao.getAllTemplates()
     val allPublicTemplates: Flow<List<Template>> = testDao.getPublicTemplates()
 //    fun getTemplateByFilter(key: String, value: String): Flow<List<Template>> = templateDao.getTemplateByFilter(key, value)
 }

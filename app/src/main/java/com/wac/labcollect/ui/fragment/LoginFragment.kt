@@ -47,8 +47,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             Timber.w("Begin Google sign in")
             signIn()
         }
-        requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
-
     }
 
     private fun signIn() {
@@ -106,17 +104,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         } else {
             Toast.makeText(requireContext(), "You Didn't signed in", Toast.LENGTH_LONG).show()
         }
-    }
-
-    private val backPressCallback = object: OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            val action = LoginFragmentDirections.actionLoginFragmentToSplashScreenFragment()
-            binding.root.findNavController().navigate(action)
-        }
-    }
-
-    override fun onDestroyView() {
-        backPressCallback.remove()
-        super.onDestroyView()
     }
 }
