@@ -1,4 +1,4 @@
-package com.wac.labcollect.ui.fragment.feature.manageTest
+package com.wac.labcollect.ui.fragment.feature.testDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +9,7 @@ class ManageTestViewModel(val repository: TestRepository) : ViewModel() {
     fun getTest(testUniqueName: String) = repository.getTest(testUniqueName).asLiveData()
 }
 
-class ManageTestViewModelFactory(val repository: TestRepository): ViewModelProvider.Factory {
+class TestDetailViewModelFactory(val repository: TestRepository): ViewModelProvider.Factory {
     @Suppress("Unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ManageTestViewModel::class.java))

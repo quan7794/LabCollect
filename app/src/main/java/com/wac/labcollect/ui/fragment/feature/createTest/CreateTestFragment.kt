@@ -36,7 +36,7 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                 owner = FirebaseAuth.getInstance().currentUser?.email.toString(),
                 title = binding.testName.text.toString(),
                 uniqueName = binding.testName.text.toString().createUniqueName(),
-                type = ""
+                type = binding.testType.text.toString()
             )
 
             context?.let { context ->

@@ -31,7 +31,7 @@ class TemplateDataAdapter(mDataset: MutableList<Pair<String, DataType>>) :
         viewHolder.colType.apply {
             setText(dataSet[viewHolder.bindingAdapterPosition].second.type.textValue)
             val typeItems = DataType.getDataTypes()
-            val mAdapter = ArrayAdapter(this.context, R.layout.template_item, typeItems)
+            val mAdapter = ArrayAdapter(this.context, R.layout.simple_text_item, typeItems)
             (viewHolder.colType as AutoCompleteTextView).setAdapter(mAdapter)
         }
     }

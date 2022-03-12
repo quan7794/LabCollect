@@ -16,7 +16,7 @@
     <string name="home">Trang chính</string>
     <string name="logout">Đăng xuất</string>
     <string name="login_using_google">Đăng nhập bằng Google</string>
-    <string name="create_test_template">Tạo mẫu dữ liệu</string>
+    <string name="create_test_template">Tạo mẫu thí nghiệm</string>
     <string name="create_test">Tạo thí nghiệm</string>
     <string name="create_test_group">Tạo nhóm thí nghiệm</string>
     <string name="recent_search">Tìm kiếm gần đây</string>
@@ -44,4 +44,10 @@
     <string name="manage_template">Quản lý mẫu</string>
     <string name="test_type">Loại thí nghiệm</string>
     <string name="can_not_establish_test">Không thể khởi tạo test.</string>
+    <string name="table_data">Bảng dữ liệu</string>
+    <string name="test_data">Dữ liệu thí nghiệm</string>
+    <string name="backward">Trước</string>
+    <string name="add_record">Thêm dữ liệu</string>
+    <string name="forward">Sau</string>
+    <string name="save">Lưu</string>
 </resources>

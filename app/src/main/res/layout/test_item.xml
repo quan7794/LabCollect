@@ -5,121 +5,76 @@
     android:id="@+id/templateItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp"
-    android:backgroundTint="@color/BG"
     android:gravity="center"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="10dp">
+    app:cardCornerRadius="@dimen/_3sdp"
+    app:cardElevation="@dimen/_10sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toStartOf="@+id/dragImage"
+            android:layout_margin="@dimen/_4sdp"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintEnd_toStartOf="@+id/startTime"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/test_name" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
-                android:layout_marginEnd="@dimen/_4sdp"
-
-                android:hint="@string/test_name">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:singleLine="true"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_4sdp"
-                android:layout_weight="0.3"
-                android:hint="@string/test_type">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/type"
-                    android:singleLine="true"
-                    android:clickable="false"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
+            android:singleLine="true"
+            android:layout_margin="@dimen/_4sdp"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintEnd_toStartOf="@id/endTime"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="@string/test_type" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:singleLine="true"
+            app:layout_constraintEnd_toStartOf="@+id/dragImage"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/divider1"
+            tools:text="@string/start_date" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/HEADER_SECOND_TITLE"
+            app:layout_constraintTop_toBottomOf="@id/startTime"
+            app:layout_constraintStart_toStartOf="@id/startTime"
+            app:layout_constraintEnd_toStartOf="@id/dragImage"
+            app:layout_constraintBottom_toTopOf="@id/endTime"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/dragImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/startTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:cursorVisible="false"
-                    android:clickable="false"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:singleLine="true"
-
-                    android:focusableInTouchMode="false"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:hint="@string/start_date"
-                    android:imeOptions="actionNext" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/endTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:cursorVisible="false"
-                    android:clickable="false"
-                    android:inputType="none"
-                    android:focusable="false"
-                    android:singleLine="true"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/end_date"
-                    android:imeOptions="actionNext" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
+            app:layout_constraintEnd_toStartOf="@id/dragImage"
+            app:layout_constraintStart_toEndOf="@id/type"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            tools:text="@string/end_date" />
 
         <ImageView
             android:id="@+id/dragImage"

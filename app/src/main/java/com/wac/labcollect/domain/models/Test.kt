@@ -20,7 +20,10 @@ data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: I
     @SerializedName("startTime") var startTime: String = "",
     @SerializedName("endTime") var endTime: String = "",
     @SerializedName("type") var type: String = "",
-    @SerializedName("viewer") var viewer: List<String> = listOf()) : Parcelable
+    @SerializedName("viewer") var viewer: List<String> = listOf(),
+    @SerializedName("lastEditTimestamp") var lastEditTimestamp: String = "",
+    @SerializedName("createdTimestamp") var createTimestamp: String = ""
+) : Parcelable
 
 @Parcelize @Entity(tableName = "template_table")
 data class Template(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
@@ -30,7 +33,10 @@ data class Template(@PrimaryKey(autoGenerate = true) @SerializedName("id") val i
     @SerializedName("isActive") var isActive: Boolean = true,
     @SerializedName("owner") val owner: String = "",
     @SerializedName("fields") var fields: List<Field> = listOf(),
-    @SerializedName("viewers") var viewers: List<String> = listOf()) : Parcelable
+    @SerializedName("viewers") var viewers: List<String> = listOf(),
+    @SerializedName("lastEditTimestamp") var lastEditTimestamp: String = "",
+    @SerializedName("createdTimestamp") var createTimestamp: String = ""
+) : Parcelable
 
 @Parcelize
 data class Field(@SerializedName("key") var key: String = "",

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wac.labcollect.MainApplication
 import com.wac.labcollect.databinding.TemplateManageFragmentBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import timber.log.Timber

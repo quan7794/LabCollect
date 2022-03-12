@@ -1,19 +1,20 @@
 package com.wac.labcollect.ui.fragment.firstScreen.homeTab
 
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import com.google.android.material.snackbar.Snackbar
 import com.wac.labcollect.R
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeAdapter
 
-class TestListAdapter(dataSet: List<Test> = emptyList()) : DragDropSwipeAdapter<Test, TestListAdapter.ViewHolder>(dataSet) {
+class TestListAdapter(dataSet: List<Test> = emptyList(), private val testClickCallback: OnTestClick) : DragDropSwipeAdapter<Test, TestListAdapter.ViewHolder>(dataSet) {
 
     class ViewHolder(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView) {
-        val testName: EditText = itemView.findViewById(R.id.name)
-        val testType: EditText = itemView.findViewById(R.id.type)
-        val startDate: EditText = itemView.findViewById(R.id.startTime)
-        val endDate: EditText = itemView.findViewById(R.id.endTime)
+        val testName: TextView = itemView.findViewById(R.id.name)
+        val testType: TextView = itemView.findViewById(R.id.type)
+        val startDate: TextView = itemView.findViewById(R.id.startTime)
+        val endDate: TextView = itemView.findViewById(R.id.endTime)
         val dragImage: ImageView = itemView.findViewById(R.id.dragImage)
     }
 
@@ -21,14 +22,23 @@ class TestListAdapter(dataSet: List<Test> = emptyList()) : DragDropSwipeAdapter<
 
     override fun onBindViewHolder(item: Test, viewHolder: ViewHolder, position: Int) {
         viewHolder.apply {
-            testName.setText(item.title)
-            testType.setText(item.type)
-            startDate.setText(item.startTime)
-            endDate.setText(item.endTime)
+            testName.text = item.title
+            testType.text = item.type
+            startDate.text = item.startTime
+            endDate.text = item.endTime
+            itemView.setOnClickListener {
+                Snackbar.make(it,"Open: $item", Snackbar.LENGTH_LONG).show()
+                testClickCallback.onClick(item.uniqueName)
+            }
         }
     }
 
-    override fun getViewToTouchToStartDraggingItem(item: Test, viewHolder: ViewHolder, position: Int): View? {
+    override fun getViewToTouchToStartDraggingItem(item: Test, viewHolder: ViewHolder, position: Int): View {
         return viewHolder.dragImage
     }
+
+    interface OnTestClick {
+        fun onClick(uniqueName: String)
+    }
+
 }

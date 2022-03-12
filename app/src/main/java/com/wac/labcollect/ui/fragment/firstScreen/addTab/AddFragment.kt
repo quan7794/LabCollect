@@ -14,11 +14,20 @@ class AddFragment : BaseFragment<FragmentAddBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.createTest.setOnClickListener {
-            context?.let {
+        setupButtonClick()
+    }
+
+    private fun setupButtonClick() {
+        binding.apply {
+            createTest.setOnClickListener {
+                context?.let {
+                    Timber.e("Create new test")
+                    this@AddFragment.findNavController().navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToCreateTestFragment())
+                }
+            }
+            createTestTemplate.setOnClickListener {
                 Timber.e("Create new template")
-                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToCreateTestFragment()
-                this.findNavController().navigate(action)
+                this@AddFragment.findNavController().navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToCreateTemplateFragment(null))
             }
         }
     }

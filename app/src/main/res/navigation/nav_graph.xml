@@ -24,6 +24,12 @@
         <action
             android:id="@+id/action_firstScreenFragment_to_createTestFragment"
             app:destination="@id/createTestFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_manageTestFragment"
+            app:destination="@id/manageTestFragment" />
+        <action
+            android:id="@+id/action_firstScreenFragment_to_createTemplateFragment"
+            app:destination="@id/createTemplateFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -76,7 +82,7 @@
         tools:layout="@layout/template_manage_fragment" />
     <fragment
         android:id="@+id/manageTestFragment"
-        android:name="com.wac.labcollect.ui.fragment.feature.manageTest.ManageTestFragment"
+        android:name="com.wac.labcollect.ui.fragment.feature.testDetail.TestDetailFragment"
         android:label="manage_test_fragment"
         tools:layout="@layout/manage_test_fragment" >
         <argument
