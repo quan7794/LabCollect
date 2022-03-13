@@ -16,6 +16,7 @@ import com.wac.labcollect.databinding.CreateTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
+import com.wac.labcollect.utils.Utils.currentTimestamp
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -36,7 +37,8 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                 owner = FirebaseAuth.getInstance().currentUser?.email.toString(),
                 title = binding.testName.text.toString(),
                 uniqueName = binding.testName.text.toString().createUniqueName(),
-                type = binding.testType.text.toString()
+                type = binding.testType.text.toString(),
+                createTimestamp = currentTimestamp().toString()
             )
 
             context?.let { context ->

@@ -49,10 +49,6 @@ object Utils {
         return formatter.format(cal.time)
     }
 
-    enum class Status {
-        SUCCESS, ERROR, LOADING
-    }
-
     fun String.removeTone() : String {
         var str = this
         str = str.replace("à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ".toRegex(), "a");
@@ -80,13 +76,17 @@ object Utils {
     fun String.createUniqueName(): String {
         return this.removeTone().replace(" ","_") +"_"+currentTimestamp()
     }
+}
 
-    data class Resource<out T>(val status: Status, val data: T? = null, val message: String? = null) {
-        companion object {
-            fun <T> success(data: T): Resource<T> = Resource(Status.SUCCESS, data)
-            fun <T> error(data: T? = null, message: String) = Resource(Status.ERROR, data, message)
-            fun <T> loading(data: T? = null) = Resource(Status.LOADING, data)
-        }
+enum class Status {
+    SUCCESS, ERROR, LOADING, NOTHING
+}
+
+data class Resource<out T>(val status: Status, val data: T? = null, val message: String? = null) {
+    companion object {
+        fun <T> success(data: T): Resource<T> = Resource(Status.SUCCESS, data)
+        fun <T> error(data: T? = null, message: String) = Resource(Status.ERROR, data, message)
+        fun <T> loading(data: T? = null) = Resource(Status.LOADING, data)
+        fun <T> nothing(data: T? = null) = Resource(Status.NOTHING, data)
     }
-
 }

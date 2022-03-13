@@ -19,6 +19,7 @@ import com.wac.labcollect.domain.models.TYPE
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
+import com.wac.labcollect.utils.Utils.currentTimestamp
 import com.wac.labcollect.utils.Utils.observeOnce
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
 import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
@@ -47,7 +48,8 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
                         title = binding.templateName.text.toString(),
                         uniqueName = binding.templateName.text.toString().createUniqueName(),
                         owner = FirebaseAuth.getInstance().currentUser?.email ?: "",
-                        fields = fieldList
+                        fields = fieldList,
+                        createTimestamp = currentTimestamp().toString()
                     )
                     lifecycleScope.launch {
                         viewModel.insert(newTemp)

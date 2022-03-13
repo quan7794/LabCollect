@@ -23,12 +23,12 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
-//        NavigationUI.setupActionBarWithNavController(this, navController)
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.firstScreenFragment, R.id.loginFragment,))
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(navController,null)
+        onBackPressed()
+        return true
     }
 }

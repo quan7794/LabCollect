@@ -19,7 +19,7 @@ class FirstScreenFragment : BaseFragment<FragmentFirstScreenBinding>() {
             Timber.e("Is logout: ${it.currentUser == null} ")
             if (it.currentUser == null) {
                 val action = FirstScreenFragmentDirections.toLoginFragment()
-                activity?.let { it1 -> Navigation.findNavController(it1, R.id.nav_host_fragment).navigate(action) }
+                navigate(action)
             }
         }
 
@@ -38,17 +38,6 @@ class FirstScreenFragment : BaseFragment<FragmentFirstScreenBinding>() {
 
     override fun onDestroyView() {
         Firebase.auth.removeAuthStateListener(authListener)
-        binding.viewPager.adapter = null
         super.onDestroyView()
     }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        (activity as AppCompatActivity).supportActionBar?.hide()
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        (activity as AppCompatActivity).supportActionBar?.show()
-//    }
 }
