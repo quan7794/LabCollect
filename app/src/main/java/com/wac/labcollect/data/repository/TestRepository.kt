@@ -38,7 +38,8 @@ class TestRepository(private val testDao: TestDao, private val networkTestAPI: T
         testDao.deleteTemplate(template)
     }
 
-    fun getTest(testUniqueName: String) = testDao.getTest(testUniqueName)
+    @WorkerThread
+    suspend fun getTest(testUniqueName: String) = testDao.getTest(testUniqueName)
 
     val tests: Flow<List<Test>> = testDao.getAllTest()
     val templates: Flow<List<Template>> = testDao.getAllTemplates()

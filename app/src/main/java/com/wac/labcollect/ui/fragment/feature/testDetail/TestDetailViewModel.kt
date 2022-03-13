@@ -6,7 +6,7 @@ import androidx.lifecycle.asLiveData
 import com.wac.labcollect.data.repository.TestRepository
 
 class ManageTestViewModel(val repository: TestRepository) : ViewModel() {
-    fun getTest(testUniqueName: String) = repository.getTest(testUniqueName).asLiveData()
+    suspend fun getTest(testUniqueName: String) = repository.getTest(testUniqueName)
 }
 
 class TestDetailViewModelFactory(val repository: TestRepository): ViewModelProvider.Factory {

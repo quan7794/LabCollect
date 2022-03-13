@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize @Entity(tableName = "test_table")
 data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
     @SerializedName("editor") var editor: List<String> = listOf(),
-    @SerializedName("fields") var templates: Template = Template(),
+    @SerializedName("template") var template: Template = Template(),
     @SerializedName("records") var records: List<String> = listOf(),
     @SerializedName("isActive") var isActive: Boolean = true,
     @SerializedName("isPublic") var isPublic: Boolean = true,

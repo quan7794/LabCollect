@@ -84,11 +84,12 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
         testUniqueName = args.testUniqueName
 
         testUniqueName?.let {
-            viewModel.getTest(it).observeOnce { test ->
-                viewModel.setParentTest(test)
-                binding.templateName.setText( test.title)
+            lifecycleScope.launch {
+                val test = viewModel.getTest(it)
+                    viewModel.setParentTest(test)
+                    binding.templateName.setText( test.title)
+                }
             }
-        }
         binding.apply {
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

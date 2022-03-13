@@ -35,10 +35,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
 
     private fun initSearchAction() {
         binding.apply {
-            try {
-                shortcutSearch.setOnClickListener { Navigation.findNavController(root).navigate(R.id.action_firstScreenFragment_to_searchFragment) }
-            } catch (e: Exception) {
-                Timber.e("Error when start search fragment: $e")
+            shortcutSearch.setOnClickListener {
+                navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToSearchFragment())
             }
         }
     }

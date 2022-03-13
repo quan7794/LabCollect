@@ -63,6 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:item_layout="@layout/test_item"
+                    tools:listitem="@layout/test_item"
                     app:divider="@drawable/list_divider"/>
             </LinearLayout>
 

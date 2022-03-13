@@ -35,7 +35,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private fun initActionView() {
         binding.apply {
             manageTemplate.setOnClickListener {
-                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToTemplateManagerFragment()
+                val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToTemplateManagerFragment(null)
                 this@ProfileFragment.findNavController().navigate(action)
             }
             darkModeSwitch.setOnClickListener { v ->

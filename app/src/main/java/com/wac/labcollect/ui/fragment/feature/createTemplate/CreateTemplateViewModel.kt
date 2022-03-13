@@ -14,7 +14,7 @@ class CreateTemplateViewModel(private val repository: TestRepository) : BaseView
 
     suspend fun insert(template: Template) = repository.insertTemplate(template)
 
-    fun getTest(testUniqueName: String) = repository.getTest(testUniqueName).asLiveData()
+    suspend fun getTest(testUniqueName: String) = repository.getTest(testUniqueName)
 
     fun setParentTest(test: Test) {
         _parentTest.value = test
@@ -22,7 +22,7 @@ class CreateTemplateViewModel(private val repository: TestRepository) : BaseView
 
     suspend fun addTemplateToNewTest(temp: Template): Boolean {
         parentTest.value?.let {
-            repository.updateTest(it.copy(templates = temp))
+            repository.updateTest(it.copy(template = temp))
             Timber.e("Done to create. Go to test page.")
             return true
         }

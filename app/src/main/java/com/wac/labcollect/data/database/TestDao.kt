@@ -33,7 +33,7 @@ interface TestDao {
     suspend fun deleteTemplate(dish: Template)
 
     @Query("Select * from test_table where uniqueName = :testUniqueName")
-    fun getTest(testUniqueName: String): Flow<Test>
+    suspend fun getTest(testUniqueName: String): Test
 
 //    @Query("""Select * from template_table where
 //            case :key

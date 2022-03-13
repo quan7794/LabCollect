@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_createTestFragment_to_createTemplateFragment"
             app:destination="@id/createTemplateFragment" />
+        <action
+            android:id="@+id/action_createTestFragment_to_manageTemplateFragment"
+            app:destination="@id/manageTemplateFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTemplateFragment"
@@ -79,7 +82,15 @@
         android:id="@+id/manageTemplateFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.manageTemplate.ManageTemplateFragment"
         android:label="@string/manage_template"
-        tools:layout="@layout/template_manage_fragment" />
+        tools:layout="@layout/template_manage_fragment" >
+        <argument
+            android:name="testUniqueName"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_manageTemplateFragment_to_manageTestFragment"
+            app:destination="@id/manageTestFragment" />
+    </fragment>
     <fragment
         android:id="@+id/manageTestFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.testDetail.TestDetailFragment"

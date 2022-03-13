@@ -5,12 +5,14 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wac.labcollect.databinding.ManageTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.observeOnce
+import kotlinx.coroutines.launch
 
 class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
 
@@ -20,9 +22,11 @@ class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
-        viewModel.getTest(args.testUniqueName).observeOnce {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = it.title
-            setupUi(it)
+        lifecycleScope.launch {
+            viewModel.getTest(args.testUniqueName).let {
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = it.title
+                setupUi(it)
+            }
         }
     }
 

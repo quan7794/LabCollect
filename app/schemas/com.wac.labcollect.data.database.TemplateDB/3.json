@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "2c1113e8e40a85e2363b1fa25a832643",
+    "identityHash": "bc46a806455e1ff30061a3a5087bb23e",
     "entities": [
       {
         "tableName": "test_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `editor` TEXT NOT NULL, `templates` TEXT NOT NULL, `records` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `uniqueName` TEXT NOT NULL, `title` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL, `lastEditTimestamp` TEXT NOT NULL, `createTimestamp` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `editor` TEXT NOT NULL, `template` TEXT NOT NULL, `records` TEXT NOT NULL, `isActive` INTEGER NOT NULL, `isPublic` INTEGER NOT NULL, `uniqueName` TEXT NOT NULL, `title` TEXT NOT NULL, `owner` TEXT NOT NULL, `startTime` TEXT NOT NULL, `endTime` TEXT NOT NULL, `type` TEXT NOT NULL, `viewer` TEXT NOT NULL, `lastEditTimestamp` TEXT NOT NULL, `createTimestamp` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -21,8 +21,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "templates",
-            "columnName": "templates",
+            "fieldPath": "template",
+            "columnName": "template",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -186,7 +186,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2c1113e8e40a85e2363b1fa25a832643')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bc46a806455e1ff30061a3a5087bb23e')"
     ]
   }
 }

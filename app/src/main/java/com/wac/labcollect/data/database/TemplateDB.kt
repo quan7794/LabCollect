@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.domain.models.Test
 
-@Database(entities = [Test::class, Template::class], version = 3, exportSchema = true)
+@Database(entities = [Test::class, Template::class], version = 4, exportSchema = true)
 @TypeConverters(RoomConverter::class)
 abstract class TemplateDB: RoomDatabase() {
     abstract fun templateDao() : TestDao

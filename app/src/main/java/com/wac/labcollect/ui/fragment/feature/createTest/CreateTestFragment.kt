@@ -44,15 +44,20 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                     .setTitle(R.string.choose_template)
                     .setMessage(R.string.create_test_message)
                     .setPositiveButton(R.string.create_new) { _, _ ->
+                        Timber.e("Create new template")
                         lifecycleScope.launch {
                             viewModel.createTest(test)
-                            Timber.e("Create new template")
                             val action = CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.uniqueName)
                             this@CreateTestFragment.findNavController().navigate(action)
                         }
                     }
                     .setNegativeButton(R.string.select_existed_template) { _, _ ->
                         Timber.e("Use existed template")
+                        lifecycleScope.launch {
+                            viewModel.createTest(test)
+                            val action = CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test.uniqueName)
+                            this@CreateTestFragment.findNavController().navigate(action)
+                        }
                     }
                     .setCancelable(false)
                     .show()
