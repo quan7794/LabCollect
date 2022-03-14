@@ -39,6 +39,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/realtimeBlurView"
             app:lottie_autoPlay="true"
+            app:lottie_repeatCount="1000"
             app:lottie_rawRes="@raw/lottie_loading"
             tools:visibility="visible" />
 

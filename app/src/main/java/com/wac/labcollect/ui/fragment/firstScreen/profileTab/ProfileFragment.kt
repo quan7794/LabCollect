@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
@@ -26,6 +27,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             logoutBtn.setOnClickListener { FirebaseAuth.getInstance().signOut() }
             accountEmail.text = auth.currentUser?.email
             accountName.text = auth.currentUser?.displayName
+            Glide.with(root).load(auth.currentUser!!.photoUrl).into(accountImage)
         }
         binding.vm = viewModel
         initData()

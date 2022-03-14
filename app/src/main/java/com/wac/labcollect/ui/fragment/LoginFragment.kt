@@ -32,7 +32,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     //constants
     private companion object {
         private const val RC_SIGN_IN = 100
-        private const val TAG = "GOOGLE_SIGN_IN_TAG"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +40,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
             .requestEmail()
+            .requestProfile()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
     }
@@ -88,10 +88,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             Timber.d("Login status: $requestCode, $resultCode, $data")
             if (resultCode == RESULT_OK) {
                 val accountTask = GoogleSignIn.getSignedInAccountFromIntent(data)
+                GoogleSignIn.getLastSignedInAccount(requireContext())?.idToken
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = accountTask.getResult(ApiException::class.java)!!
-                    Timber.d("firebaseAuthWithGoogle:" + account.id)
+                    Timber.d("firebaseAuthWithGoogle:" + account.idToken)
                     firebaseAuthWithGoogleAccount(account)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
