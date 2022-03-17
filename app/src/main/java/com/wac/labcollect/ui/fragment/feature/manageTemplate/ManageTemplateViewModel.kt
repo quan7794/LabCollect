@@ -3,7 +3,7 @@ package com.wac.labcollect.ui.fragment.feature.manageTemplate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import com.wac.labcollect.data.repository.TestRepository
+import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.ui.base.BaseViewModel
 

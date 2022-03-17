@@ -1,18 +1,20 @@
 package com.wac.labcollect.ui.fragment
 
 import android.app.Activity.RESULT_OK
-import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.fragment.app.viewModels
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Scope
+import com.google.api.services.sheets.v4.Sheets
+import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.wac.labcollect.R
@@ -40,6 +42,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
             .requestEmail()
+            .requestScopes(Scope(SheetsScopes.SPREADSHEETS))
+            .requestScopes(Scope(SheetsScopes.DRIVE))
+            .requestScopes(Scope(Scopes.DRIVE_FULL))
             .requestProfile()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
@@ -56,7 +61,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                         loadingAnimation.progress = 0F
                         loadingAnimation.visibility = View.VISIBLE
                         loginButton.isEnabled = false
-
                     }
                     signIn()
                 }
@@ -88,7 +92,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             Timber.d("Login status: $requestCode, $resultCode, $data")
             if (resultCode == RESULT_OK) {
                 val accountTask = GoogleSignIn.getSignedInAccountFromIntent(data)
-                GoogleSignIn.getLastSignedInAccount(requireContext())?.idToken
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = accountTask.getResult(ApiException::class.java)!!

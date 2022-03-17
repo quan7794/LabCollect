@@ -2,8 +2,7 @@ package com.wac.labcollect.ui.fragment.feature.testDetail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import com.wac.labcollect.data.repository.TestRepository
+import com.wac.labcollect.data.repository.test.TestRepository
 
 class ManageTestViewModel(val repository: TestRepository) : ViewModel() {
     suspend fun getTest(testUniqueName: String) = repository.getTest(testUniqueName)

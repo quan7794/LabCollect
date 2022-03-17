@@ -1,4 +1,4 @@
-package com.wac.labcollect.data.repository
+package com.wac.labcollect.data.repository.test
 
 import androidx.annotation.WorkerThread
 import com.wac.labcollect.data.database.TestDao

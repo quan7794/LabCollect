@@ -1,7 +1,7 @@
 package com.wac.labcollect.ui.fragment.feature.createTemplate
 
 import androidx.lifecycle.*
-import com.wac.labcollect.data.repository.TestRepository
+import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseViewModel

@@ -5,7 +5,7 @@ import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import com.wac.labcollect.data.database.TemplateDB
 import com.wac.labcollect.data.network.TemplateApiService
-import com.wac.labcollect.data.repository.TestRepository
+import com.wac.labcollect.data.repository.test.TestRepository
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
