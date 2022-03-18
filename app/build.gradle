@@ -109,6 +109,13 @@ dependencies {
         exclude group: 'org.apache.httpcomponents'
     }
     implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation('com.google.apis:google-api-services-drive:v3-rev20211107-1.32.1') {
+        exclude group: 'org.apache.httpcomponents'
+        exclude module: 'guava-jdk5'
+    }
+
+    //permission
+    implementation 'pub.devrel:easypermissions:3.0.0'
 
     // data
     def room_version = "2.4.2"
@@ -168,8 +175,6 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // QRCode
-    implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.journeyapps:zxing-android-embedded:4.2.0@aar'
     implementation 'com.google.zxing:core:3.4.0'
 
