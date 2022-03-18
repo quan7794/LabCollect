@@ -12,6 +12,7 @@
     <string name="create_account">Tạo tài khoản mới</string>
     <string name="search">Tìm kiếm</string>
     <string name="add">Thêm</string>
+    <string name="qr_code">Mã Vạch</string>
     <string name="profile">Cá nhân</string>
     <string name="home">Trang chính</string>
     <string name="logout">Đăng xuất</string>
@@ -50,4 +51,9 @@
     <string name="add_record">Thêm dữ liệu</string>
     <string name="forward">Sau</string>
     <string name="save">Lưu</string>
+    <string name="scan_qr_code_here">Quét Mã Vạch Ở Đây</string>
+    <string name="enter_qrcode">Nhập Mã Vạch Ở Đây</string>
+    <string name="scan_code">Quét Mã</string>
+    <string name="enter_code">Nhập Mã</string>
+    <string name="enter_cd">Nhập</string>
 </resources>

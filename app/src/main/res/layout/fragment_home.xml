@@ -36,16 +36,20 @@
             android:id="@+id/testListContainer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:elevation="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_14sdp"
+            android:elevation="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_16ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shortcutSearch" >
+            app:layout_constraintTop_toBottomOf="@id/shortcutSearch"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="16dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_10sdp"
                 android:orientation="vertical">
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/testLabel"
                     android:layout_width="match_parent"
@@ -54,21 +58,35 @@
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintBottom_toTopOf="@+id/testListContainer"
                     app:layout_constraintTop_toBottomOf="@+id/shortcutSearch" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@drawable/cool_bg"/>
+                    android:background="@drawable/cool_bg" />
+
                 <com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
                     android:id="@+id/testList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:divider="@drawable/list_divider"
                     app:item_layout="@layout/test_item"
-                    tools:listitem="@layout/test_item"
-                    app:divider="@drawable/list_divider"/>
+                    tools:listitem="@layout/test_item" />
             </LinearLayout>
-
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/toQRCodeFragmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:backgroundTint="#717571"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="?attr/actionModeSelectAllDrawable" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

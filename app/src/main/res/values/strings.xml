@@ -17,6 +17,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="add">Add</string>
+    <string name="qr_code">QRCode</string>
     <string name="profile">Profile</string>
     <string name="logout">Đăng xuất</string>
     <string name="login_using_google">Đăng nhập bằng Google</string>
@@ -59,4 +60,9 @@
     <string name="add_record">Thêm dữ liệu</string>
     <string name="forward">Sau</string>
     <string name="save">Lưu</string>
+    <string name="scan_qr_code_here">Scan QR Code Here</string>
+    <string name="enter_qrcode">Enter QR Code Here</string>
+    <string name="scan_code">Scan Code</string>
+    <string name="enter_code">Enter Code</string>
+    <string name="enter_cd">Enter</string>
 </resources>
