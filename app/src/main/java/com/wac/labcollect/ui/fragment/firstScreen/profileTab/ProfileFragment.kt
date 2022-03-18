@@ -67,4 +67,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.profile)
     }
 
+    override fun onDestroyView() {
+        context?.let { Glide.get(it).clearMemory() }
+        super.onDestroyView()
+    }
 }
