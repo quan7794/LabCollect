@@ -17,6 +17,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="add">Add</string>
+    <string name="qr_code">QRCode</string>
     <string name="profile">Profile</string>
     <string name="logout">Đăng xuất</string>
     <string name="login_using_google">Đăng nhập bằng Google</string>

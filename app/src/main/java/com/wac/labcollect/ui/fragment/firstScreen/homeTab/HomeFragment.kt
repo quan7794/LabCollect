@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.api.services.sheets.v4.model.Spreadsheet
@@ -27,6 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         super.onViewCreated(view, savedInstanceState)
         initSearchAction()
         initTestList()
+        initScanQRCode()
 //        createSheet()
         getDriverFiles()
         moveFileToDir()
@@ -68,6 +70,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         binding.apply {
             shortcutSearch.setOnClickListener {
                 navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToSearchFragment())
+            }
+        }
+    }
+
+    private fun initScanQRCode(){
+        binding.apply {
+            toQRCodeFragmentButton.setOnClickListener {
+                navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToQRCodeFragment())
             }
         }
     }

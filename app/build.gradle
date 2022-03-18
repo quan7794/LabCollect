@@ -173,6 +173,10 @@ dependencies {
     androidTestImplementation  "com.google.dagger:hilt-android-testing:$hilt_version"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
+    // QRCode
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+
     //utils
     //biometrics
 //    implementation "com.github.FunkyMuse.KAHelpers:biometrics:$utilsVersion"
