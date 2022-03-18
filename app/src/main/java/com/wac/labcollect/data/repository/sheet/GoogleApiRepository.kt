@@ -11,6 +11,7 @@ import com.wac.labcollect.data.manager.AuthenticationManager
 import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ID_KEY
 import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.PARENT_FIELD_KEY
 import timber.log.Timber
+import java.io.IOException
 import java.lang.StringBuilder
 
 class GoogleApiRepository(
@@ -42,31 +43,32 @@ class GoogleApiRepository(
 
     override suspend fun getAllFiles(): List<Pair<String, String>> {
         val list = mutableListOf<Pair<String, String>>()
-        getDriveService().let { googleDriveService ->
-            var pageToken: String?
-            do {
-                val result = googleDriveService.files().list().apply {
-                    spaces = "drive"
-                    fields = "nextPageToken, files(id, name)"
-                    pageToken = this.pageToken
-                }.execute()
-                for (file in result.files) {
-                    list.add(Pair(file.name, file.id))
-                }
-            } while (pageToken != null)
+        try {
+            getDriveService().let { googleDriveService ->
+                var pageToken: String?
+                do {
+                    val result = googleDriveService.files().list().apply {
+                        spaces = "drive"
+                        fields = "nextPageToken, files(id, name)"
+                        pageToken = this.pageToken
+                    }.execute()
+                    for (file in result.files) {
+                        list.add(Pair(file.name, file.id))
+                    }
+                } while (pageToken != null)
+            }
+        } catch (e: Exception) {
+            Timber.e("Get all file error: $e")
+            e.printStackTrace()
         }
         return list
     }
-
-    override suspend fun moveFileToDir(fileId: String, dirId: String): List<String> { //https://github.com/googleworkspace/java-samples/blob/master/drive/snippets/drive_v3/src/main/java/MoveFileToFolder.java
-        val file = getDriveService().files().get(fileId).setFields(PARENT_FIELD_KEY).execute()
-        val previousParents = StringBuilder()
-        for (parent in file.parents) {
-            previousParents.append(parent)
-            previousParents.append(',')
-        }
+    //https://github.com/googleworkspace/java-samples/blob/master/drive/snippets/drive_v3/src/main/java/MoveFileToFolder.java
+    override suspend fun moveFileToDir(fileId: String, dirId: String): List<String> {
         try {
-
+            val file = getDriveService().files().get(fileId).setFields(PARENT_FIELD_KEY).execute()
+            val previousParents = StringBuilder()
+            for (parent in file.parents) previousParents.append("$parent,")
             val update = getDriveService().files().update(fileId, null)
                 .setRemoveParents(previousParents.toString())
                 .setAddParents(dirId)
@@ -74,7 +76,10 @@ class GoogleApiRepository(
                 .setFields("$ID_KEY, $PARENT_FIELD_KEY")
                 .execute()
             return update.parents
-        } catch (e: GoogleJsonResponseException) {Timber.e("Unable to move file: ${e.details}")}
+        } catch (e: Exception) {
+            Timber.e("Unable to move file: $e")
+            e.printStackTrace()
+        }
         return emptyList()
     }
 
