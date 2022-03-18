@@ -60,9 +60,4 @@
     <string name="add_record">Thêm dữ liệu</string>
     <string name="forward">Sau</string>
     <string name="save">Lưu</string>
-    <string name="scan_qr_code_here">Scan QR Code Here</string>
-    <string name="enter_qrcode">Enter QR Code Here</string>
-    <string name="scan_code">Scan Code</string>
-    <string name="enter_code">Enter Code</string>
-    <string name="enter_cd">Enter</string>
 </resources>

@@ -80,13 +80,13 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:backgroundTint="#717571"
+            android:backgroundTint="#A5A8A5"
             android:clickable="true"
-            android:contentDescription="TODO"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="?attr/actionModeSelectAllDrawable" />
+            app:srcCompat="?attr/actionModeSelectAllDrawable"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
