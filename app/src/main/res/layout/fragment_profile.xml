@@ -52,6 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat"
+                        android:layout_marginTop="@dimen/_3sdp"
                         tools:text="Tên tài khoản" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -59,7 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
                         tools:text="Email" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
