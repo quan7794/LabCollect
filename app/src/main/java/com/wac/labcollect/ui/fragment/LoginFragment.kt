@@ -17,8 +17,11 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
+import com.wac.labcollect.data.manager.AuthenticationManager.Companion.SCOPES
 import com.wac.labcollect.databinding.FragmentLoginBinding
+import com.wac.labcollect.ui.activity.mainActivity.MainActivity
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.LoginViewModel
 import com.wac.labcollect.utils.Resource
@@ -42,9 +45,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.client_id))
             .requestEmail()
-            .requestScopes(Scope(SheetsScopes.SPREADSHEETS))
-            .requestScopes(Scope(SheetsScopes.DRIVE))
-            .requestScopes(Scope(Scopes.DRIVE_FULL))
+            .requestScopes(Scope(SheetsScopes.DRIVE), Scope(SheetsScopes.SPREADSHEETS))
             .requestProfile()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
@@ -67,6 +68,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 Status.SUCCESS -> {
                     binding.loadingAnimation.visibility = View.GONE
                     Toast.makeText(requireContext(), "You Signed In successfully", Toast.LENGTH_LONG).show()
+                    setUpGoogleAccountCredential()
                     navigate(LoginFragmentDirections.toFirstScreenFragment())
                 }
                 Status.ERROR -> {
@@ -96,7 +98,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = accountTask.getResult(ApiException::class.java)!!
                     Timber.d("firebaseAuthWithGoogle:" + account.idToken)
-                    firebaseAuthWithGoogleAccount(account)
+//                    firebaseAuthWithGoogleAccount(account)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Timber.e("Google sign in failed", e)

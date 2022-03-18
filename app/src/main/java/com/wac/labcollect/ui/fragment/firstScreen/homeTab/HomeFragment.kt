@@ -7,14 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
-import com.google.api.client.http.javanet.NetHttpTransport
-import com.google.api.client.json.gson.GsonFactory
-import com.google.api.services.sheets.v4.Sheets
-import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.api.services.sheets.v4.model.Spreadsheet
 import com.google.api.services.sheets.v4.model.SpreadsheetProperties
 import com.wac.labcollect.R
+import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.databinding.FragmentHomeBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
@@ -32,27 +28,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         initSearchAction()
         initTestList()
 //        createSheet()
+        getDriverFiles()
+        moveFileToDir()
     }
 
-    private fun createSheet() {
-        val scopes = listOf(SheetsScopes.SPREADSHEETS)
-        val credentials = GoogleAccountCredential.usingOAuth2(context, scopes)
-        credentials.selectedAccount = lastSignedAccount()?.account
-        val service = Sheets.Builder(NetHttpTransport(), GsonFactory.getDefaultInstance(), credentials)
-            .setApplicationName("Lab Collect")
-            .build()
-
-        var spreadsheet = Spreadsheet().setProperties(SpreadsheetProperties().setTitle("Excel1"))
-
+    private fun moveFileToDir() { //TODO: Move file to dir example
         lifecycleScope.launch(Dispatchers.IO) {
-            spreadsheet = service.spreadsheets()
-                .create(spreadsheet)
-                .setFields("spreadsheetId")
-                .setFields("spreadsheetUrl")
-                .execute()
-            Timber.e("Spreadsheet ID: " + spreadsheet.spreadsheetId + ", " + spreadsheet.spreadsheetUrl)
+            val newDir = googleApiRepository.moveFileToDir("1Aym3xjo84L646KeZbu2owC56PxIC3NP1pKjcRn6HiFE", ROOT_DIR_ID)
+            Timber.e(newDir.toString())
         }
-        // Prints the new spreadsheet id
+    }
+
+    private fun getDriverFiles() { //TODO: Get drive contents example
+        lifecycleScope.launch(Dispatchers.IO) {
+            val files = googleApiRepository.getAllFiles()
+            files.forEach { Timber.e("    : $it \n") }
+        }
+    }
+
+    private fun createSheet() { //TODO: Create spread example
+        val spreadsheet = Spreadsheet().setProperties(SpreadsheetProperties().setTitle("Excel1"))
+        lifecycleScope.launch(Dispatchers.IO) {
+           val id = googleApiRepository.createSpreadsheet(spreadsheet)
+            Timber.e("Spreadsheet ID: $id")
+        }
     }
 
     private fun initTestList() {

@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentFirstScreenBinding
 import com.wac.labcollect.ui.base.BaseFragment
@@ -18,6 +19,7 @@ class FirstScreenFragment : BaseFragment<FragmentFirstScreenBinding>() {
     private var authListener = FirebaseAuth.AuthStateListener {
             Timber.e("Is logout: ${it.currentUser == null} ")
             if (it.currentUser == null) {
+                setUpGoogleAccountCredential()
                 val action = FirstScreenFragmentDirections.toLoginFragment()
                 navigate(action)
             }
