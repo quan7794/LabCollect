@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import com.budiyev.android.codescanner.AutoFocusMode
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
@@ -26,7 +27,7 @@ class QRCodeFragment : BaseFragment<FragmentQRCodeBinding>(){
 
         if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) ==
                 PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), 123 )
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), 123 )
         }else{
             startScanning()
         }
@@ -71,7 +72,6 @@ class QRCodeFragment : BaseFragment<FragmentQRCodeBinding>(){
             }
         }
     }
-
 
     override fun onResume() {
         super.onResume()
