@@ -12,7 +12,7 @@ import timber.log.Timber
 class ManageTemplateViewModel(private val testRepository: TestRepository, private val googleApiRepository: GoogleApiRepository) : BaseViewModel() {
 
     suspend fun updateTest(spreadId: String, template: Template) : Boolean{
-        testRepository.getTestBySpreadId(spreadId).let { test ->
+        testRepository.getTestBySpreadId(spreadId)?.let { test ->
             try {
                 val range = "A1:Z1"
                 val inputOption = "RAW"

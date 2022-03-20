@@ -10,12 +10,11 @@ import androidx.navigation.fragment.navArgs
 import com.wac.labcollect.databinding.ManageTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
-import com.wac.labcollect.utils.Utils.observeOnce
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
 
 class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
 
-    private val viewModel: ManageTestViewModel by viewModels { TestDetailViewModelFactory(testRepository) }
+    private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,7 +26,7 @@ class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
     private fun initViewModel(spreadId: String) {
         viewModel.init(spreadId)
         viewModel.currentTest.observeUntilNonNull(viewLifecycleOwner) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = it.title
+            (requireActivity() as AppCompatActivity).supportActionBar?.title = it!!.title
             setupUi(it)
         }
     }

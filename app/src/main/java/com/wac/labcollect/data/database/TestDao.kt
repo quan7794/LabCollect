@@ -33,7 +33,7 @@ interface TestDao {
     suspend fun deleteTemplate(template: Template)
 
     @Query("Select * from test_table where spreadId = :spreadId")
-    suspend fun getTestBySpreadId(spreadId: String): Test
+    suspend fun getTestBySpreadId(spreadId: String): Test?
 
 //    @Query("""Select * from template_table where
 //            case :key

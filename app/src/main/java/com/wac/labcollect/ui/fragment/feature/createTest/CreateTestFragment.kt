@@ -50,7 +50,7 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                     .setPositiveButton(R.string.create_new) { _, _ ->
                         Timber.e("Create new template")
                         lifecycleScope.launch(Dispatchers.IO) {
-                            test.spreadId = viewModel.createSpread(test.title)
+                            test.spreadId = viewModel.createSpread(test)
                             viewModel.createTest(test)
                             withContext(Dispatchers.Main) {
                                 navigate(CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.spreadId))
@@ -60,7 +60,7 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                     .setNegativeButton(R.string.select_existed_template) { _, _ ->
                         Timber.e("Use existed template")
                         lifecycleScope.launch(Dispatchers.IO) {
-                            test.spreadId = viewModel.createSpread(test.title)
+                            test.spreadId = viewModel.createSpread(test)
                             viewModel.createTest(test)
                             withContext(Dispatchers.Main) {
                                 navigate(CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test.spreadId))

@@ -84,8 +84,10 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
         spreadId?.let { id ->
             lifecycleScope.launch {
                 val test = viewModel.getTestBySpreadId(id)
-                viewModel.setParentTest(test)
-                binding.templateName.setText(test.title)
+                if (test != null) {
+                    viewModel.setParentTest(test)
+                    binding.templateName.setText(test.title)
+                }
             }
         }
         binding.apply {

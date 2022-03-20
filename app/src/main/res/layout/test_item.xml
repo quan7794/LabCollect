@@ -11,70 +11,33 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
             android:layout_margin="@dimen/_4sdp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="26dp"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:textSize="@dimen/_14ssp"
-            app:layout_constraintEnd_toStartOf="@+id/startTime"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintBottom_toTopOf="@+id/divider1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/test_name" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:layout_margin="@dimen/_4sdp"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toStartOf="@id/endTime"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/name"
-            tools:text="@string/test_type" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/startTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_4sdp"
-            android:singleLine="true"
-            app:layout_constraintEnd_toStartOf="@+id/dragImage"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/divider1"
-            tools:text="@string/start_date" />
 
         <View
             android:id="@+id/divider1"
             android:layout_width="0dp"
             android:layout_height="@dimen/_1sdp"
             android:background="@color/HEADER_SECOND_TITLE"
-            app:layout_constraintTop_toBottomOf="@id/startTime"
-            app:layout_constraintStart_toStartOf="@id/startTime"
-            app:layout_constraintEnd_toStartOf="@id/dragImage"
-            app:layout_constraintBottom_toTopOf="@id/endTime"/>
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/endTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_4sdp"
-            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/dragImage"
-            app:layout_constraintStart_toEndOf="@id/type"
-            app:layout_constraintTop_toBottomOf="@id/divider1"
-            tools:text="@string/end_date" />
+            tools:layout_editor_absoluteY="56dp" />
 
         <ImageView
             android:id="@+id/dragImage"

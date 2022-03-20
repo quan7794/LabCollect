@@ -39,7 +39,7 @@ open class MainApplication : Application() {
         AuthenticationManager(null, credentials)
     }
 
-    val spreadGoogleApiRepository: GoogleApiRepository
+    val googleApiRepository: GoogleApiRepository
         get() = GoogleApiRepository(authManager,  NetHttpTransport(), GsonFactory.getDefaultInstance(), lastSignInAccount?.account)
 
     override fun onCreate() {

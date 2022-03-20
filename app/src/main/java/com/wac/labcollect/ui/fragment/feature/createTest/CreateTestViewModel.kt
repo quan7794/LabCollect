@@ -14,10 +14,11 @@ class CreateTestViewModel(val testRepository: TestRepository, private val google
         testRepository.createTest(test)
     }
 
-    suspend fun createSpread(title: String): String {
-        var spreadId = ""
+    suspend fun createSpread(test: Test): String {
+        var spreadId: String
         googleApiRepository.apply {
-            spreadId = createSpreadAtDir(title, GoogleApiConstant.ROOT_DIR_ID).second
+            spreadId = createSpreadAtDir(test.title, GoogleApiConstant.ROOT_DIR_ID).second
+            updateSheetInformation(spreadId, test)
         }
         return spreadId
     }

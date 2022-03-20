@@ -18,7 +18,7 @@ import timber.log.Timber
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTestClick {
-    private val viewModel: HomeTabViewModel by viewModels { HomeTabViewModelFactory(testRepository) }
+    private val viewModel: HomeTabViewModel by viewModels { HomeTabViewModelFactory(testRepository, googleApiRepository) }
     private val testListAdapter: TestListAdapter by lazy { TestListAdapter(testClickCallback = this) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,31 +26,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         initSearchAction()
         initTestList()
         initScanQRCode()
-        getDriverFiles()
-//        moveFileToDir()
-    }
-
-    private fun moveFileToDir() { //TODO: Move file to dir example
-        lifecycleScope.launch(Dispatchers.IO) {
-            val id = googleApiRepository.createSpreadsheet("Excel1")
-            Timber.e("Spreadsheet ID: $id")
-            val newDir = id?.let { googleApiRepository.moveFileToDir(it, ROOT_DIR_ID) }
-            Timber.e(newDir.toString())
-        }
-    }
-
-    private fun getDriverFiles() { //TODO: Get drive contents example
-        lifecycleScope.launch(Dispatchers.IO) {
-            val files = googleApiRepository.getAllFiles()
-            files.forEach { Timber.e("$it \n") }
-        }
-    }
-
-    private fun createSheet() { //TODO: Create spread example
-        lifecycleScope.launch(Dispatchers.IO) {
-           val id = googleApiRepository.createSpreadsheet("Excel1")
-            Timber.e("Spreadsheet ID: $id")
-        }
     }
 
     private fun initTestList() {
@@ -58,8 +33,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
             layoutManager = LinearLayoutManager(context)
             adapter = testListAdapter
         }
-        viewModel.tests.observe(viewLifecycleOwner) { testList ->
-            testListAdapter.dataSet = testList
+        viewModel.getSpreads()
+        viewModel.spreads.observe(viewLifecycleOwner) { spreads ->
+            testListAdapter.dataSet = spreads
         }
     }
 

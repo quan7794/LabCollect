@@ -35,7 +35,7 @@ object Utils {
             override fun onChanged(value: T) {
                 value?.let {
                     removeObserver(this)
-                    observer(value)
+                    observer(it)
                 }
             }
         })
