@@ -5,11 +5,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.api.services.sheets.v4.model.Spreadsheet
-import com.google.api.services.sheets.v4.model.SpreadsheetProperties
 import com.wac.labcollect.R
 import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.databinding.FragmentHomeBinding
@@ -29,14 +26,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         initSearchAction()
         initTestList()
         initScanQRCode()
-//        createSheet()
         getDriverFiles()
-        moveFileToDir()
+//        moveFileToDir()
     }
 
     private fun moveFileToDir() { //TODO: Move file to dir example
         lifecycleScope.launch(Dispatchers.IO) {
-            val newDir = googleApiRepository.moveFileToDir("1Aym3xjo84L646KeZbu2owC56PxIC3NP1pKjcRn6HiFE", ROOT_DIR_ID)
+            val id = googleApiRepository.createSpreadsheet("Excel1")
+            Timber.e("Spreadsheet ID: $id")
+            val newDir = id?.let { googleApiRepository.moveFileToDir(it, ROOT_DIR_ID) }
             Timber.e(newDir.toString())
         }
     }
@@ -44,14 +42,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
     private fun getDriverFiles() { //TODO: Get drive contents example
         lifecycleScope.launch(Dispatchers.IO) {
             val files = googleApiRepository.getAllFiles()
-            files.forEach { Timber.e("    : $it \n") }
+            files.forEach { Timber.e("$it \n") }
         }
     }
 
     private fun createSheet() { //TODO: Create spread example
-        val spreadsheet = Spreadsheet().setProperties(SpreadsheetProperties().setTitle("Excel1"))
         lifecycleScope.launch(Dispatchers.IO) {
-           val id = googleApiRepository.createSpreadsheet(spreadsheet)
+           val id = googleApiRepository.createSpreadsheet("Excel1")
             Timber.e("Spreadsheet ID: $id")
         }
     }
@@ -87,8 +84,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.home)
     }
 
-    override fun onClick(uniqueName: String) {
-        findNavController().navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToManageTestFragment(uniqueName))
+    override fun onClick(spreadId: String) {
+        findNavController().navigate(FirstScreenFragmentDirections.actionFirstScreenFragmentToTestDetailFragment(spreadId))
+    }
+
+    override fun onDestroyView() {
+        binding.testList.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {}
+            override fun onViewDetachedFromWindow(v: View?) {binding.testList.adapter = null}
+        })
+        super.onDestroyView()
     }
 
 }

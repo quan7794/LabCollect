@@ -1,6 +1,7 @@
 package com.wac.labcollect.ui.fragment.firstScreen.homeTab
 
 import android.view.View
+import android.view.WindowId
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
@@ -27,8 +28,7 @@ class TestListAdapter(dataSet: List<Test> = emptyList(), private val testClickCa
             startDate.text = item.startTime
             endDate.text = item.endTime
             itemView.setOnClickListener {
-                Snackbar.make(it,"Open: $item", Snackbar.LENGTH_LONG).show()
-                testClickCallback.onClick(item.uniqueName)
+                testClickCallback.onClick(item.spreadId)
             }
         }
     }
@@ -38,7 +38,7 @@ class TestListAdapter(dataSet: List<Test> = emptyList(), private val testClickCa
     }
 
     interface OnTestClick {
-        fun onClick(uniqueName: String)
+        fun onClick(spreadId: String)
     }
 
 }

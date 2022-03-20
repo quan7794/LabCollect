@@ -50,6 +50,5 @@
 # More
 If you want to know more you can check our [blog post](https://www.bloco.io/blog/2020/android-app-starter-update).
 
-
 Tutorial:
 - Google spreed api: https://code.luasoftware.com/tutorials/google-sheets-api/setup-google-sheets-api-for-android/

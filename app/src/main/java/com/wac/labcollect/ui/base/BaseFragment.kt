@@ -7,10 +7,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.jintin.bindingextension.BindingFragment
 import com.wac.labcollect.MainApplication
+import com.wac.labcollect.data.repository.sheet.GoogleApiRepository
 
-open class BaseFragment<T: ViewBinding> : BindingFragment<T>() {
+open class BaseFragment<T : ViewBinding> : BindingFragment<T>() {
     val testRepository by lazy { (requireActivity().application as MainApplication).testRepository }
-    val googleApiRepository by lazy { (requireActivity().application as MainApplication).spreadGoogleApiRepository }
+    val googleApiRepository
+        get() = (requireActivity().application as MainApplication).spreadGoogleApiRepository
 
     fun currentTokenId() = context?.let { GoogleSignIn.getLastSignedInAccount(it)?.idToken }
 

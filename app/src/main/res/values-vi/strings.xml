@@ -51,4 +51,5 @@
     <string name="add_record">Thêm dữ liệu</string>
     <string name="forward">Sau</string>
     <string name="save">Lưu</string>
+    <string name="qr_scan">Quét mã QR</string>
 </resources>

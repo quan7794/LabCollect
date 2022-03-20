@@ -39,7 +39,7 @@ class TestRepository(private val testDao: TestDao, private val networkTestAPI: T
     }
 
     @WorkerThread
-    suspend fun getTest(testUniqueName: String) = testDao.getTest(testUniqueName)
+    suspend fun getTestBySpreadId(spreadId: String) = testDao.getTestBySpreadId(spreadId)
 
     val tests: Flow<List<Test>> = testDao.getAllTest()
     val templates: Flow<List<Template>> = testDao.getAllTemplates()

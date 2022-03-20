@@ -40,7 +40,10 @@ class FirstScreenFragment : BaseFragment<FragmentFirstScreenBinding>() {
 
     override fun onDestroyView() {
         Firebase.auth.removeAuthStateListener(authListener)
-        binding.viewPager.adapter = null
+        binding.viewPager.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {}
+            override fun onViewDetachedFromWindow(v: View?) {binding.viewPager.adapter = null}
+        })
         super.onDestroyView()
     }
 }

@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wac.labcollect.databinding.TemplateManageFragmentBinding
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.ui.base.BaseFragment
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class ManageTemplateFragment : BaseFragment<TemplateManageFragmentBinding>(), TemplateListAdapter.CreateTestCallback {
-    private val templateAdapter: TemplateListAdapter by lazy { TemplateListAdapter(createTestCallback = this, isCreateTest = args.testUniqueName != null) }
-    private val viewModel: ManageTemplateViewModel by viewModels { ManageTemplateViewModelFactory(testRepository) }
+    private val templateAdapter: TemplateListAdapter by lazy { TemplateListAdapter(createTestCallback = this, isCreateTest = args.spreadId != null) }
+    private val viewModel: ManageTemplateViewModel by viewModels { ManageTemplateViewModelFactory(testRepository, googleApiRepository) }
     private val args: ManageTemplateFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        templateAdapter.setIsCreateTest(args.testUniqueName != null)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = templateAdapter
@@ -35,10 +36,22 @@ class ManageTemplateFragment : BaseFragment<TemplateManageFragmentBinding>(), Te
 
     override fun onClick(template: Template) {
         //Create test with this template.
-        lifecycleScope.launch {
-            viewModel.updateTest(args.testUniqueName!!, template)
-            findNavController().navigate(ManageTemplateFragmentDirections.actionManageTemplateFragmentToManageTestFragment(args.testUniqueName!!))
+        lifecycleScope.launch(Dispatchers.IO) {
+            if (viewModel.updateTest(args.spreadId!!, template))
+                withContext(Dispatchers.Main) {
+                    navigate(ManageTemplateFragmentDirections.actionManageTemplateFragmentToManageTestFragment(args.spreadId!!))
+                }
+            else {
+                Timber.e("Error when add template to test.")
+                }
         }
     }
 
+    override fun onDestroyView() {
+        binding.recyclerView.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {}
+            override fun onViewDetachedFromWindow(v: View?) { binding.recyclerView.adapter = null }
+        })
+        super.onDestroyView()
+    }
 }

@@ -17,7 +17,9 @@ import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
 import com.wac.labcollect.utils.Utils.currentTimestamp
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,13 +27,13 @@ import java.util.*
 class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
     private val myCalendar: Calendar = Calendar.getInstance()
     private var currentDatePicker: Int? = null
-    private val viewModel: CreateTestViewModel by viewModels { CreateTestViewModelFactory(testRepository) }
+    private val viewModel: CreateTestViewModel by viewModels { CreateTestViewModelFactory(testRepository, googleApiRepository) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.nextStep.setOnClickListener {
             val test = Test(
-                startTime =binding.startDate.text.toString(),
+                startTime = binding.startDate.text.toString(),
                 endTime = binding.endDate.text.toString(),
                 isPublic = binding.publishTestSwitch.isChecked,
                 owner = FirebaseAuth.getInstance().currentUser?.email.toString(),
@@ -47,21 +49,25 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                     .setMessage(R.string.create_test_message)
                     .setPositiveButton(R.string.create_new) { _, _ ->
                         Timber.e("Create new template")
-                        lifecycleScope.launch {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            test.spreadId = viewModel.createSpread(test.title)
                             viewModel.createTest(test)
-                            val action = CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.uniqueName)
-                            this@CreateTestFragment.findNavController().navigate(action)
+                            withContext(Dispatchers.Main) {
+                                navigate(CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.spreadId))
+                            }
                         }
                     }
                     .setNegativeButton(R.string.select_existed_template) { _, _ ->
                         Timber.e("Use existed template")
-                        lifecycleScope.launch {
+                        lifecycleScope.launch(Dispatchers.IO) {
+                            test.spreadId = viewModel.createSpread(test.title)
                             viewModel.createTest(test)
-                            val action = CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test.uniqueName)
-                            this@CreateTestFragment.findNavController().navigate(action)
+                            withContext(Dispatchers.Main) {
+                                navigate(CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test.spreadId))
+                            }
                         }
                     }
-                    .setCancelable(false)
+                    .setCancelable(true)
                     .show()
             }
         }

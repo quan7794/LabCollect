@@ -1,16 +1,17 @@
 package com.wac.labcollect.ui.fragment.feature.createTemplate
 
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
-import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
 import com.wac.labcollect.domain.models.DataType
@@ -20,19 +21,20 @@ import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
 import com.wac.labcollect.utils.Utils.currentTimestamp
-import com.wac.labcollect.utils.Utils.observeOnce
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
 import com.wac.labcollect.utils.dragSwipeRecyclerview.listener.OnItemSwipeListener
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
     private val templateDataAdapter: TemplateDataAdapter by lazy {
-        TemplateDataAdapter(mutableListOf(Pair("1", DataType(TYPE.INT)), Pair("2", DataType(TYPE.DOUBLE))))
+        TemplateDataAdapter(mutableListOf(Pair("", DataType(TYPE.TEXT))))
     }
-    private val viewModel: CreateTemplateViewModel by viewModels { CreateTemplateViewModelFactory(testRepository) }
+    private val viewModel: CreateTemplateViewModel by viewModels { CreateTemplateViewModelFactory(testRepository, googleApiRepository) }
     private val args: CreateTemplateFragmentArgs by navArgs()
-    private var testUniqueName: String? = null
+    private var spreadId: String? = null
     private var lastDeletedItem: Pair<String, DataType>? = null
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -42,7 +44,7 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
             }
             R.id.action_save -> {
                 if (templateDataAdapter.isValidateDataSet() && binding.templateName.text.toString().isNotEmpty()) {
-                    val fieldList: ArrayList<Field> = arrayListOf()
+                    val fieldList: ArrayList<Field> = arrayListOf(Field("time", TYPE.TEXT))
                     templateDataAdapter.dataSet.forEach { field -> fieldList.add(Field(field.first, field.second.type)) }
                     val newTemp = Template(
                         title = binding.templateName.text.toString(),
@@ -51,26 +53,26 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
                         fields = fieldList,
                         createTimestamp = currentTimestamp().toString()
                     )
-                    lifecycleScope.launch {
+                    lifecycleScope.launch(Dispatchers.IO) {
                         viewModel.insert(newTemp)
                         Timber.e("Saved: $newTemp")
                         Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
-                        testUniqueName?.let { //Goto Test Manage Screen after create template if we are creating test.
+                        spreadId?.let { //Goto Test Detail Screen after create template if we are creating test.
                             val isSuccess = viewModel.addTemplateToNewTest(newTemp)
                             if (isSuccess) {
-                                val action = CreateTemplateFragmentDirections.actionCreateTemplateFragmentToManageTestFragment(it)
-                                this@CreateTemplateFragment.findNavController().navigate(action)
+                                withContext(Dispatchers.Main) {
+                                    navigate(CreateTemplateFragmentDirections.actionCreateTemplateFragmentToTestDetailFragment(it))
+                                }
                             } else {
                                 Snackbar.make(binding.root, getString(R.string.can_not_establish_test), Snackbar.LENGTH_SHORT).show()
                             }
-                        }?: run { //Go to First Screen after standalone template created.
-                            val action = CreateTemplateFragmentDirections.actionCreateTemplateFragmentToFirstScreenFragment()
-                           this@CreateTemplateFragment.findNavController().navigate(action)
+                        } ?: run { //Go to First Screen after standalone template created.
+                            withContext(Dispatchers.Main) {
+                                navigate(CreateTemplateFragmentDirections.actionCreateTemplateFragmentToFirstScreenFragment())
+                            }
                         }
                     }
-
                 } else Snackbar.make(binding.root, getString(R.string.please_fill_all_value), Snackbar.LENGTH_SHORT).show()
-
             }
         }
         return super.onOptionsItemSelected(item)
@@ -78,32 +80,33 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.fabAdd.setOnClickListener {
-            templateDataAdapter.insertItem(templateDataAdapter.dataSet.size, Pair("", DataType(TYPE.TEXT)))
-            binding.recyclerView.smoothScrollToPosition(templateDataAdapter.dataSet.size)
-//            Snackbar.make(binding.root, "Added new item at ${templateDataAdapter.dataSet.size}", Snackbar.LENGTH_SHORT).show()
-        }
-        testUniqueName = args.testUniqueName
-
-        testUniqueName?.let {
+        spreadId = args.spreadId
+        spreadId?.let { id ->
             lifecycleScope.launch {
-                val test = viewModel.getTest(it)
-                    viewModel.setParentTest(test)
-                    binding.templateName.setText( test.title)
-                }
+                val test = viewModel.getTestBySpreadId(id)
+                viewModel.setParentTest(test)
+                binding.templateName.setText(test.title)
             }
+        }
         binding.apply {
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = templateDataAdapter
                 orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
                 swipeListener = onItemSwipeListener
-//            setItemViewCacheSize(100)
             }
+        }
+        binding.fabAdd.setOnClickListener {
+            templateDataAdapter.insertItem(templateDataAdapter.dataSet.size, Pair("", DataType(TYPE.TEXT)))
+            binding.recyclerView.smoothScrollToPosition(templateDataAdapter.dataSet.size)
         }
     }
 
     override fun onDestroyView() {
+        binding.recyclerView.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View?) {}
+            override fun onViewDetachedFromWindow(v: View?) {binding.recyclerView.adapter = null}
+        })
         super.onDestroyView()
     }
 

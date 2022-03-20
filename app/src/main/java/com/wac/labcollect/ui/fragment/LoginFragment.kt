@@ -93,7 +93,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = accountTask.getResult(ApiException::class.java)!!
                     Timber.d("firebaseAuthWithGoogle:" + account.idToken)
-//                    firebaseAuthWithGoogleAccount(account)
+                    firebaseAuthWithGoogleAccount(account)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Timber.e("Google sign in failed", e)

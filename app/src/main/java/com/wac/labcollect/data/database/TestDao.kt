@@ -30,10 +30,10 @@ interface TestDao {
     suspend fun updateTemplate(template: Template)
 
     @Delete
-    suspend fun deleteTemplate(dish: Template)
+    suspend fun deleteTemplate(template: Template)
 
-    @Query("Select * from test_table where uniqueName = :testUniqueName")
-    suspend fun getTest(testUniqueName: String): Test
+    @Query("Select * from test_table where spreadId = :spreadId")
+    suspend fun getTestBySpreadId(spreadId: String): Test
 
 //    @Query("""Select * from template_table where
 //            case :key

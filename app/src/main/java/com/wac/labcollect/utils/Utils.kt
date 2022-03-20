@@ -30,6 +30,17 @@ object Utils {
         })
     }
 
+    fun <T> LiveData<T>.observeUntilNonNull(owner: LifecycleOwner, observer: (T) -> Unit) {
+        observe(owner, object : Observer<T> {
+            override fun onChanged(value: T) {
+                value?.let {
+                    removeObserver(this)
+                    observer(value)
+                }
+            }
+        })
+    }
+
     inline fun <reified T> Gson.fromJson(json: String): T = fromJson(json, object : TypeToken<T>() {}.type)
 
     inline fun <reified T : Enum<T>> String.toEnumOrDefault(defaultValue: T? = null): T? =

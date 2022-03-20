@@ -15,6 +15,8 @@ data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: I
     @SerializedName("isActive") var isActive: Boolean = true,
     @SerializedName("isPublic") var isPublic: Boolean = true,
     @SerializedName("uniqueName") val uniqueName: String = "",
+    @SerializedName("spreadId") var spreadId: String = "",
+    @SerializedName("docsId") var docsId: String = "",
     @SerializedName("title") var title: String = "",
     @SerializedName("owner") var owner: String = "",
     @SerializedName("startTime") var startTime: String = "",
@@ -28,6 +30,7 @@ data class Test(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: I
 @Parcelize @Entity(tableName = "template_table")
 data class Template(@PrimaryKey(autoGenerate = true) @SerializedName("id") val id: Int = 0,
     @SerializedName("uniqueName") val uniqueName: String = "",
+    @SerializedName("spreadId") var spreadId: String = "",
     @SerializedName("title") var title: String = "",
     @SerializedName("isPublic") var isPublic: Boolean = true,
     @SerializedName("isActive") var isActive: Boolean = true,

@@ -7,19 +7,23 @@ import com.google.api.client.json.JsonFactory
 import com.google.api.services.drive.Drive
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.Spreadsheet
+import com.google.api.services.sheets.v4.model.SpreadsheetProperties
+import com.google.api.services.sheets.v4.model.UpdateValuesResponse
+import com.google.api.services.sheets.v4.model.ValueRange
 import com.wac.labcollect.data.manager.AuthenticationManager
 import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ID_KEY
 import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.PARENT_FIELD_KEY
+import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ROOT_DIR_ID
+import com.wac.labcollect.domain.models.Field
 import timber.log.Timber
-import java.io.IOException
-import java.lang.StringBuilder
+
 
 class GoogleApiRepository(
     private val authManager: AuthenticationManager, private val transport: HttpTransport,
     private val jsonFactory: JsonFactory, private val lastSignedAccount: Account?
 ) : GoogleApiDataSource {
 
-    private fun getSheetService(): Sheets {
+    private fun getSpreadService(): Sheets {
         authManager.setUpGoogleAccountCredential(lastSignedAccount)
         return Sheets.Builder(transport, jsonFactory, authManager.googleAccountCredential)
             .setApplicationName("LabCollect")
@@ -33,10 +37,16 @@ class GoogleApiRepository(
             .build()
     }
 
-    override suspend fun createSpreadsheet(spreadSheet: Spreadsheet): String? {
-        val response = getSheetService().spreadsheets().create(spreadSheet).execute()
-        Timber.e("Spreadsheet ID: ${response.spreadsheetId}, uri: ${response.spreadsheetUrl}")
-        return response.spreadsheetId
+    override suspend fun createSpreadsheet(title: String): String? {
+        var spreadSheet = Spreadsheet().setProperties(SpreadsheetProperties().setTitle(title))
+        try {
+            spreadSheet = getSpreadService().spreadsheets().create(spreadSheet).execute()
+            Timber.e("Spreadsheet ID: ${spreadSheet.spreadsheetId}, uri: ${spreadSheet.spreadsheetUrl}")
+        } catch (e: GoogleJsonResponseException) {
+            Timber.e("Can not create spread: $e")
+            e.printStackTrace()
+        }
+        return spreadSheet.spreadsheetId
     }
 
     override suspend fun readSpreadSheet(spreadSheetId: String, spreadSheetRange: String) {}
@@ -49,6 +59,7 @@ class GoogleApiRepository(
                 do {
                     val result = googleDriveService.files().list().apply {
                         spaces = "drive"
+                        q = "'$ROOT_DIR_ID' in parents and trashed = false"
                         fields = "nextPageToken, files(id, name)"
                         pageToken = this.pageToken
                     }.execute()
@@ -57,7 +68,7 @@ class GoogleApiRepository(
                     }
                 } while (pageToken != null)
             }
-        } catch (e: Exception) {
+        } catch (e: GoogleJsonResponseException) {
             Timber.e("Get all file error: $e")
             e.printStackTrace()
         }
@@ -76,15 +87,44 @@ class GoogleApiRepository(
                 .setFields("$ID_KEY, $PARENT_FIELD_KEY")
                 .execute()
             return update.parents
-        } catch (e: Exception) {
+        } catch (e: GoogleJsonResponseException) {
             Timber.e("Unable to move file: $e")
             e.printStackTrace()
         }
         return emptyList()
     }
 
-    override suspend fun createSpreadAtDir(spreadSheetId: String, DirId: String): Boolean {
-        TODO("Not yet implemented")
+    override suspend fun createSpreadAtDir(title: String, dirId: String): Pair<Boolean, String> {
+        createSpreadsheet(title)?.let {
+            moveFileToDir(it, dirId)
+            return  Pair(true, it)
+        }
+        return Pair(false, "")
+    }
+
+    fun updateSpread(spreadId: String, range: String, inputOption: String, fields: List<Any>): UpdateValuesResponse? {
+        var result: UpdateValuesResponse? = null
+        val colList = mutableListOf<String>()
+        fields.forEach { colList.add((it as Field).key) }
+        val list = mutableListOf<List<Any>>()
+
+        list.add(colList)
+        try {
+            // Updates the values in the specified range.
+            val body: ValueRange = ValueRange().setValues(list)
+            result = getSpreadService().spreadsheets().values().update(spreadId, range, body)
+                .setValueInputOption(inputOption)
+                .execute()
+            Timber.e("%d cells updated: ${result.updatedCells}")
+        } catch (e: GoogleJsonResponseException) {
+            val error = e.details
+            if (error.code == 404) {
+                System.out.printf("Spreadsheet not found with id '%s'.\n", spreadId)
+            } else {
+                throw e
+            }
+        }
+        return result
     }
 
 }

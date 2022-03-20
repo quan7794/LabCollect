@@ -9,7 +9,7 @@ interface GoogleApiDataSource {
     suspend fun readSpreadSheet(spreadSheetId : String, spreadSheetRange : String)
 
     @WorkerThread
-    suspend fun createSpreadsheet(spreadSheet : Spreadsheet): String?
+    suspend fun createSpreadsheet(title : String): String?
 
     @WorkerThread
     suspend fun getAllFiles(): List<Pair<String, String>>?
@@ -18,6 +18,6 @@ interface GoogleApiDataSource {
     suspend fun moveFileToDir(fileId: String, dirId: String): List<String>
 
     @WorkerThread
-    suspend fun createSpreadAtDir(spreadSheetId: String, dirId: String): Boolean
+    suspend fun createSpreadAtDir(title: String, dirId: String): Pair<Boolean, String>
 
 }
