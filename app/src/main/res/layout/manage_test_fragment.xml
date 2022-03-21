@@ -89,7 +89,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:contentDescription="@string/table_data"
             android:scaleType="centerCrop"
             android:src="@drawable/place_holder" />
@@ -123,7 +123,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             android:contentDescription="@string/table_data"
             android:scaleType="centerInside"
             android:src="@drawable/place_holder" />
@@ -155,7 +155,7 @@
         android:layout_marginEnd="4dp"
         app:cornerRadius="@dimen/_10sdp"
         android:text="@string/save"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/activeStatus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/materialButton2"
         app:layout_constraintStart_toEndOf="@+id/materialButton" />

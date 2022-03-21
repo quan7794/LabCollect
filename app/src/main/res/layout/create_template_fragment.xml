@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            app:backgroundTint="@color/bloco_dark_blue"
+            app:backgroundTint="@color/activeStatus"
             android:src="@drawable/ic_add"
             android:contentDescription="@string/add"
             android:layout_margin="16dp" />

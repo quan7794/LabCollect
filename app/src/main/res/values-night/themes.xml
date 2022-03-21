@@ -13,17 +13,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-
-        <item name="toolbarNavigationButtonStyle">@style/Widget.Bloco.ToolbarNavigationButton</item>
-        <item name="titleTextStyle">@style/TextAppearance.Bloco.ToolbarTitle</item>
     </style>
 
     <style name="Theme.Dialog.Alert" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <!-- Text Color for Buttons -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorOnPrimary</item>
     </style>
-
-
-
 </resources>

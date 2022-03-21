@@ -3,7 +3,6 @@ package com.wac.labcollect.ui.fragment.firstScreen.homeTab
 import androidx.lifecycle.*
 import com.wac.labcollect.data.repository.sheet.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
-import com.wac.labcollect.domain.models.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,7 +13,8 @@ class HomeTabViewModel(val testRepository: TestRepository, val googleApiReposito
 
     fun getSpreads() {
         viewModelScope.launch(Dispatchers.IO) {
-            _spreads.postValue(googleApiRepository.getFilesAtRoot())
+            val spreads = googleApiRepository.getFilesAtRoot()
+            if (spreads.isNotEmpty()) _spreads.postValue(spreads)
         }
     }
 }

@@ -27,6 +27,9 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:textAllCaps="false"
+            android:backgroundTint="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorOnPrimary"
+            app:tabSelectedTextColor="@color/colorOnPrimary"
             app:layout_constraintTop_toBottomOf="@id/divider1"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

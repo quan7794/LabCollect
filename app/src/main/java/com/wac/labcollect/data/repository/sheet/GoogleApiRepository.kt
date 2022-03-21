@@ -177,7 +177,7 @@ class GoogleApiRepository(
             result = getSpreadService().spreadsheets().batchUpdate(spreadId, body).execute()
 
             val informationData: ValueRange = ValueRange().setValues(listOf(listOf(Gson().toJson(data))))
-            val updateInfoResponse = getSpreadService().spreadsheets().values()
+            getSpreadService().spreadsheets().values()
                 .update(spreadId, "Information!A1:Z20", informationData)
                 .setValueInputOption("RAW")
                 .execute()
@@ -192,9 +192,14 @@ class GoogleApiRepository(
         return result
     }
 
-    suspend fun initTestInfoFromSpread(spreadId: String): Test? {
-        val result = readSpreadSheet(spreadId, "Information!A1")
-        Timber.e("Test from server: ${result?.getValues()?.get(0)?.get(0)}")
-        return Gson().fromJson(result?.getValues()?.get(0)?.get(0).toString(), Test::class.java)
+    suspend fun getTestInfoFromSpread(spreadId: String): Test? {
+        try {
+            val result = readSpreadSheet(spreadId, "Information!A1")
+            Timber.e("Test from server: ${result?.getValues()?.get(0)?.get(0)}")
+            val test = Gson().fromJson(result?.getValues()?.get(0)?.get(0).toString(), Test::class.java)
+            test.spreadId = spreadId
+            return test
+        } catch (e: Exception) { Timber.e("Error when get test from server: $e") }
+        return null
     }
 }
