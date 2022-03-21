@@ -15,11 +15,13 @@ class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepos
 
     fun init(spreadId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            var test = testRepository.getTestBySpreadId(spreadId)
+            var test = testRepository.getTestBySpreadId(spreadId) //get test from local first.
             if (test == null) {
                 Timber.e("Current test from local database null, getting data from spreadsheet")
-                test = googleApiRepository.initTestInfoFromSpread(spreadId)
-                test?.let {testRepository.createTest(it)}
+                test = googleApiRepository.getTestInfoFromSpread(spreadId)
+                test?.let {
+                    val a = it
+                    testRepository.createTest(test)}
             }
             _currentTest.postValue(test)
         }

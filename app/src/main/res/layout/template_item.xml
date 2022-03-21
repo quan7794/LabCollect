@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:gravity="center"
     android:padding="16dp"
-    android:background="#eeeeee">
+    android:layout_margin="@dimen/_3sdp"
+    android:background="@color/mainBackground">
     <TextView
         android:id="@+id/templateName"
         android:layout_width="0dp"

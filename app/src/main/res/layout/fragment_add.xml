@@ -6,6 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/COMMON_BG"
         tools:context=".ui.fragment.firstScreen.addTab.AddFragment">
 
         <com.google.android.material.card.MaterialCardView
@@ -30,7 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HISTORY_TEXT_COLOR"
+                    android:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test" />
 
@@ -39,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HISTORY_TEXT_COLOR"
+                    android:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test_template" />
 
@@ -48,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAllCaps="false"
-                    android:backgroundTint="@color/HISTORY_TEXT_COLOR"
+                    android:backgroundTint="@color/colorPrimary"
                     app:cornerRadius="@dimen/_16sdp"
                     android:text="@string/create_test_group" />
 

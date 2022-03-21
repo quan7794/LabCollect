@@ -5,7 +5,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.auth.FirebaseAuth
@@ -13,6 +12,7 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentProfileBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
+import com.wac.labcollect.utils.DarkModeType
 import com.wac.labcollect.utils.NightModeHelper
 import kotlinx.coroutines.launch
 
@@ -38,14 +38,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         binding.apply {
             manageTemplate.setOnClickListener {
                 val action = FirstScreenFragmentDirections.actionFirstScreenFragmentToTemplateManagerFragment(null)
-                this@ProfileFragment.findNavController().navigate(action)
+                navigate(action)
             }
             darkModeSwitch.setOnClickListener { v ->
                 val checked = (v as SwitchMaterial).isChecked
                 if (checked) {
                     setDarkModeSetting(DarkModeType.TURN_ON)
                 } else {
-                    setDarkModeSetting(DarkModeType.TURN_OFF)
+                    setDarkModeSetting(DarkModeType.SYSTEM)
                 }
             }
         }

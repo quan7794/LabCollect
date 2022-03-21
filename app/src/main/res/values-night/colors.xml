@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF000000</color>
+    <color name="colorOnPrimary">#fff</color>
+    <color name="COMMON_BG">#252525</color>
+    <color name="mainBackground">#2D313D</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="submitColor">#008C5E</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="activeStatus">#008C5E</color>
+
+    <color name="disableColor">#505050</color>
+    <color name="backgroundColor">#FF000000</color>
+
+    <color name="icon_setting">#fff</color>
+
+    <color name="app_divider">#505050</color>
+
+</resources>

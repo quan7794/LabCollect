@@ -1,7 +1,6 @@
 package com.wac.labcollect.utils
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.wac.labcollect.ui.fragment.firstScreen.profileTab.DarkModeType
 
 object NightModeHelper {
 
@@ -22,4 +21,10 @@ object NightModeHelper {
             }
         }
     }
+}
+
+object DarkModeType {
+    const val TURN_ON = 1
+    const val TURN_OFF = 2
+    const val SYSTEM = 3
 }
