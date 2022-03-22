@@ -4,8 +4,8 @@
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share"
-        android:title="@string/setting"
-        app:showAsAction="ifRoom" />
+        android:title="@string/share"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

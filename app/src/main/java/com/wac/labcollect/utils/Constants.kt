@@ -2,6 +2,7 @@ package com.wac.labcollect.utils
 
 object Constants {
     const val API_ENDPOINT = "recipes/random"
+    const val APP_CONSTANT = "LabCollect@"
 
     const val API_KEY = "apiKey"
     const val LIMIT_LICENSE = "limitLicense"

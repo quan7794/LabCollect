@@ -3,6 +3,7 @@ package com.wac.labcollect.ui.fragment.feature.testDetail
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.ManageTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.feature.shareTest.ShareTestDialog
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
 
 class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
@@ -32,6 +34,15 @@ class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_share -> {
+                val shareDialog = ShareTestDialog.newInstance(spreadId = args.spreadId)
+                shareDialog.show(childFragmentManager, ShareTestDialog::class.java.simpleName)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     private fun initViewModel(spreadId: String) {
         viewModel.init(spreadId)
         viewModel.currentTest.observeUntilNonNull(viewLifecycleOwner) {

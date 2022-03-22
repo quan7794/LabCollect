@@ -67,4 +67,5 @@
     <string name="save_qr">Lưu mã QR vào điện thoại</string>
     <string name="qrshare">QR Code</string>
     <string name="share_link">Link</string>
+    <string name="share">Chia sẻ</string>
 </resources>

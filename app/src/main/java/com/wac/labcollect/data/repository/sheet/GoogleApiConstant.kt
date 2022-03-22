@@ -10,5 +10,4 @@ object GoogleApiConstant {
     const val ROOT_DIR_ID = "11jSEQ1gd9r5UTC9jjozvV0Eorl3ldk2d"
     const val ID_KEY = "id"
     const val PARENT_FIELD_KEY = "parents"
-
 }

@@ -22,7 +22,7 @@ class GoogleApiRepository(
     private val jsonFactory: JsonFactory, private val lastSignedAccount: Account?
 ) : GoogleApiDataSource {
 
-    private fun getSpreadService(): Sheets {
+    fun getSpreadService(): Sheets {
         authManager.setUpGoogleAccountCredential(lastSignedAccount)
         return Sheets.Builder(transport, jsonFactory, authManager.googleAccountCredential)
             .setApplicationName("LabCollect")
