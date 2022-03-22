@@ -12,7 +12,7 @@
     <string name="create_account">Tạo tài khoản mới</string>
     <string name="search">Tìm kiếm</string>
     <string name="add">Thêm</string>
-    <string name="qr_code">Mã Vạch</string>
+    <string name="qr_code">Mã QR</string>
     <string name="profile">Cá nhân</string>
     <string name="home">Trang chính</string>
     <string name="logout">Đăng xuất</string>
@@ -28,6 +28,7 @@
     <string name="col_name">Tên cột</string>
     <string name="col_type">Kiểu dữ liệu</string>
     <string name="drag_to_edit">Kéo để xoá hoặc đổi vị trí</string>
+    <string name="dark_mode">Giao diện hệ thống / Chế độ tối</string>
     <string name="can_not_undo">Không thể khôi phục</string>
     <string name="undo">Khôi phục</string>
     <string name="setting">Cài đặt</string>
@@ -54,5 +55,11 @@
     <string name="forward">Sau</string>
     <string name="save">Lưu</string>
     <string name="qr_scan">Quét mã QR</string>
+    <string name="sync_with_cloud">Đồng bộ với đám mây.</string>
     <string name="customize_theme">Tuỳ chỉnh giao diện</string>
+    <string name="more">Thêm</string>
+    <string name="private_manage">Quyền riêng tư</string>
+    <string name="save_qr">Lưu mã QR vào điện thoại</string>
+    <string name="qrshare">Mã QR</string>
+    <string name="share_link">Liên kết</string>
 </resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_share"
+        android:icon="@drawable/ic_share"
+        android:title="@string/setting"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/more"
+        android:icon="@drawable/ic_more"
+        app:showAsAction="always">
+        <menu >
+            <item
+                android:id="@+id/action_sync"
+                android:icon="@drawable/ic_sync"
+                android:title="@string/sync_with_cloud"
+                app:showAsAction="ifRoom" />
+            <item
+                android:id="@+id/action_private_manage"
+                android:icon="@drawable/ic_share"
+                android:title="@string/private_manage"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+
+</menu>
