@@ -1,12 +1,15 @@
 package com.wac.labcollect.ui.fragment.feature.testDetail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.wac.labcollect.R
 import com.wac.labcollect.databinding.ManageTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
@@ -21,6 +24,12 @@ class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
         initViewModel(args.spreadId)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.test_detail_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     private fun initViewModel(spreadId: String) {

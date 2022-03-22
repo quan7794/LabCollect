@@ -2,12 +2,10 @@ package com.wac.labcollect.ui.fragment.firstScreen
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.Navigation
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentFirstScreenBinding
 import com.wac.labcollect.ui.base.BaseFragment
