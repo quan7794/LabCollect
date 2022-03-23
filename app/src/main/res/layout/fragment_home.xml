@@ -79,12 +79,12 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_15sdp"
             android:layout_marginBottom="@dimen/_15sdp"
-            android:backgroundTint="#A5A8A5"
+            android:backgroundTint="@color/colorPrimary"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="?attr/actionModeSelectAllDrawable"
+            android:src="@drawable/ic_qrcode"
             tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

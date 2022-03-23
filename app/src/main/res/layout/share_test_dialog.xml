@@ -18,27 +18,29 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp">
+            android:padding="@dimen/_10sdp"
+            >
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/qrCodeContainer"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/_10sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="@dimen/_10sdp"
                 app:layout_constraintBottom_toTopOf="@+id/saveQrCode"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageView
                     android:id="@+id/qrCodeImage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxHeight="@dimen/_500sdp"
-                    android:scaleType="fitCenter"
                     android:contentDescription="@string/qr_code"
-                    tools:src="@drawable/place_holder" />
+                    android:maxHeight="@dimen/_500sdp"
+                    android:scaleType="centerInside"
+                    tools:src="@drawable/ic_qr_code" />
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.textview.MaterialTextView
@@ -84,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/qrshare"
+                android:text="@string/send"
                 app:cornerRadius="@dimen/_12sdp"
                 app:icon="@drawable/ic_qrcode"
                 app:layout_constraintEnd_toStartOf="@+id/share_link"

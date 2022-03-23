@@ -37,8 +37,10 @@ class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_share -> {
-                val shareDialog = ShareTestDialog.newInstance(spreadId = args.spreadId)
-                shareDialog.show(childFragmentManager, ShareTestDialog::class.java.simpleName)
+                viewModel.currentTest.value?.let { currentTest ->
+                    val shareDialog = ShareTestDialog.newInstance(currentTest.spreadId, currentTest.title, currentTest.uniqueName)
+                    shareDialog.show(childFragmentManager, ShareTestDialog::class.java.simpleName)
+                }
             }
         }
         return super.onOptionsItemSelected(item)

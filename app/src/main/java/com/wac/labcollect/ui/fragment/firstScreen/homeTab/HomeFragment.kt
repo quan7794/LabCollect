@@ -29,6 +29,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
     }
 
     private fun initTestList() {
+        if (lastSignedAccount() == null) return
         binding.testList.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = testListAdapter

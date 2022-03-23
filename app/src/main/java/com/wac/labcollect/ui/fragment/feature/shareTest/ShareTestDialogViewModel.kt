@@ -1,5 +1,6 @@
 package com.wac.labcollect.ui.fragment.feature.shareTest
 
+import android.graphics.Bitmap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,11 +13,11 @@ import java.io.File
 
 class ShareTestDialogViewModel(val googleApiRepository: GoogleApiRepository) : ViewModel() {
     val testUrl = MutableLiveData<String>()
-    val qrImage = MutableLiveData<File>()
+    val qrImage = MutableLiveData<Bitmap>()
 
     fun init(spreadId: String) {
         testUrl.postValue(SPREAD_BASE_URL + spreadId)
-        qrImage.postValue(QRCode.from(APP_CONSTANT + spreadId).to(ImageType.PNG).withSize(1000, 1000).file())
+        qrImage.postValue(QRCode.from(APP_CONSTANT + spreadId).to(ImageType.PNG).withSize(1000, 1000).bitmap())
     }
 
 }
