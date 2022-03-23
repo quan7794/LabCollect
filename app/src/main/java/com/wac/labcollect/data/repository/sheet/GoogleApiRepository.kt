@@ -74,10 +74,11 @@ class GoogleApiRepository(
                 do {
                     val result = googleDriveService.files().list().apply {
                         spaces = "drive"
-                        q = "'$ROOT_DIR_ID' in parents and trashed = false"
+                        q = "'$ROOT_DIR_ID' in parents and trashed = false and not name contains '@readme@'"
                         fields = "nextPageToken, files(id, name, parents)"
                         pageToken = this.pageToken
                     }.execute()
+                    Timber.e("Result: ${result}, files size: ${result.files.size}")
                     for (file in result.files) {
 //                        Timber.e("${file.name}, ${file.id}, ${file.parents}")
                         list.add(Triple(file.name, file.id, file.parents))

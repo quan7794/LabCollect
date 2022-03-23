@@ -67,7 +67,7 @@ class ShareTestDialog : DialogFragment() {
         }
         binding.shareQrCode.setOnClickListener {
             viewModel.qrImage.value?.let { bitmap ->
-                lifecycleScope.launch(Dispatchers.IO) { requireContext().shareImage(bitmap, spreadName) }
+                lifecycleScope.launch(Dispatchers.IO) { requireContext().shareImage(bitmap, spreadUniqueName) }
             } ?: run { Snackbar.make(requireView(), "Không thể chia sẻ QR Code", Snackbar.LENGTH_SHORT).show() }
         }
         binding.shareLink.setOnClickListener {

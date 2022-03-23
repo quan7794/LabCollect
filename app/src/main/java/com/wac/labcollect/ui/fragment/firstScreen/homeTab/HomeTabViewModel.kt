@@ -14,7 +14,7 @@ class HomeTabViewModel(val testRepository: TestRepository, val googleApiReposito
     fun getSpreads() {
         viewModelScope.launch(Dispatchers.IO) {
             val spreads = googleApiRepository.getFilesAtRoot()
-            if (spreads.isNotEmpty()) _spreads.postValue(spreads)
+            _spreads.postValue(spreads)
         }
     }
 }
