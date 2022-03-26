@@ -1,4 +1,4 @@
-package com.wac.labcollect.data.repository.sheet
+package com.wac.labcollect.data.repository.googleApi
 
 import android.accounts.Account
 import com.google.api.client.googleapis.json.GoogleJsonResponseException
@@ -9,9 +9,9 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.*
 import com.google.gson.Gson
 import com.wac.labcollect.data.manager.AuthenticationManager
-import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ID_KEY
-import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.PARENT_FIELD_KEY
-import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ROOT_DIR_ID
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ID_KEY
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.PARENT_FIELD_KEY
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.domain.models.Field
 import com.wac.labcollect.domain.models.Test
 import timber.log.Timber
@@ -48,11 +48,12 @@ class GoogleApiRepository(
         return spreadSheet.spreadsheetId
     }
 
-    override suspend fun readSpreadSheet(spreadSheetId: String, spreadSheetRange: String): ValueRange? {
+    override suspend fun readSpreadSheet(spreadSheetId: String, tabName: String, range: String): ValueRange? {
+        val spreadRange = if (tabName.isNotEmpty()) "$tabName!$range" else range
         var result: ValueRange? = null
         try {
             // Gets the values of the cells in the specified range.
-            result = getSpreadService().spreadsheets().values().get(spreadSheetId, spreadSheetRange).execute()
+            result = getSpreadService().spreadsheets().values().get(spreadSheetId, spreadRange).execute()
             val numRows = if (result.getValues() != null) result.getValues().size else 0
             Timber.e("$numRows rows retrieved.", numRows)
         } catch (e: GoogleJsonResponseException) {
@@ -195,7 +196,7 @@ class GoogleApiRepository(
 
     suspend fun getTestInfoFromSpread(spreadId: String): Test? {
         try {
-            val result = readSpreadSheet(spreadId, "Information!A1")
+            val result = readSpreadSheet(spreadId, "Information","A1")
             Timber.e("Test from server: ${result?.getValues()?.get(0)?.get(0)}")
             val test = Gson().fromJson(result?.getValues()?.get(0)?.get(0).toString(), Test::class.java)
             test.spreadId = spreadId

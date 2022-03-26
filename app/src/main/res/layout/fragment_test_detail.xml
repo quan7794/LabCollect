@@ -78,30 +78,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/type" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
+    <TextView
+        android:id="@+id/testDataTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="@string/test_data"
+        android:textSize="@dimen/_16sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider2">
+        app:layout_constraintTop_toBottomOf="@id/divider2"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:contentDescription="@string/table_data"
-            android:scaleType="centerCrop"
-            android:src="@drawable/place_holder" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:text="@string/test_data"
-            android:textSize="@dimen/_16sdp" />
-    </FrameLayout>
+    <cn.zhouchaoyuan.excelpanel.ExcelPanel
+        android:id="@+id/testDataTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:left_cell_width="@dimen/room_status_cell_length"
+        app:normal_cell_width="@dimen/room_status_cell_length"
+        app:top_cell_height="@dimen/room_status_cell_length"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/divider3"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintTop_toBottomOf="@id/testDataTitle"/>
 
     <View
         android:id="@+id/divider3"

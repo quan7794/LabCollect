@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wac.labcollect.R
-import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.DRIVE_BASE_DIR_URL
-import com.wac.labcollect.data.repository.sheet.GoogleApiConstant.ROOT_DIR_ID
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.DRIVE_BASE_DIR_URL
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.databinding.FragmentHomeBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections

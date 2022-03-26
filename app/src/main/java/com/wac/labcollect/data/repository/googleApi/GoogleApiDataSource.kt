@@ -1,13 +1,12 @@
-package com.wac.labcollect.data.repository.sheet
+package com.wac.labcollect.data.repository.googleApi
 
 import androidx.annotation.WorkerThread
-import com.google.api.services.sheets.v4.model.Spreadsheet
 import com.google.api.services.sheets.v4.model.ValueRange
 
 interface GoogleApiDataSource {
 
     @WorkerThread
-    suspend fun readSpreadSheet(spreadSheetId : String, spreadSheetRange : String): ValueRange?
+    suspend fun readSpreadSheet(spreadSheetId : String, tabName: String, range : String): ValueRange?
 
     @WorkerThread
     suspend fun createSpreadsheet(title : String): String?

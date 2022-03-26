@@ -11,7 +11,7 @@ import com.google.api.client.json.gson.GsonFactory
 import com.wac.labcollect.data.database.TemplateDB
 import com.wac.labcollect.data.manager.AuthenticationManager
 import com.wac.labcollect.data.network.TemplateApiService
-import com.wac.labcollect.data.repository.sheet.GoogleApiRepository
+import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber

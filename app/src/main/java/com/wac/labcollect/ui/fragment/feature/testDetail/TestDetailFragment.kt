@@ -11,13 +11,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wac.labcollect.R
-import com.wac.labcollect.databinding.ManageTestFragmentBinding
+import com.wac.labcollect.databinding.FragmentTestDetailBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.feature.shareTest.ShareTestDialog
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
 
-class TestDetailFragment : BaseFragment<ManageTestFragmentBinding>() {
+class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
 
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()

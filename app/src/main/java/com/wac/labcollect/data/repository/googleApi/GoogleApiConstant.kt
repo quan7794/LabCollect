@@ -1,4 +1,4 @@
-package com.wac.labcollect.data.repository.sheet
+package com.wac.labcollect.data.repository.googleApi
 
 object GoogleApiConstant {
     const val SPREAD_BASE_URL = "https://docs.google.com/spreadsheets/d/"

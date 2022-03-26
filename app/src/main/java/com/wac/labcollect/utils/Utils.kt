@@ -9,6 +9,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.pow
 
 
 object Utils {
@@ -86,6 +87,29 @@ object Utils {
 
     fun String.createUniqueName(): String {
         return this.removeTone().replace(" ","_") +"_"+currentTimestamp()
+    }
+
+    fun Int.numberToExcelFormat(): String {
+        var columnString = ""
+        var columnNumber: Int = this
+        while (columnNumber > 0) {
+            val currentLetterNumber: Int = (columnNumber - 1) % 26
+            val currentLetter = (currentLetterNumber + 65).toChar()
+            columnString = currentLetter + columnString
+            columnNumber = (columnNumber - (currentLetterNumber + 1)) / 26
+        }
+        return columnString
+    }
+
+    fun String.excelFormatToNumber(): Int {
+        var retVal = 0
+        val col: String = this.uppercase()
+        for (iChar in (col.length - 1) downTo 0) {
+            val colPiece= col[iChar]
+            val colNum = colPiece.code - 64
+            retVal += colNum * 26.0.pow((col.length - (iChar + 1)).toDouble()).toInt()
+        }
+        return retVal
     }
 }
 

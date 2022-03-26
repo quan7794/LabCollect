@@ -98,7 +98,7 @@
         android:id="@+id/testDetailFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.testDetail.TestDetailFragment"
         android:label="@string/test"
-        tools:layout="@layout/manage_test_fragment" >
+        tools:layout="@layout/fragment_test_detail" >
         <argument
             android:name="spreadId"
             app:argType="string" />

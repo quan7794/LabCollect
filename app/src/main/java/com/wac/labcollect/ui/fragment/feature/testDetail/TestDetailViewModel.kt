@@ -1,7 +1,7 @@
 package com.wac.labcollect.ui.fragment.feature.testDetail
 
 import androidx.lifecycle.*
-import com.wac.labcollect.data.repository.sheet.GoogleApiRepository
+import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Test
 import kotlinx.coroutines.Dispatchers
