@@ -50,7 +50,6 @@
                         android:id="@+id/accountName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorOnPrimary"
                         android:layout_marginTop="@dimen/_3sdp"
                         tools:text="Tên tài khoản" />
 
@@ -58,7 +57,6 @@
                         android:id="@+id/accountEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorOnPrimary"
                         android:layout_marginTop="@dimen/_3sdp"
                         tools:text="Email" />
                 </LinearLayout>
