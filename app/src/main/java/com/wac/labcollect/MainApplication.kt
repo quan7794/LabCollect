@@ -13,6 +13,8 @@ import com.wac.labcollect.data.manager.AuthenticationManager
 import com.wac.labcollect.data.network.TemplateApiService
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
+import com.wac.labcollect.utils.NightModeHelper
+import com.wac.labcollect.utils.PreferenceUtil
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -46,6 +48,9 @@ open class MainApplication : Application() {
         super.onCreate()
 //        setupStrictMode()
         setupTimber()
+        PreferenceUtil.getDarkModeSetting(this).let { value ->
+            NightModeHelper.handleSetNightMode(value)
+        }
     }
 
     private fun setupStrictMode() {

@@ -6,7 +6,7 @@ import com.google.api.services.sheets.v4.model.ValueRange
 interface GoogleApiDataSource {
 
     @WorkerThread
-    suspend fun readSpreadSheet(spreadSheetId : String, tabName: String, range : String): ValueRange?
+    suspend fun readSpreadSheet(spreadSheetId : String, tabName: String? = null, range : String): ValueRange?
 
     @WorkerThread
     suspend fun createSpreadsheet(title : String): String?

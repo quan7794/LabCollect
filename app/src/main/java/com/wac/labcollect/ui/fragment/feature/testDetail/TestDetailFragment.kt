@@ -21,11 +21,13 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
 
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
-
+    private val testTableAdapter: TestTableAdapter by lazy {
+        TestTableAdapter(context)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
-        initViewModel(args.spreadId)
+        initUi(args.spreadId)
         setHasOptionsMenu(true)
     }
 
@@ -45,20 +47,23 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
         }
         return super.onOptionsItemSelected(item)
     }
-    private fun initViewModel(spreadId: String) {
-        viewModel.init(spreadId)
-        viewModel.currentTest.observeUntilNonNull(viewLifecycleOwner) {
-            (requireActivity() as AppCompatActivity).supportActionBar?.title = it!!.title
-            setupUi(it)
-        }
-    }
 
-    private fun setupUi(test: Test) {
-        binding.apply {
-            name.text = test.title
-            type.text = test.type
-            startTime.text = test.startTime
-            endTime.text = test.endTime
+    private fun initUi(spreadId: String) {
+        viewModel.apply {
+            binding.testDataTable.setAdapter(testTableAdapter)
+            init(spreadId)
+            currentTest.observeUntilNonNull(viewLifecycleOwner) { test ->
+                (requireActivity() as AppCompatActivity).supportActionBar?.title = test!!.title
+                binding.apply {
+                    name.text = test.title
+                    type.text = test.type
+                    startTime.text = test.startTime
+                    endTime.text = test.endTime
+                }
+            }
+            testData.observeUntilNonNull(viewLifecycleOwner) {
+                testTableAdapter.setMajorData(it as List<List<String>>)
+            }
         }
     }
 

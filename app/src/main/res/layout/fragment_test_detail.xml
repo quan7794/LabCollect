@@ -86,14 +86,13 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:text="@string/test_data"
         android:textSize="@dimen/_16sdp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider2"/>
 
     <cn.zhouchaoyuan.excelpanel.ExcelPanel
         android:id="@+id/testDataTable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:left_cell_width="@dimen/room_status_cell_length"
         app:normal_cell_width="@dimen/room_status_cell_length"
         app:top_cell_height="@dimen/room_status_cell_length"

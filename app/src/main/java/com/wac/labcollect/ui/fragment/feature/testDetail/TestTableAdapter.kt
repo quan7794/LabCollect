@@ -1,6 +1,7 @@
 package com.wac.labcollect.ui.fragment.feature.testDetail
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ import com.wac.labcollect.databinding.SimpleTextItemBinding
 class TestTableAdapter(context: Context?) : BaseExcelPanelAdapter<String, String, String>(context) {
     //=========================================normal cell=========================================
     override fun onCreateCellViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val binding = SimpleTextItemBinding.bind(parent.rootView)
+        val binding = SimpleTextItemBinding.inflate(LayoutInflater.from(parent.context))
         return CellViewHolder(binding)
     }
 

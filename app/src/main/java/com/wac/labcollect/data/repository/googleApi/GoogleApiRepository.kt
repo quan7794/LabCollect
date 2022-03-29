@@ -37,7 +37,9 @@ class GoogleApiRepository(
     }
 
     override suspend fun createSpreadsheet(title: String): String? {
+        val sheet = Sheet().setProperties(SheetProperties().setTitle("Data"))
         var spreadSheet = Spreadsheet().setProperties(SpreadsheetProperties().setTitle(title))
+        spreadSheet.sheets = listOf(sheet)
         try {
             spreadSheet = getSpreadService().spreadsheets().create(spreadSheet).execute()
             Timber.e("Spreadsheet ID: ${spreadSheet.spreadsheetId}, uri: ${spreadSheet.spreadsheetUrl}")
@@ -47,9 +49,18 @@ class GoogleApiRepository(
         }
         return spreadSheet.spreadsheetId
     }
-
-    override suspend fun readSpreadSheet(spreadSheetId: String, tabName: String, range: String): ValueRange? {
-        val spreadRange = if (tabName.isNotEmpty()) "$tabName!$range" else range
+/*
+Some API methods require a range in A1 notation.
+This is a string like Sheet1!A1:B2, that refers to a group of cells in the spreadsheet, and is typically used in formulas.
+For example, valid ranges are:
+    TODO --------------- Sheet1!A1:B2 refers to the first two cells in the top two rows of Sheet1.
+    TODO --------------- Sheet1!A:A refers to all the cells in the first column of Sheet1.
+    TODO --------------- Sheet1!1:2 refers to the all the cells in the first two rows of Sheet1.
+    TODO --------------- Sheet1!A5:A refers to all the cells of the first column of Sheet 1, from row 5 onward.
+    TODO --------------- A1:B2 refers to the first two cells in the top two rows of the first visible sheet.
+    TODO --------------- Sheet1 refers to all the cells in Sheet1.*/
+    override suspend fun readSpreadSheet(spreadSheetId: String, tabName: String?, range: String): ValueRange? {
+        val spreadRange = tabName?.let { if (range == "") "$tabName" else "$tabName!$range" } ?: range
         var result: ValueRange? = null
         try {
             // Gets the values of the cells in the specified range.

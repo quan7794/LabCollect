@@ -13,17 +13,26 @@ class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepos
     val currentTest: LiveData<Test?>
         get() = _currentTest
 
+    private var _testData = MutableLiveData<List<List<Any>>>()
+    val testData: LiveData<List<List<Any>>>
+        get() = _testData
+
     fun init(spreadId: String) {
         viewModelScope.launch(Dispatchers.IO) {
             var test = testRepository.getTestBySpreadId(spreadId) //get test from local first.
             if (test == null) {
                 Timber.e("Current test from local database null, getting data from spreadsheet")
                 test = googleApiRepository.getTestInfoFromSpread(spreadId)
-                test?.let {
-                    val a = it
-                    testRepository.createTest(test)}
+                test?.let { testRepository.createTest(test)}
             }
             _currentTest.postValue(test)
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            val spreadData = googleApiRepository.readSpreadSheet(spreadId, "Data", "")
+            spreadData?.getValues()?.let {
+                Timber.d("Spread data: $it")
+                _testData.postValue(it as List<List<Any>>)
+            }
         }
     }
 }
