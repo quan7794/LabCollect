@@ -89,4 +89,10 @@ object FileUtils {
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
     }
+
+    fun List<List<Any>>.getColumnData(index: Int) : List<Any> {
+        val colData = mutableListOf<Any>()
+        forEach { colData.add(it[index]) }
+        return colData
+    }
 }

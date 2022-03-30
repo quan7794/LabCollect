@@ -27,6 +27,7 @@ class FirstScreenFragment : BaseFragment<FragmentFirstScreenBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             viewPager.adapter = ViewPagerAdapter(this@FirstScreenFragment)
+            viewPager.isUserInputEnabled = false
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 tab.text = getString(firstScreenTabItems[position])
             }.attach()

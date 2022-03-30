@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.TimePicker
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
@@ -12,18 +13,18 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentTestDetailBinding
-import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.feature.shareTest.ShareTestDialog
+import com.wac.labcollect.utils.FileUtils.getColumnData
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
+import timber.log.Timber
+import java.lang.ref.WeakReference
 
 class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
 
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
-    private val testTableAdapter: TestTableAdapter by lazy {
-        TestTableAdapter(context)
-    }
+    private val testTableAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context)) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
@@ -50,7 +51,10 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
 
     private fun initUi(spreadId: String) {
         viewModel.apply {
-            binding.testDataTable.setAdapter(testTableAdapter)
+            binding.testDataTable.apply {
+                setAdapter(testTableAdapter)
+                addHistorySize(100)
+            }
             init(spreadId)
             currentTest.observeUntilNonNull(viewLifecycleOwner) { test ->
                 (requireActivity() as AppCompatActivity).supportActionBar?.title = test!!.title
@@ -62,12 +66,21 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
                 }
             }
             testData.observeUntilNonNull(viewLifecycleOwner) {
-                testTableAdapter.setMajorData(it as List<List<String>>)
+                try {
+                    testTableAdapter.apply {
+                        Timber.e("Top data: ${it[0]}")
+                        Timber.e("Left data: ${it.getColumnData(0)}")
+                        setAllData(it.getColumnData(0) as List<String>, it[0] as MutableList<String>, it as List<List<String>>)
+//                        enableHeader()
+                    }
+                } catch (e: Exception) {
+                    Timber.e(e.stackTrace.toString())
+                }
             }
         }
     }
 
-    private val backPressCallback = object: OnBackPressedCallback(true) {
+    private val backPressCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             val action = TestDetailFragmentDirections.toFirstScreenFragment()
             binding.root.findNavController().navigate(action)

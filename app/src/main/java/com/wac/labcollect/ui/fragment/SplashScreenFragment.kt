@@ -25,7 +25,7 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
             val nav = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
             val action = SplashScreenFragmentDirections.actionSplashScreenFragmentToFirstScreenFragment()
             nav.navigate(action)
-        }, 3000)
+        }, 0)
     }
 
     override fun onResume() {
