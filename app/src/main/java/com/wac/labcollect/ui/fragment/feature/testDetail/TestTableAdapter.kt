@@ -8,9 +8,10 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import cn.zhouchaoyuan.excelpanel.BaseExcelPanelAdapter
 import com.wac.labcollect.databinding.SimpleTextItemBinding
+import com.wac.labcollect.utils.Utils.toExcelFormat
 import java.lang.ref.WeakReference
 
-class TestTableAdapter(val context: WeakReference<Context?>) : BaseExcelPanelAdapter<String, String, String>(context.get()) {
+class TestTableAdapter(context: WeakReference<Context?>, private val cellClickListener: View.OnClickListener) : BaseExcelPanelAdapter<String, String, String>(context.get()) {
     //=========================================normal cell=========================================
     override fun onCreateCellViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = SimpleTextItemBinding.inflate(LayoutInflater.from(parent.context))
@@ -20,6 +21,8 @@ class TestTableAdapter(val context: WeakReference<Context?>) : BaseExcelPanelAda
     override fun onBindCellViewHolder(viewHolder: RecyclerView.ViewHolder, verticalPosition: Int, horizontalPosition: Int) {
         if (viewHolder is CellViewHolder) {
             viewHolder.textContent.text = getMajorItem(verticalPosition, horizontalPosition)
+            viewHolder.root.tag = Pair((horizontalPosition + 1).toExcelFormat(), verticalPosition + 1)
+            viewHolder.root.setOnClickListener(cellClickListener)
         }
     }
     //=========================================top cell===========================================
@@ -33,6 +36,7 @@ class TestTableAdapter(val context: WeakReference<Context?>) : BaseExcelPanelAda
         if (null == viewHolder || viewHolder !is CellViewHolder || rowTitle == null) return
         viewHolder.textContent.text = rowTitle
     }
+
     //=========================================left cell===========================================
     override fun onCreateLeftViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding = SimpleTextItemBinding.inflate(LayoutInflater.from(parent.context))
@@ -43,14 +47,14 @@ class TestTableAdapter(val context: WeakReference<Context?>) : BaseExcelPanelAda
         val colTitle = getLeftItem(position)
         if (null == viewHolder || viewHolder !is CellViewHolder || colTitle == null) return
         viewHolder.textContent.text = colTitle
-        val lp = LinearLayout.LayoutParams(56,28)
+        val lp = LinearLayout.LayoutParams(56, 28)
         viewHolder.root.layoutParams = lp
     }
 
     //=========================================top left cell=======================================
-    override fun onCreateTopLeftView(): View {
-        val binding = SimpleTextItemBinding.inflate(LayoutInflater.from(context.get()))
-        return binding.root
+    override fun onCreateTopLeftView(): View? {
+//        val binding = SimpleTextItemBinding.inflate(LayoutInflater.from(context.get()))
+        return null
     }
 
     class CellViewHolder(binding: SimpleTextItemBinding) : RecyclerView.ViewHolder(binding.root) {

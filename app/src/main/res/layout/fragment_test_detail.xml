@@ -93,47 +93,35 @@
         android:id="@+id/testDataTable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:left_cell_width="@dimen/room_status_cell_length"
-        app:normal_cell_width="@dimen/room_status_cell_length"
-        app:top_cell_height="@dimen/room_status_cell_length"
+        app:layout_constraintBottom_toTopOf="@id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/divider3"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toBottomOf="@id/testDataTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/testDataTitle"
+        app:layout_constraintVertical_bias="0.0"
+        app:left_cell_width="@dimen/room_status_cell_length"
+        app:normal_cell_width="@dimen/room_status_cell_length"
+        app:top_cell_height="@dimen/room_status_cell_length" />
 
     <View
         android:id="@+id/divider3"
         android:layout_width="0dp"
         android:layout_height="@dimen/_1sdp"
         android:background="@color/HEADER_SECOND_TITLE"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/updateDataTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/updateDataTitle" />
 
-    <FrameLayout
-        android:id="@+id/frameLayout2"
+    <TextView
+        android:id="@+id/updateDataTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:text="@string/add_record"
+        android:textSize="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/materialButton3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_150sdp"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:contentDescription="@string/table_data"
-            android:scaleType="centerInside"
-            android:src="@drawable/place_holder" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:text="@string/add_record"
-            android:textSize="@dimen/_16sdp" />
-    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton"

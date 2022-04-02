@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentTestDetailBinding
 import com.wac.labcollect.ui.base.BaseFragment
@@ -20,11 +21,11 @@ import com.wac.labcollect.utils.Utils.observeUntilNonNull
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
-class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
+class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnClickListener {
 
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
-    private val testTableAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context)) }
+    private val testTableAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context), this) }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
@@ -70,8 +71,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
                     testTableAdapter.apply {
                         Timber.e("Top data: ${it[0]}")
                         Timber.e("Left data: ${it.getColumnData(0)}")
-                        setAllData(it.getColumnData(0) as List<String>, it[0] as MutableList<String>, it as List<List<String>>)
-//                        enableHeader()
+                        setMajorData(it as List<List<String>>)
                     }
                 } catch (e: Exception) {
                     Timber.e(e.stackTrace.toString())
@@ -90,5 +90,10 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>() {
     override fun onDestroyView() {
         backPressCallback.remove()
         super.onDestroyView()
+    }
+
+    override fun onClick(view: View) {
+       val excelPosition= view.tag as Pair<*, *>
+        Snackbar.make(view,"Clicked at position: $excelPosition", Snackbar.LENGTH_SHORT).show()
     }
 }

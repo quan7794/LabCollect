@@ -89,7 +89,7 @@ object Utils {
         return this.removeTone().replace(" ","_") +"_"+currentTimestamp()
     }
 
-    fun Int.numberToExcelFormat(): String {
+    fun Int.toExcelFormat(): String {
         var columnString = ""
         var columnNumber: Int = this
         while (columnNumber > 0) {
