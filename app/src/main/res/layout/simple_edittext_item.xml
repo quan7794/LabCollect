@@ -2,16 +2,17 @@
 <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:id="@+id/new_data_container">
+    android:id="@+id/editTextContainer"
+    android:hint="@string/col_name">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/colData"
-        android:layout_width="match_parent"
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/_50sdp"
         android:layout_height="wrap_content"
         android:imeOptions="actionNext"
-        tools:text="@string/test_data"
+        android:hint="@string/col_name"
         android:singleLine="true" />
 </com.google.android.material.textfield.TextInputLayout>

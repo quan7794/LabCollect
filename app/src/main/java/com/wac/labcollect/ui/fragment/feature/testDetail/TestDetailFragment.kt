@@ -5,12 +5,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.TimePicker
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentTestDetailBinding
@@ -26,6 +26,8 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
     private val testTableAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context), this) }
+    private val updateDataAdapter : AddTestDataAdapter by lazy { AddTestDataAdapter(arrayListOf())}
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
@@ -56,6 +58,12 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                 setAdapter(testTableAdapter)
                 addHistorySize(100)
             }
+            binding.updateList.apply {
+                adapter = updateDataAdapter
+                layoutManager = LinearLayoutManager(context).also {
+                    it.orientation = LinearLayoutManager.HORIZONTAL
+                }
+            }
             init(spreadId)
             currentTest.observeUntilNonNull(viewLifecycleOwner) { test ->
                 (requireActivity() as AppCompatActivity).supportActionBar?.title = test!!.title
@@ -70,7 +78,9 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                 try {
                     testTableAdapter.apply {
                         Timber.e("Top data: ${it[0]}")
+                        updateDataAdapter.createData(it[0] as ArrayList<String>)
                         Timber.e("Left data: ${it.getColumnData(0)}")
+
                         setMajorData(it as List<List<String>>)
                     }
                 } catch (e: Exception) {

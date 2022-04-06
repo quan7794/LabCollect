@@ -119,12 +119,21 @@
         android:layout_gravity="top|start"
         android:text="@string/add_record"
         android:textSize="@dimen/_16sdp"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton3"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@+id/updateList"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/updateList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        tools:listitem="@layout/simple_edittext_item"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/prevButton"
+
+        />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/prevButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -132,11 +141,11 @@
         android:text="@string/backward"
         app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/materialButton3"
+        app:layout_constraintEnd_toStartOf="@+id/updateNewData"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton3"
+        android:id="@+id/updateNewData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
@@ -144,11 +153,11 @@
         android:text="@string/save"
         android:backgroundTint="@color/activeStatus"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/materialButton2"
-        app:layout_constraintStart_toEndOf="@+id/materialButton" />
+        app:layout_constraintEnd_toStartOf="@+id/nextButton"
+        app:layout_constraintStart_toEndOf="@+id/prevButton" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
+        android:id="@+id/nextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forward"
@@ -156,6 +165,6 @@
         app:cornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/materialButton3" />
+        app:layout_constraintStart_toEndOf="@+id/updateNewData" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
