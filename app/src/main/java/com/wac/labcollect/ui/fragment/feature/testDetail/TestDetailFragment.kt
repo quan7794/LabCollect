@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
@@ -58,12 +59,22 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                 setAdapter(testTableAdapter)
                 addHistorySize(100)
             }
-            binding.updateList.apply {
-                adapter = updateDataAdapter
-                layoutManager = LinearLayoutManager(context).also {
-                    it.orientation = LinearLayoutManager.HORIZONTAL
+            binding.apply { //Update new test data
+                updateList.apply {
+                    adapter = updateDataAdapter
+                    layoutManager = LinearLayoutManager(context).also {
+                        it.orientation = LinearLayoutManager.HORIZONTAL
+                    }
+                }
+                saveButton.setOnClickListener {
+                    if (isValidateUpdateData()) {
+                        viewModel.updateNewData(updateDataAdapter.dataSet, spreadId)
+                    } else {
+                        Toast.makeText(context, "Hãy nhập tất cả dữ liệu trước khi lưu", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
+
             init(spreadId)
             currentTest.observeUntilNonNull(viewLifecycleOwner) { test ->
                 (requireActivity() as AppCompatActivity).supportActionBar?.title = test!!.title
@@ -78,7 +89,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                 try {
                     testTableAdapter.apply {
                         Timber.e("Top data: ${it[0]}")
-                        updateDataAdapter.createData(it[0] as ArrayList<String>)
+                        updateDataAdapter.createData(it[0].subList(1, it[0].count()) as ArrayList<String>)
                         Timber.e("Left data: ${it.getColumnData(0)}")
 
                         setMajorData(it as List<List<String>>)
@@ -88,6 +99,14 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                 }
             }
         }
+    }
+
+    private fun isValidateUpdateData(): Boolean {
+        if (updateDataAdapter.dataSet.isEmpty()) return false
+        updateDataAdapter.dataSet.forEach {
+            if (it.second.isEmpty()) return false
+        }
+        return true
     }
 
     private val backPressCallback = object : OnBackPressedCallback(true) {

@@ -7,6 +7,7 @@ import com.wac.labcollect.domain.models.Test
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.ArrayList
 
 class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepository: GoogleApiRepository) : ViewModel() {
     private var _currentTest = MutableLiveData<Test?>()
@@ -34,6 +35,10 @@ class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepos
                 _testData.postValue(it as List<List<Any>>)
             }
         }
+    }
+
+    fun updateNewData(dataSet: ArrayList<Pair<String, String>>, spreadId: String) {
+        TODO("Not yet implemented")
     }
 }
 

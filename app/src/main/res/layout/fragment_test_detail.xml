@@ -87,12 +87,13 @@
         android:text="@string/test_data"
         android:textSize="@dimen/_16sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/divider2"/>
+        app:layout_constraintTop_toBottomOf="@id/divider2" />
 
     <cn.zhouchaoyuan.excelpanel.ExcelPanel
         android:id="@+id/testDataTable"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_10sdp"
         app:layout_constraintBottom_toTopOf="@id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,19 +105,18 @@
 
     <View
         android:id="@+id/divider3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
         android:background="@color/HEADER_SECOND_TITLE"
-        app:layout_constraintBottom_toTopOf="@+id/updateDataTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/updateDataTitle" />
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintBottom_toTopOf="@+id/updateDataTitle" />
 
     <TextView
         android:id="@+id/updateDataTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:text="@string/add_record"
         android:textSize="@dimen/_16sdp"
         app:layout_constraintBottom_toTopOf="@+id/updateList"
@@ -124,47 +124,31 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/updateList"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/saveButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:itemCount="1"
+        tools:listitem="@layout/simple_edittext_item" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        tools:listitem="@layout/simple_edittext_item"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/prevButton"
-
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/prevButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:backgroundTint="@color/HISTORY_TEXT_COLOR"
-        android:text="@string/backward"
-        app:cornerRadius="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/updateNewData"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/updateNewData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        app:cornerRadius="@dimen/_10sdp"
-        android:text="@string/save"
+        android:layout_gravity="center_vertical"
         android:backgroundTint="@color/activeStatus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/nextButton"
-        app:layout_constraintStart_toEndOf="@+id/prevButton" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forward"
-        android:backgroundTint="@color/HISTORY_TEXT_COLOR"
+        android:clickable="true"
+        android:focusable="true"
+        android:minWidth="@dimen/_60sdp"
+        android:text="@string/save"
         app:cornerRadius="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/updateList"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/updateNewData" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/updateList"
+        app:layout_constraintTop_toTopOf="@+id/updateList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
