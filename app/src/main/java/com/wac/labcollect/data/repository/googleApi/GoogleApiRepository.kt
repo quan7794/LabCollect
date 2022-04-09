@@ -15,6 +15,7 @@ import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ROOT_DIR_I
 import com.wac.labcollect.domain.models.Field
 import com.wac.labcollect.domain.models.Test
 import timber.log.Timber
+import java.util.ArrayList
 
 
 class GoogleApiRepository(
@@ -59,8 +60,10 @@ For example, valid ranges are:
     TODO --------------- Sheet1!A5:A refers to all the cells of the first column of Sheet 1, from row 5 onward.
     TODO --------------- A1:B2 refers to the first two cells in the top two rows of the first visible sheet.
     TODO --------------- Sheet1 refers to all the cells in Sheet1.*/
+   fun getRange(tabName: String?, range: String) = tabName?.let { if (range == "") "$tabName" else "$tabName!$range" } ?: range
+
     override suspend fun readSpreadSheet(spreadSheetId: String, tabName: String?, range: String): ValueRange? {
-        val spreadRange = tabName?.let { if (range == "") "$tabName" else "$tabName!$range" } ?: range
+        val spreadRange = getRange(tabName, range)
         var result: ValueRange? = null
         try {
             // Gets the values of the cells in the specified range.
@@ -154,6 +157,16 @@ For example, valid ranges are:
             return  Pair(true, it)
         }
         return Pair(false, "")
+    }
+
+    fun appendData(spreadId: String, tabName: String?, rawRange: String, rowData: ArrayList<String>) {
+        val range = getRange(tabName, rawRange)
+        val body = ValueRange().setValues(listOf(rowData))
+        val result = getSpreadService().spreadsheets().values().append(spreadId, range, body)
+            .setValueInputOption("RAW")
+            .setInsertDataOption("INSERT_ROWS")
+            .execute()
+        Timber.e("newRows=${result.updates.updatedRows}")
     }
 
     fun updateSpread(spreadId: String, range: String, inputOption: String, rowData: List<Any>): UpdateValuesResponse? {

@@ -5,7 +5,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:background="@drawable/splash_bg"
+        android:background="@drawable/cool_bg"
         android:layout_height="match_parent">
 
         <com.github.mmin18.widget.RealtimeBlurView

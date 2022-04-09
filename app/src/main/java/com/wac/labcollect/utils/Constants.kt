@@ -11,4 +11,9 @@ object Constants {
 
     const val BASE_URL = "https://www.google.com/"
     const val API_KEY_VALUE = ""
+
+
+    //SHEET
+    const val DATA_SHEET = "Data"
+    const val INFO_SHEET = "Information"
 }

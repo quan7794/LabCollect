@@ -4,12 +4,14 @@ import androidx.lifecycle.*
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Test
+import com.wac.labcollect.utils.Constants.DATA_SHEET
+import com.wac.labcollect.utils.Utils.currentTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.ArrayList
 
-class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepository: GoogleApiRepository) : ViewModel() {
+class TestDetailViewModel(val testRepository: TestRepository, val ggApiRepository: GoogleApiRepository) : ViewModel() {
     private var _currentTest = MutableLiveData<Test?>()
     val currentTest: LiveData<Test?>
         get() = _currentTest
@@ -23,22 +25,37 @@ class TestDetailViewModel(val testRepository: TestRepository, val googleApiRepos
             var test = testRepository.getTestBySpreadId(spreadId) //get test from local first.
             if (test == null) {
                 Timber.e("Current test from local database null, getting data from spreadsheet")
-                test = googleApiRepository.getTestInfoFromSpread(spreadId)
-                test?.let { testRepository.createTest(test)}
+                test = ggApiRepository.getTestInfoFromSpread(spreadId)
+                test?.let { testRepository.createTest(test) }
             }
             _currentTest.postValue(test)
         }
         viewModelScope.launch(Dispatchers.IO) {
-            val spreadData = googleApiRepository.readSpreadSheet(spreadId, "Data", "")
+            getTestData(spreadId)
+        }
+    }
+
+    private suspend fun getTestData(spreadId: String) {
+            val spreadData = ggApiRepository.readSpreadSheet(spreadId, "Data", "")
             spreadData?.getValues()?.let {
                 Timber.d("Spread data: $it")
                 _testData.postValue(it as List<List<Any>>)
             }
-        }
     }
 
     fun updateNewData(dataSet: ArrayList<Pair<String, String>>, spreadId: String) {
-        TODO("Not yet implemented")
+        testData.value?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                Timber.e("Entry")
+                val tableName = DATA_SHEET
+                val appendIndex = (it.size + 1)
+                val range = "$appendIndex:$appendIndex"
+                val rowData = arrayListOf(currentTime())
+                dataSet.forEach { rowData.add(it.second) }
+                ggApiRepository.appendData(spreadId, tableName, range, rowData)
+                getTestData(spreadId)
+            }
+        }
     }
 }
 

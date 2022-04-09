@@ -21,12 +21,14 @@ import com.wac.labcollect.utils.FileUtils.getColumnData
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnClickListener {
 
     private val viewModel: TestDetailViewModel by viewModels { TestDetailViewModelFactory(testRepository, googleApiRepository) }
     private val args: TestDetailFragmentArgs by navArgs()
-    private val testTableAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context), this) }
+    private val testDataAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context), this) }
     private val updateDataAdapter : AddTestDataAdapter by lazy { AddTestDataAdapter(arrayListOf())}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +58,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
     private fun initUi(spreadId: String) {
         viewModel.apply {
             binding.testDataTable.apply {
-                setAdapter(testTableAdapter)
+                setAdapter(testDataAdapter)
                 addHistorySize(100)
             }
             binding.apply { //Update new test data
@@ -85,17 +87,19 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                     endTime.text = test.endTime
                 }
             }
-            testData.observeUntilNonNull(viewLifecycleOwner) {
+            testData.observe(viewLifecycleOwner) {
                 try {
-                    testTableAdapter.apply {
+                    testDataAdapter.apply {
                         Timber.e("Top data: ${it[0]}")
-                        updateDataAdapter.createData(it[0].subList(1, it[0].count()) as ArrayList<String>)
-                        Timber.e("Left data: ${it.getColumnData(0)}")
-
+//                        Timber.e("Left data: ${it.getColumnData(0)}")
                         setMajorData(it as List<List<String>>)
+                        val data = arrayListOf<String>()
+                        data.addAll(it[0])
+                        data.removeAt(0)
+                        updateDataAdapter.createData(data)
                     }
                 } catch (e: Exception) {
-                    Timber.e(e.stackTrace.toString())
+                    Timber.e(e)
                 }
             }
         }

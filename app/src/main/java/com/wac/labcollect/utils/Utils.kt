@@ -85,6 +85,10 @@ object Utils {
         return System.currentTimeMillis()/1000
     }
 
+    fun currentTime(timeFormat: String = "yyyy/MM/dd HH:mm"): String {
+        return SimpleDateFormat(timeFormat, Locale.getDefault()).format(Calendar.getInstance().time)
+    }
+
     fun String.createUniqueName(): String {
         return this.removeTone().replace(" ","_") +"_"+currentTimestamp()
     }
