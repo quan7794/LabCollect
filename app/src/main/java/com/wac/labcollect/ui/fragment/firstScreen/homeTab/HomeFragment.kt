@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -13,7 +14,11 @@ import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.DRIVE_BASE
 import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.databinding.FragmentHomeBinding
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.ui.fragment.LoginFragmentDirections
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
+import com.wac.labcollect.utils.Resource
+import com.wac.labcollect.utils.Status
+import timber.log.Timber
 
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTestClick {
@@ -25,6 +30,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         initView()
         initTestList()
         initScanQRCode()
+        viewModel.currentStatus.observe(viewLifecycleOwner) {
+            when (it.status) {
+                Status.LOADING-> {
+                    Timber.w("Loading!")
+                    binding.apply {
+                        loadingAnimation.progress = 0F
+                        loadingAnimation.visibility = View.VISIBLE
+                    }
+                }
+                Status.SUCCESS -> {
+                    binding.loadingAnimation.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Loading successfully", Toast.LENGTH_LONG).show()
+                }
+                Status.ERROR -> {
+                    binding.loadingAnimation.visibility = View.GONE
+                    Toast.makeText(requireContext(), "Loading fail, error: ${it.message}", Toast.LENGTH_LONG).show()
+                }
+                Status.NOTHING ->{
+                    binding.loadingAnimation.visibility = View.GONE
+                }
+                else -> {}
+            }
+        }
     }
 
     private fun initTestList() {
@@ -34,7 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
             adapter = testListAdapter
         }
         viewModel.getSpreads()
-        viewModel.spreads.observe(this) { spreads ->
+        viewModel.spreads.observe(viewLifecycleOwner) { spreads ->
             if (binding.swipeToRefresh.isRefreshing) {
                 binding.swipeToRefresh.isRefreshing = false
             }

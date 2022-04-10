@@ -6,13 +6,7 @@ import com.wac.labcollect.utils.Resource
 import com.wac.labcollect.utils.Status
 
 class LoginViewModel : BaseViewModel() {
-    private var _currentStatus = MutableLiveData<Resource<Nothing>>()
-    val currentStatus: LiveData<Resource<Nothing>>
-        get() = _currentStatus
 
-    fun updateProgress(status: Resource<Nothing>) {
-        _currentStatus.postValue(status)
-    }
 }
 
 //class LoginViewModelFactory() : ViewModelProvider.Factory {

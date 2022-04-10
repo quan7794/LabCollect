@@ -1,6 +1,9 @@
 package com.wac.labcollect.ui.fragment.feature.createTemplate
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Template

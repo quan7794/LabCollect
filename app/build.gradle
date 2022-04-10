@@ -174,7 +174,7 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     // QRCode
-    implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.1.2'
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
 
 
