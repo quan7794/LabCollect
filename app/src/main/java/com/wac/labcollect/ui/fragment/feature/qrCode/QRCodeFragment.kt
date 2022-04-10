@@ -5,8 +5,9 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.budiyev.android.codescanner.AutoFocusMode
@@ -24,9 +25,8 @@ class QRCodeFragment : BaseFragment<FragmentQRCodeBinding>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_DENIED){
+        if(ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) ==
+            PackageManager.PERMISSION_DENIED){
             requestPermissions(arrayOf(Manifest.permission.CAMERA), 123 )
         }else{
             startScanning()
@@ -34,7 +34,7 @@ class QRCodeFragment : BaseFragment<FragmentQRCodeBinding>(){
     }
 
     private fun startScanning() {
-        codeScanner = CodeScanner(requireContext(), binding.scannerView)
+        codeScanner = CodeScanner(requireActivity(), binding.scannerView)
         codeScanner.camera = CodeScanner.CAMERA_BACK
         codeScanner.formats = CodeScanner.ALL_FORMATS
 

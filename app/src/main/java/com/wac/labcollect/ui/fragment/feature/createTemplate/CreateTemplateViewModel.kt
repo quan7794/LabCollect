@@ -6,12 +6,17 @@ import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Template
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseViewModel
+import com.wac.labcollect.utils.Resource
 import timber.log.Timber
 
 class CreateTemplateViewModel(private val testRepository: TestRepository, private val googleApiRepository: GoogleApiRepository) : BaseViewModel() {
     private var _parentTest = MutableLiveData<Test>()
     private val parentTest: LiveData<Test>
     get() = _parentTest
+
+    private var _currentStatus = MutableLiveData<Resource<Nothing>>()
+    val currentStatus: LiveData<Resource<Nothing>>
+        get() = _currentStatus
 
     suspend fun insert(template: Template) = testRepository.insertTemplate(template)
 

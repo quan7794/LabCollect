@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -31,6 +32,10 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
     private val testDataAdapter: TestTableAdapter by lazy { TestTableAdapter(WeakReference(context), this) }
     private val updateDataAdapter : AddTestDataAdapter by lazy { AddTestDataAdapter(arrayListOf())}
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
+        super.onCreate(savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(backPressCallback)
