@@ -27,9 +27,8 @@ class AddTestDataAdapter(var dataSet: ArrayList<Pair<String, String>>) : Recycle
     }
 
     fun createData(set: ArrayList<String>) {
-//        val newDataSet = arrayListOf<Pair<String, String>>()
+        if (dataSet.size > 0) return
         set.forEach { dataSet.add(Pair(it, "")) }
-//        dataSet = newDataSet
         notifyDataSetChanged()
     }
 
