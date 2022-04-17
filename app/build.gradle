@@ -5,7 +5,10 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'com.google.gms.google-services'
 //apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+// Other plugins
+//apply plugin: "kotlinx-serialization"
 apply plugin: 'kotlin-parcelize'
+
 repositories {
     maven { url 'https://jitpack.io' }
 }
@@ -98,7 +101,7 @@ dependencies {
 
     //google
     implementation 'com.google.android.gms:play-services-auth:20.1.0'
-    implementation 'com.google.firebase:firebase-auth-ktx:21.0.2'
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.3'
     implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation('com.google.api-client:google-api-client-android:1.33.2') {
         exclude group: 'org.apache.httpcomponents'
@@ -122,6 +125,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+//    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2"
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

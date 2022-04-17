@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.ui.base.BaseViewModel
-import com.wac.labcollect.utils.Resource
+import com.wac.labcollect.utils.StatusControl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,11 +14,11 @@ class HomeTabViewModel(val testRepository: TestRepository, val googleApiReposito
         get() = _spreads
 
     fun getSpreads() {
-        updateProgress(Resource.loading())
+        updateProgress(StatusControl.loading())
         viewModelScope.launch(Dispatchers.IO) {
             val spreads = googleApiRepository.getFilesAtRoot()
             _spreads.postValue(spreads)
-            updateProgress(Resource.nothing())
+            updateProgress(StatusControl.nothing())
         }
     }
 }

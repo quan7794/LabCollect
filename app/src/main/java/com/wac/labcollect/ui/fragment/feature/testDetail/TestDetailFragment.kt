@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,12 +17,12 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentTestDetailBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.feature.shareTest.ShareTestDialog
-import com.wac.labcollect.utils.FileUtils.getColumnData
+import com.wac.labcollect.utils.Status
+import com.wac.labcollect.utils.StatusControl
+import com.wac.labcollect.utils.Utils.hideKeyboard
 import com.wac.labcollect.utils.Utils.observeUntilNonNull
 import timber.log.Timber
 import java.lang.ref.WeakReference
-import java.util.*
-import kotlin.collections.ArrayList
 
 class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnClickListener {
 
@@ -61,6 +60,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
     }
 
     private fun initUi(spreadId: String) {
+        initProgress(viewModel, binding.loadingAnimation.id)
         viewModel.apply {
             binding.testDataTable.apply {
                 setAdapter(testDataAdapter)
@@ -69,19 +69,18 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
             binding.apply { //Update new test data
                 updateList.apply {
                     adapter = updateDataAdapter
-                    layoutManager = LinearLayoutManager(context).also {
-                        it.orientation = LinearLayoutManager.HORIZONTAL
-                    }
+                    layoutManager = LinearLayoutManager(context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
                 }
                 saveButton.setOnClickListener {
+                    hideKeyboard()
+                    viewModel.updateProgress(StatusControl(Status.LOADING))
                     if (isValidateUpdateData()) {
                         viewModel.updateNewData(updateDataAdapter.dataSet, spreadId)
                     } else {
-                        Toast.makeText(context, "Hãy nhập tất cả dữ liệu trước khi lưu", Toast.LENGTH_SHORT).show()
+                        viewModel.updateProgress(StatusControl(Status.ERROR, null, "Hãy nhập tất cả dữ liệu trước khi lưu"))
                     }
                 }
             }
-
             init(spreadId)
             currentTest.observeUntilNonNull(viewLifecycleOwner) { test ->
                 (requireActivity() as AppCompatActivity).supportActionBar?.title = test!!.title
@@ -102,9 +101,11 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
                         data.addAll(it[0])
                         data.removeAt(0)
                         updateDataAdapter.createData(data)
+                        viewModel.updateProgress(StatusControl(Status.SUCCESS))
                     }
                 } catch (e: Exception) {
                     Timber.e(e)
+                    viewModel.updateProgress(StatusControl(Status.ERROR, null, getString(R.string.can_not_get_test_data)))
                 }
             }
         }
@@ -112,9 +113,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
 
     private fun isValidateUpdateData(): Boolean {
         if (updateDataAdapter.dataSet.isEmpty()) return false
-        updateDataAdapter.dataSet.forEach {
-            if (it.second.isEmpty()) return false
-        }
+        updateDataAdapter.dataSet.forEach { if (it.second.isEmpty()) return false }
         return true
     }
 
@@ -131,7 +130,7 @@ class TestDetailFragment : BaseFragment<FragmentTestDetailBinding>(), View.OnCli
     }
 
     override fun onClick(view: View) {
-       val excelPosition= view.tag as Pair<*, *>
+       val excelPosition = view.tag as Pair<*, *>
         Snackbar.make(view,"Clicked at position: $excelPosition", Snackbar.LENGTH_SHORT).show()
     }
 }

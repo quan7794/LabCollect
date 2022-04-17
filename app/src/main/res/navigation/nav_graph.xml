@@ -68,10 +68,6 @@
         android:name="com.wac.labcollect.ui.fragment.feature.createTemplate.CreateTemplateFragment"
         android:label="@string/create_test_template"
         tools:layout="@layout/create_template_fragment">
-        <argument
-            android:name="spreadId"
-            app:argType="string"
-            app:nullable="true"/>
         <action
             android:id="@+id/action_createTemplateFragment_to_firstScreenFragment"
             app:destination="@id/firstScreenFragment"
@@ -80,19 +76,23 @@
         <action
             android:id="@+id/action_createTemplateFragment_to_testDetailFragment"
             app:destination="@id/testDetailFragment" />
+        <argument
+            android:name="tempTest"
+            app:argType="com.wac.labcollect.domain.models.Test"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/manageTemplateFragment"
         android:name="com.wac.labcollect.ui.fragment.feature.manageTemplate.ManageTemplateFragment"
         android:label="@string/manage_template"
         tools:layout="@layout/template_manage_fragment" >
-        <argument
-            android:name="spreadId"
-            app:argType="string"
-            app:nullable="true" />
         <action
             android:id="@+id/action_manageTemplateFragment_to_manageTestFragment"
             app:destination="@id/testDetailFragment" />
+        <argument
+            android:name="tempTest"
+            app:argType="com.wac.labcollect.domain.models.Test"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/testDetailFragment"

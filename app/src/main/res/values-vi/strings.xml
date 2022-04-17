@@ -67,4 +67,5 @@
     <string name="can_not_found_test_list">Không tìm thấy bất kì thí nghiệm nào.\n\n Nếu chưa được cấp quyền truy cập hệ thống, nhấn vào nút bên dưới để yêu cầu sử dụng.</string>
     <string name="request_system_access">Yêu cầu quyền truy cập hệ thống.</string>
     <string name="request_specify_test_permission_or_create_test">Nếu đã được cấp quyền truy cập hệ thống nhưng không thấy danh sách thí nghiệm. \n\n Vui lòng xin quyền truy cập thí nghiệm bạn cần thông qua liên kết, mã QR được chia sẻ bởi người quản lý thí nghiệm. Hoặc tự tạo thí nghiệm.</string>
+    <string name="can_not_get_test_data">Không thể tải dữ liệu thí nghiệm.</string>
 </resources>

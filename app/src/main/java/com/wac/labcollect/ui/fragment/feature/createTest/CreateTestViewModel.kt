@@ -10,18 +10,9 @@ import com.wac.labcollect.ui.base.BaseViewModel
 
 class CreateTestViewModel(val testRepository: TestRepository, private val googleApiRepository: GoogleApiRepository) : BaseViewModel() {
 
-    suspend fun createTest(test: Test) {
-        testRepository.createTest(test)
-    }
 
-    suspend fun createSpread(test: Test): String {
-        var spreadId: String
-        googleApiRepository.apply {
-            spreadId = createSpreadAtDir(test.title, GoogleApiConstant.ROOT_DIR_ID).second
-            updateSheetInformation(spreadId, test)
-        }
-        return spreadId
-    }
+
+
 }
 
 class CreateTestViewModelFactory(val repository: TestRepository, private val googleApiRepository: GoogleApiRepository) : ViewModelProvider.Factory {

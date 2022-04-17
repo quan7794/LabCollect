@@ -14,11 +14,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTemplateFragmentBinding
-import com.wac.labcollect.domain.models.DataType
-import com.wac.labcollect.domain.models.Field
-import com.wac.labcollect.domain.models.TYPE
-import com.wac.labcollect.domain.models.Template
+import com.wac.labcollect.domain.models.*
 import com.wac.labcollect.ui.base.BaseFragment
+import com.wac.labcollect.utils.Status
+import com.wac.labcollect.utils.StatusControl
 import com.wac.labcollect.utils.Utils.createUniqueName
 import com.wac.labcollect.utils.Utils.currentTimestamp
 import com.wac.labcollect.utils.dragSwipeRecyclerview.DragDropSwipeRecyclerView
@@ -29,21 +28,18 @@ import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
-    private val templateDataAdapter: TemplateDataAdapter by lazy {
-        TemplateDataAdapter(mutableListOf(Pair("", DataType(TYPE.TEXT))))
-    }
+    private val templateDataAdapter: TemplateDataAdapter by lazy { TemplateDataAdapter(mutableListOf(Pair("", DataType(TYPE.TEXT)))) }
     private val viewModel: CreateTemplateViewModel by viewModels { CreateTemplateViewModelFactory(testRepository, googleApiRepository) }
     private val args: CreateTemplateFragmentArgs by navArgs()
-    private var spreadId: String? = null
+    private var tempTest: Test? = null
     private var lastDeletedItem: Pair<String, DataType>? = null
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_setting -> {
-                Snackbar.make(binding.root, "Setting this template", Snackbar.LENGTH_SHORT).show()
-            }
+            R.id.action_setting -> Snackbar.make(binding.root, "Setting this template", Snackbar.LENGTH_SHORT).show()
             R.id.action_save -> {
                 if (templateDataAdapter.isValidateDataSet() && binding.templateName.text.toString().isNotEmpty()) {
+                    viewModel.updateProgress(StatusControl(Status.LOADING))
                     val fieldList: ArrayList<Field> = arrayListOf(Field("time", TYPE.TEXT))
                     templateDataAdapter.dataSet.forEach { field -> fieldList.add(Field(field.first, field.second.type)) }
                     val newTemp = Template(
@@ -54,20 +50,24 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
                         createTimestamp = currentTimestamp().toString()
                     )
                     lifecycleScope.launch(Dispatchers.IO) {
-                        viewModel.insert(newTemp)
-                        Timber.e("Saved: $newTemp")
-                        Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
-                        spreadId?.let { //Goto Test Detail Screen after create template if we are creating test.
+                        tempTest?.let { test -> //Goto Test Detail Screen after create template if we are creating test.
+                            test.spreadId = viewModel.createSpread(test)
+                            viewModel.createLocalTest(test)
+                            viewModel.insert(newTemp)
+                            Timber.e("Saved: $newTemp")
+                            Snackbar.make(binding.root, getString(R.string.saved), Snackbar.LENGTH_SHORT).show()
+                            viewModel.updateProgress(StatusControl(Status.SUCCESS))
                             val isSuccess = viewModel.addTemplateToNewTest(newTemp)
                             if (isSuccess) {
                                 withContext(Dispatchers.Main) {
-                                    navigate(CreateTemplateFragmentDirections.actionCreateTemplateFragmentToTestDetailFragment(it))
+                                    navigate(CreateTemplateFragmentDirections.actionCreateTemplateFragmentToTestDetailFragment(test.spreadId))
                                 }
                             } else {
                                 Snackbar.make(binding.root, getString(R.string.can_not_establish_test), Snackbar.LENGTH_SHORT).show()
                             }
                         } ?: run { //Go to First Screen after standalone template created.
                             withContext(Dispatchers.Main) {
+                                viewModel.updateProgress(StatusControl(Status.SUCCESS))
                                 navigate(CreateTemplateFragmentDirections.actionCreateTemplateFragmentToFirstScreenFragment())
                             }
                         }
@@ -80,14 +80,16 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        spreadId = args.spreadId
-        spreadId?.let { id ->
+        tempTest = args.tempTest
+        initUi()
+    }
+
+    private fun initUi() {
+        initProgress(viewModel, binding.loadingAnimation.id)
+        tempTest?.let { test ->
             lifecycleScope.launch {
-                val test = viewModel.getTestBySpreadId(id)
-                if (test != null) {
-                    viewModel.setParentTest(test)
-                    binding.templateName.setText(test.title)
-                }
+                viewModel.setCurrentTest(test)
+                binding.templateName.setText(test.title)
             }
         }
         binding.apply {
@@ -105,9 +107,11 @@ class CreateTemplateFragment : BaseFragment<CreateTemplateFragmentBinding>() {
     }
 
     override fun onDestroyView() {
-        binding.recyclerView.addOnAttachStateChangeListener(object: View.OnAttachStateChangeListener {
+        binding.recyclerView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View?) {}
-            override fun onViewDetachedFromWindow(v: View?) {binding.recyclerView.adapter = null}
+            override fun onViewDetachedFromWindow(v: View?) {
+                binding.recyclerView.adapter = null
+            }
         })
         super.onDestroyView()
     }

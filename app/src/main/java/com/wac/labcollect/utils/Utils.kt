@@ -1,7 +1,12 @@
 package com.wac.labcollect.utils
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.View
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -115,17 +120,29 @@ object Utils {
         }
         return retVal
     }
+
+    fun View.showKeyboard() = (this.context as? Activity)?.showKeyboard()
+    fun View.hideKeyboard() = (this.context as? Activity)?.hideKeyboard()
+
+    fun Fragment.showKeyboard() = activity?.showKeyboard()
+    fun Fragment.hideKeyboard() = activity?.hideKeyboard()
+
+    fun Context.showKeyboard() = (this as? Activity)?.showKeyboard()
+    fun Context.hideKeyboard() = (this as? Activity)?.hideKeyboard()
+
+    fun Activity.showKeyboard() = WindowInsetsControllerCompat(window, window.decorView).show(WindowInsetsCompat.Type.ime())
+    fun Activity.hideKeyboard() = WindowInsetsControllerCompat(window, window.decorView).hide(WindowInsetsCompat.Type.ime())
 }
 
 enum class Status {
     SUCCESS, ERROR, LOADING, NOTHING
 }
 
-data class Resource<out T>(val status: Status, val data: T? = null, val message: String? = null) {
+data class StatusControl<out T>(val status: Status, val data: T? = null, val message: String? = null) {
     companion object {
-        fun <T> success(data: T): Resource<T> = Resource(Status.SUCCESS, data)
-        fun <T> error(data: T? = null, message: String) = Resource(Status.ERROR, data, message)
-        fun <T> loading(data: T? = null) = Resource(Status.LOADING, data)
-        fun <T> nothing(data: T? = null) = Resource(Status.NOTHING, data)
+        fun <T> success(data: T): StatusControl<T> = StatusControl(Status.SUCCESS, data)
+        fun <T> error(data: T? = null, message: String) = StatusControl(Status.ERROR, data, message)
+        fun <T> loading(data: T? = null) = StatusControl(Status.LOADING, data)
+        fun <T> nothing(data: T? = null) = StatusControl(Status.NOTHING, data)
     }
 }

@@ -4,14 +4,17 @@ import androidx.lifecycle.*
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Test
+import com.wac.labcollect.ui.base.BaseViewModel
 import com.wac.labcollect.utils.Constants.DATA_SHEET
+import com.wac.labcollect.utils.Status
+import com.wac.labcollect.utils.StatusControl
 import com.wac.labcollect.utils.Utils.currentTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.ArrayList
 
-class TestDetailViewModel(val testRepository: TestRepository, val ggApiRepository: GoogleApiRepository) : ViewModel() {
+class TestDetailViewModel(val testRepository: TestRepository, private val ggApiRepository: GoogleApiRepository) : BaseViewModel() {
     private var _currentTest = MutableLiveData<Test?>()
     val currentTest: LiveData<Test?>
         get() = _currentTest
@@ -21,6 +24,7 @@ class TestDetailViewModel(val testRepository: TestRepository, val ggApiRepositor
         get() = _testData
 
     fun init(spreadId: String) {
+        updateProgress(StatusControl(Status.LOADING))
         viewModelScope.launch(Dispatchers.IO) {
             var test = testRepository.getTestBySpreadId(spreadId) //get test from local first.
             if (test == null) {
@@ -54,8 +58,9 @@ class TestDetailViewModel(val testRepository: TestRepository, val ggApiRepositor
                 dataSet.forEach { rowData.add(it.second) }
                 ggApiRepository.appendData(spreadId, tableName, range, rowData)
                 getTestData(spreadId)
+                updateProgress(StatusControl(Status.SUCCESS, null, "Cập nhật thành công."))
             }
-        }
+        }?: updateProgress(StatusControl(Status.ERROR, null, "Cập nhật thất bại."))
     }
 }
 

@@ -5,21 +5,15 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
-import com.wac.labcollect.MainApplication
 import com.wac.labcollect.R
 import com.wac.labcollect.databinding.CreateTestFragmentBinding
 import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.utils.Utils.createUniqueName
 import com.wac.labcollect.utils.Utils.currentTimestamp
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,23 +43,11 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
                     .setMessage(R.string.create_test_message)
                     .setPositiveButton(R.string.create_new) { _, _ ->
                         Timber.e("Create new template")
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            test.spreadId = viewModel.createSpread(test)
-                            viewModel.createTest(test)
-                            withContext(Dispatchers.Main) {
-                                navigate(CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test.spreadId))
-                            }
-                        }
+                        navigate(CreateTestFragmentDirections.actionCreateTestFragmentToCreateTemplateFragment(test))
                     }
                     .setNegativeButton(R.string.select_existed_template) { _, _ ->
                         Timber.e("Use existed template")
-                        lifecycleScope.launch(Dispatchers.IO) {
-                            test.spreadId = viewModel.createSpread(test)
-                            viewModel.createTest(test)
-                            withContext(Dispatchers.Main) {
-                                navigate(CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test.spreadId))
-                            }
-                        }
+                        navigate(CreateTestFragmentDirections.actionCreateTestFragmentToManageTemplateFragment(test))
                     }
                     .setCancelable(true)
                     .show()
@@ -81,7 +63,7 @@ class CreateTestFragment : BaseFragment<CreateTestFragmentBinding>() {
         }
     }
 
-    private var dateSetListener = OnDateSetListener { view, year, month, day ->
+    private var dateSetListener = OnDateSetListener { _, year, month, day ->
         myCalendar.set(Calendar.YEAR, year)
         myCalendar.set(Calendar.MONTH, month)
         myCalendar.set(Calendar.DAY_OF_MONTH, day)

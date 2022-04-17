@@ -19,7 +19,7 @@ import com.wac.labcollect.R
 import com.wac.labcollect.databinding.FragmentLoginBinding
 import com.wac.labcollect.ui.base.BaseFragment
 import com.wac.labcollect.ui.fragment.firstScreen.LoginViewModel
-import com.wac.labcollect.utils.Resource
+import com.wac.labcollect.utils.StatusControl
 import com.wac.labcollect.utils.Status
 import timber.log.Timber
 
@@ -48,7 +48,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.loginButton.setOnClickListener { viewModel.updateProgress(Resource.loading()) }
+        binding.loginButton.setOnClickListener { viewModel.updateProgress(StatusControl.loading()) }
         viewModel.currentStatus.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.LOADING-> {
@@ -99,7 +99,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                     Timber.e("Google sign in failed", e)
                 }
             } else {
-                viewModel.updateProgress(Resource(Status.ERROR, null, "User canceled login action."))
+                viewModel.updateProgress(StatusControl(Status.ERROR, null, "User canceled login action."))
             }
 
         }
@@ -113,7 +113,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun updateUI(message: String? = "") {
-        if (FirebaseAuth.getInstance().currentUser != null) viewModel.updateProgress(Resource(Status.SUCCESS))
-        else viewModel.updateProgress(Resource.error(message = message.toString()))
+        if (FirebaseAuth.getInstance().currentUser != null) viewModel.updateProgress(StatusControl(Status.SUCCESS))
+        else viewModel.updateProgress(StatusControl.error(message = message.toString()))
     }
 }

@@ -1,9 +1,6 @@
 package com.wac.labcollect.ui.fragment.firstScreen
 
-import androidx.lifecycle.*
 import com.wac.labcollect.ui.base.BaseViewModel
-import com.wac.labcollect.utils.Resource
-import com.wac.labcollect.utils.Status
 
 class LoginViewModel : BaseViewModel() {
 

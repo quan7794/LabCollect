@@ -14,9 +14,7 @@ import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.DRIVE_BASE
 import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant.ROOT_DIR_ID
 import com.wac.labcollect.databinding.FragmentHomeBinding
 import com.wac.labcollect.ui.base.BaseFragment
-import com.wac.labcollect.ui.fragment.LoginFragmentDirections
 import com.wac.labcollect.ui.fragment.firstScreen.FirstScreenFragmentDirections
-import com.wac.labcollect.utils.Resource
 import com.wac.labcollect.utils.Status
 import timber.log.Timber
 
@@ -30,29 +28,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
         initView()
         initTestList()
         initScanQRCode()
-        viewModel.currentStatus.observe(viewLifecycleOwner) {
-            when (it.status) {
-                Status.LOADING-> {
-                    Timber.w("Loading!")
-                    binding.apply {
-                        loadingAnimation.progress = 0F
-                        loadingAnimation.visibility = View.VISIBLE
-                    }
-                }
-                Status.SUCCESS -> {
-                    binding.loadingAnimation.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Loading successfully", Toast.LENGTH_LONG).show()
-                }
-                Status.ERROR -> {
-                    binding.loadingAnimation.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Loading fail, error: ${it.message}", Toast.LENGTH_LONG).show()
-                }
-                Status.NOTHING ->{
-                    binding.loadingAnimation.visibility = View.GONE
-                }
-                else -> {}
-            }
-        }
+        initProgress(viewModel, binding.loadingAnimation.id)
     }
 
     private fun initTestList() {
@@ -70,10 +46,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), TestListAdapter.OnTest
                 binding.errorMessageContainer.visibility = View.VISIBLE
                 binding.testListContainer.visibility = View.GONE
                 binding.requestSystemAccess.setOnClickListener {
-                    val browserIntent = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(DRIVE_BASE_DIR_URL + ROOT_DIR_ID)
-                    )
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(DRIVE_BASE_DIR_URL + ROOT_DIR_ID))
                     startActivity(browserIntent)
                 }
             } else {

@@ -3,13 +3,28 @@ package com.wac.labcollect.ui.fragment.feature.manageTemplate
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.wac.labcollect.data.repository.googleApi.GoogleApiConstant
 import com.wac.labcollect.data.repository.googleApi.GoogleApiRepository
 import com.wac.labcollect.data.repository.test.TestRepository
 import com.wac.labcollect.domain.models.Template
+import com.wac.labcollect.domain.models.Test
 import com.wac.labcollect.ui.base.BaseViewModel
 import timber.log.Timber
 
 class ManageTemplateViewModel(private val testRepository: TestRepository, private val googleApiRepository: GoogleApiRepository) : BaseViewModel() {
+
+    val templates = testRepository.templates.asLiveData()
+
+    suspend fun createLocalTest(test: Test) = testRepository.createTest(test)
+
+    suspend fun createSpread(test: Test): String {
+        var spreadId: String
+        googleApiRepository.apply {
+            spreadId = createSpreadAtDir(test.title, GoogleApiConstant.ROOT_DIR_ID).second
+            updateSheetInformation(spreadId, test)
+        }
+        return spreadId
+    }
 
     suspend fun updateTest(spreadId: String, template: Template) : Boolean{
         testRepository.getTestBySpreadId(spreadId)?.let { test ->
@@ -28,7 +43,6 @@ class ManageTemplateViewModel(private val testRepository: TestRepository, privat
         return false
     }
 
-    val templates = testRepository.templates.asLiveData()
 
 }
 

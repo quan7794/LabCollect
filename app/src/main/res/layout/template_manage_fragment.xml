@@ -13,4 +13,15 @@
         android:background="@color/mainBackground"
         app:item_layout="@layout/template_item" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnimation"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_120sdp"
+        android:visibility="gone"
+        android:elevation="@dimen/_100sdp"
+        android:layout_gravity="center"
+        app:lottie_autoPlay="true"
+        app:lottie_repeatCount="1000"
+        app:lottie_rawRes="@raw/lottie_loading"
+        tools:visibility="visible" />
 </FrameLayout>
